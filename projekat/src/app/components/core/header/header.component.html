@@ -1,3 +1,18 @@
-<img src="../../../assets/images/Untitled.png" routerLink="/"/>
-<button>Register</button>
-<button routerLink="/login" >Login</button>
+<nav class="navbar sticky-top navbar-expand-sm navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/">
+        <img  src="../../../assets/images/Untitled.png" height="50"/>
+    </a>
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link">Flights</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link">Cars</a>
+        </li>
+    </ul>
+    <div class="form-inline ml-auto">
+        <button class="btn btn-outline-secondary mr-sm-2">Register</button>
+        <button class="btn btn-outline-secondary my-2 my-sm-0" routerLink="/login">Login</button>
+    </div>
+</nav>
+    
