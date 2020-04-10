@@ -11,8 +11,8 @@
         </li>
     </ul>
     <div *ngIf="!pathIsLogin()" class="ml-auto">
-        <div *ngIf="isRegistered() === false" >
-            <button class="btn btn-outline-light mr-2">Register</button>
+        <div *ngIf="isRegistered() === false">
+            <button class="btn btn-outline-light mr-2" routerLink="/register">Register</button>
             <button class="btn btn-outline-light" routerLink="/login">Log In</button>
         </div>
         <div *ngIf="isRegistered()">

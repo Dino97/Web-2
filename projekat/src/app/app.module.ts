@@ -8,6 +8,7 @@ import { HeaderComponent } from './components/core/header/header.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent} from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { SmedAccComponent } from './components/smed-acc/smed-acc.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     RegisterComponent,
     LoginComponent,
     ProfileComponent,
+    SmedAccComponent,
   ],
   imports: [
     BrowserModule,

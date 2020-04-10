@@ -1,1 +1,53 @@
-<p>register works!</p>
+<app-smed-acc word="Register"></app-smed-acc>
+<div class="row justify-content-center">
+    <div class="col pt-1 col-md-3"><hr/></div>
+    <div class="col-auto h3">or</div>
+    <div class="col pt-1 col-md-3"><hr/></div>
+</div>
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="form-group row justify-content-center">
+            <div class="col col-md-4">
+                <label class="col-form-label" for="email">E-mail</label>
+                <input class="form-control" type="email" id="email" formControlName="email"/>
+            </div>
+            <div class="col col-md-4">
+                <label class="col-form-label" for="username">Username</label>
+                <input class="form-control" type="text" id="username" formControlName="username"/>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col col-md-4">
+                <label class="col-form-label" for="password">Password</label>
+                <input class="form-control" type="password" id="password" formControlName="password"/>
+            </div>
+            <div class="col col-md-4">
+                <label class="col-form-label" for="confirmPass">Confirm password</label>
+                <input class="form-control" type="password" id="confirmPass" formControlName="confirmPass"/>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col col-md-4">
+                <label class="col-form-label" for="name">Name</label>
+                <input class="form-control" type="text" id="name" formControlName="name"/>
+            </div>
+            <div class="col col col-md-4">
+                <label class="col-form-label" for="lastName">Last name</label>
+                <input class="form-control" type="text" id="lastName" formControlName="lastName"/>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <div class="col col-md-4">
+                <label class="col-form-label" for="city">City</label>
+                <input class="form-control" type="text" id="city" formControlName="city"/>
+            </div>
+            <div class="col col-md-4">
+                <label class="col-form-label" for="phone">Phone number</label>
+                <input class="form-control" type="tel" id="phone" formControlName="phone"/>
+            </div>
+        </div>
+        <div class="form-group row justify-content-center">
+            <button class="btn btn-block btn-success col-md-6" type="submit">Register</button>
+        </div>
+    </form>
+</div>
