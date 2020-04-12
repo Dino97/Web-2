@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   pathIsLogin(){
-    if(location.pathname === "/login"){
+    if(location.pathname === "/login" || location.pathname === "/register"){
       return true;
     } else {
       return false;

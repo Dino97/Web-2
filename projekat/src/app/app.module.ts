@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent} from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SmedAccComponent } from './components/smed-acc/smed-acc.component';
+import { MainComponent } from './pages/main/main.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SmedAccComponent } from './components/smed-acc/smed-acc.component';
     LoginComponent,
     ProfileComponent,
     SmedAccComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

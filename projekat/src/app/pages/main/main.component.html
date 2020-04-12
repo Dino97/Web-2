@@ -1,0 +1,18 @@
+<section id="hero">
+    <div class="container">
+        
+    </div>
+</section>
+
+<div class="card-deck justify-content-center">
+    <div *ngFor="let city of cities">
+        <div class="card">
+            <img class="card-img" src={{city.img}} alt="Card image">
+            <div class="card-img-overlay">
+                <div class="row bg-white" style="opacity: .4;">
+                    <h5 class="card-title">{{city.name}}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

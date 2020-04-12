@@ -1,0 +1,11 @@
+#hero{
+  background-image: url("../../../assets/images/travel.jpg");
+  background-position: center center;
+  background-size: 1706px 1066px;
+  min-height: 500px; 
+}
+
+.card{
+    width: 300px;
+    margin: 10px;
+}
