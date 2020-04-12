@@ -1,0 +1,16 @@
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th> Username </th>
+            <th> First name </th>
+            <th> Last name </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let friend of friends">
+            <td> {{ friend.username }} </td>
+            <td> {{ friend.firstName }} </td>
+            <td> {{ friend.lastName }} </td>
+        </tr>
+    </tbody>
+</table>

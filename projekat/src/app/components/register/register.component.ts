@@ -17,7 +17,7 @@ export class RegisterComponent implements OnInit {
 
   initForm(){
     this.registerForm = new FormGroup({
-      'emailControl': new FormControl(null, Validators.required),
+      'email': new FormControl(null, Validators.required),
       'username': new FormControl(null, Validators.required),
       'password': new FormControl(null, Validators.required),
       'confirmPass': new FormControl(null, Validators.required),
