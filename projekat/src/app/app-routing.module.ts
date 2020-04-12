@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MainComponent } from './pages/main/main.component';
+import { AirlineProfileComponent } from './components/airline-profile/airline-profile.component';
 
 
 const routes: Routes = [
