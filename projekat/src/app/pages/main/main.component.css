@@ -6,6 +6,12 @@
 }
 
 .card{
-    width: 300px;
+    width: 200px;
     margin: 10px;
+}
+
+.card-img-text{
+  background-color: rgba(0, 0, 0, .4);
+  border-radius: 5px;
+  margin-left: 10px;
 }

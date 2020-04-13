@@ -1,18 +1,47 @@
 <section id="hero">
     <div class="container">
-        
+        <form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
+            <div class="row">
+                <div class="col form-group">
+                    <label class="col-form-group" for="origin">Origin</label>
+                    <input class="form-control" type="text" id="origin" formControlName="origin"/>
+                </div>
+                <div class="col form-group">
+                    <label class="col-form-group" for="destination">Destination</label>
+                    <input class="form-control" type="text" id="destination" formControlName="destination"/>
+                </div>
+                <div class="col form-group">
+                    <label class="col-form-group" for="from">Departure</label>
+                    <input class="form-control" type="date" id="from" formControlName="from"/>
+                </div>
+                <div class="col form-group">
+                    <label class="col-form-group" for="to">Return</label>
+                    <input class="form-control" type="date" id="to" formControlName="to"/>
+                </div>
+                <div class="col form-group">
+                    <label class="col-form-group" for="passNum">Passengers</label>
+                    <input class="form-control" type="number" id="passNum" formControlName="passNum"/>
+                </div>
+            </div>
+        </form>
     </div>
 </section>
 
-<div class="card-deck justify-content-center">
-    <div *ngFor="let city of cities">
-        <div class="card">
-            <img class="card-img" src={{city.img}} alt="Card image">
-            <div class="card-img-overlay">
-                <div class="row bg-white" style="opacity: .4;">
-                    <h5 class="card-title">{{city.name}}</h5>
+<div class="container" style="margin-top: 10px;">
+    <div class="card-deck justify-content-center">
+        <div *ngFor="let city of cities">
+            <div class="card text-white">
+                <img class="card-img" src={{city.img}} alt="Card image" data-scrim-top="9">
+                <div class="card-img-overlay">
+                    <div class="row">
+                        <div class="col-auto card-img-text">
+                            <h5 class="card-title" style="padding-top: 8px;">{{city.name}}</h5>
+                        </div>
+                    </div>
                 </div>
+                <a class="stretched-link"></a>
             </div>
         </div>
     </div>
 </div>
+
