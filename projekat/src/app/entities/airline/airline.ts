@@ -2,18 +2,17 @@ class Location {
     address: string;
 }
 
-export class Airline {
-    name: string;
+import { Company } from '../company/company';
+
+export class Airline extends Company{
     location: Location;
-    description: string;
     //destinations:
     //flights:
     //discountedTickets:
     //configuration?
     //pricelist
 
-    constructor(name: string, description: string) {
-        this.name = name;
-        this.description = description;
+    constructor(name: string, description: string, logo: string) {
+        super(name, description, logo);
     }
 }

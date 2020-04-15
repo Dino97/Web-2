@@ -1,5 +1,12 @@
 <section id="hero">
     <div class="container">
+        <div class="row">
+            <div class="col-auto hero-title ml-auto">
+                <h1><strong>Your next journey awaits</strong></h1>
+            </div>
+        </div>
+    </div>
+    <div class="container bg-white border border-secondary rounded">
         <form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
             <div class="row">
                 <div class="col form-group">
@@ -18,9 +25,12 @@
                     <label class="col-form-group" for="to">Return</label>
                     <input class="form-control" type="date" id="to" formControlName="to"/>
                 </div>
-                <div class="col form-group">
+                <div class="col form-group col-md-1">
                     <label class="col-form-group" for="passNum">Passengers</label>
                     <input class="form-control" type="number" id="passNum" formControlName="passNum"/>
+                </div>
+                <div class="col col-auto form-group">
+                    <button class="btn btn-success btn-block" style="margin-top: 35%;" type="submit">Search</button>
                 </div>
             </div>
         </form>
@@ -45,3 +55,8 @@
     </div>
 </div>
 
+<footer class="page-footer font-small bg-dark">
+    <div class="footer-copyright text-center text-white py-3">© 2020 Copyright: localhost:4200</div>
+</footer>
+  
+  

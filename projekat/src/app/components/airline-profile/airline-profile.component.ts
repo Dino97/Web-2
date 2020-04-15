@@ -11,7 +11,7 @@ export class AirlineProfileComponent implements OnInit {
   profile: Airline;
 
   constructor() { 
-    this.profile = new Airline("FedEx", "Promo desc");
+    //this.profile = new Airline("FedEx", "Promo desc");
   }
 
   ngOnInit(): void {}
