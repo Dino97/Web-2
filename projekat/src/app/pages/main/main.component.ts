@@ -11,14 +11,15 @@ import { Company } from 'src/app/entities/company/company';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  cities: City[];
+  destinations: {continent: string, cities: City[]}[];
+  //cities: City[];
   companies: Company[];
   flightForm: FormGroup;
 
   constructor(private cityService: CityService, private companyService: CompanyService) { }
 
   ngOnInit(): void {
-    this.cities = this.cityService.mockedCities();
+    this.destinations = this.cityService.mockedCities();
     this.companies = this.companyService.mockedCompanies();
     this.initForm();
   }

@@ -9,7 +9,7 @@ export class CityService {
   constructor() { }
 
   mockedCities(){
-    let cities = new Array<City>();
+    //let cities = new Array<City>();
 
     const c1 = new City("New York", "../../../assets/images/cities/new-york.jpg");
     const c2 = new City("Belgrade", "../../../assets/images/cities/new-york.jpg");
@@ -18,11 +18,11 @@ export class CityService {
     const c5 = new City("Berlin", "../../../assets/images/cities/new-york.jpg");
     const c6 = new City("Tokyo", "../../../assets/images/cities/new-york.jpg");
     const c7 = new City("Moscow", "../../../assets/images/cities/new-york.jpg");
-    const c8 = new City("Sydney", "../../../assets/images/cities/new-york.jpg");
+    const c8 = new City("Sydney", "../../../assets/images/cities/new-york-flipped.jpg");
     const c9 = new City("London", "../../../assets/images/cities/new-york.jpg");
     const c10 = new City("Cairo", "../../../assets/images/cities/new-york.jpg");
 
-    cities.push(c1);
+    /*cities.push(c1);
     cities.push(c2);
     cities.push(c3);
     cities.push(c4);
@@ -31,9 +31,17 @@ export class CityService {
     cities.push(c7);
     cities.push(c8);
     cities.push(c9);
-    cities.push(c10);
+    cities.push(c10);*/
 
-    return cities;
+    const destinations = [
+      {continent: "Europe", cities: [c2, c3, c4, c5, c7, c9]},
+      {continent: "Nort America", cities: [c1]},
+      {continent: "Australia", cities: [c8]},
+      {continent: "Asia", cities: [c6]},
+      {continent: "Africa", cities: [c10]}
+    ];
+
+    return destinations;
   }
 }
 
