@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: "", redirectTo: "home", pathMatch: "full"},
   { path: "home", component: MainComponent },
   { path: "login", component: LoginComponent },
-  { path: "profile", component: AirlineProfileComponent },
+  { path: "profile", component: ProfileComponent },
+  { path: "airprofile", component: AirlineProfileComponent },
   { path: "register", component: RegisterComponent }
 ];
 
