@@ -4,7 +4,7 @@ class Location {
 
 import { Company } from '../company/company';
 
-export class Airline extends Company{
+export class Airline extends Company {
     location: Location;
     //destinations:
     //flights:

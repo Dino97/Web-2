@@ -6,23 +6,93 @@
 
     <div class="row justify-content-center">
         <form>
-            <div class="col-auto form-group">
-                <label class="col-form-label" for="name"> Name: </label>
-                <input class="form-control" name="name" value="{{ profile.name }}"/>
+            <div class="form-group row justify-content-center">
+                <div class="col-auto form-group">
+                    <label class="col-form-label" for="name"> Name: </label>
+                    <input class="form-control" name="name" value="{{ profile.name }}"/>
+                </div>
+                <div class="col-auto form-group">
+                    <label class="col-form-label" for="address"> Address: </label>
+                    <input class="form-control" name="address"/>
+                </div>
             </div>
-            <div class="col-auto form-group">
-                <label class="col-form-label" for="address"> Address: </label>
-                <input class="form-control" name="address" value="{{ profile.location.address }}"/>
-            </div>
-            <div class="col-auto form-group">
+            <div class="form-group">
                 <label class="col-form-label" for="description"> Description: </label>
-                <input class="form-control" name="description" value="{{ profile.description }}"/>
+                <textarea class="form-control" name="description">{{ profile.description }}</textarea>
             </div>
 
             <div class="form-group row justify-content-center">
                 <button class="btn btn-success" type="submit"> Save </button>
             </div>
-            
         </form>
+    </div>
+
+    <h4> Create new flight </h4>
+    <div>
+        <div class="row">
+            <div class="col form-group">
+                <label class="col-form-group"> Takeoff: </label>
+                <input type="date" class="form-control col-auto"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group"> Landing: </label>
+                <input type="date" class="form-control col-auto"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group"> Duration: </label>
+                <input type="number" class="form-control col-auto"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group"> Distance: </label>
+                <input type="number" class="form-control col-auto"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group"> Price: </label>
+                <input type="number" class="form-control col-auto"/>
+            </div>
+        </div>
+        <div class="row">
+            <h6> Locations </h6>
+        </div>
+
+        <button type="submit" class="btn btn-success"> Create </button>
+    </div>
+
+    <hr>
+
+    <h4> Business report </h4>
+    <div>
+        <h6> Avg airline rating </h6>
+        <h6> Avg flights rating </h6>
+
+        <hr>
+
+        <div class="row">
+            <div class="col form-group">
+                <h6> Tickets sold in </h6>
+                <select class="form-control col-lg-2">
+                    <option>Day</option>
+                    <option>Week</option>
+                    <option>Month</option>
+                  </select>
+            </div>
+        </div>
+
+        <hr>
+
+        <div>
+            <h6> Income for period </h6>
+            <div class="row">
+                <div class="col form-group">
+                    <label class="col-form-group"> Start: </label>
+                    <input type="date" class="form-control col-sm-4"/>
+                </div>
+                <div class="col form-group">
+                    <label class="col-form-group"> End: </label>
+                    <input type="date" class="form-control col-sm-4"/>
+                </div>
+            </div>
+            <p>Total income: 50$</p>
+        </div>
     </div>
 </div>

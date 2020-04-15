@@ -12,6 +12,7 @@ import { SmedAccComponent } from './components/smed-acc/smed-acc.component';
 import { MainComponent } from './pages/main/main.component';
 import { AirlineProfileComponent } from './components/airline-profile/airline-profile.component';
 import { FriendListComponent } from './components/friend-list/friend-list.component';
+import { PlaneSeatsComponent } from './components/plane-seats/plane-seats.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { FriendListComponent } from './components/friend-list/friend-list.compon
     MainComponent,
     AirlineProfileComponent,
     FriendListComponent,
+    PlaneSeatsComponent,
   ],
   imports: [
     BrowserModule,
