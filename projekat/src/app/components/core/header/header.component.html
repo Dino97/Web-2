@@ -4,10 +4,13 @@
     </a>
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link">Flights</a>
+            <a class="nav-link" routerLink="/flights">Flights</a>
         </li>
         <li class="nav-item">
             <a class="nav-link">Cars</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/partners">Partners</a>
         </li>
     </ul>
     <div *ngIf="!pathIsLogin()" class="ml-auto">

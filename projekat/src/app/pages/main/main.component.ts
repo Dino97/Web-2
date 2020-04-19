@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/entities/city/city';
 import { CityService } from 'src/app/services/city/city.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { CompanyService } from 'src/app/services/company/company.service';
-import { Company } from 'src/app/entities/company/company';
 
 @Component({
   selector: 'app-main',
@@ -13,14 +11,12 @@ import { Company } from 'src/app/entities/company/company';
 export class MainComponent implements OnInit {
   destinations: {continent: string, cities: City[]}[];
   //cities: City[];
-  companies: Company[];
   flightForm: FormGroup;
 
-  constructor(private cityService: CityService, private companyService: CompanyService) { }
+  constructor(private cityService: CityService) { }
 
   ngOnInit(): void {
     this.destinations = this.cityService.mockedCities();
-    this.companies = this.companyService.mockedCompanies();
     this.initForm();
   }
 

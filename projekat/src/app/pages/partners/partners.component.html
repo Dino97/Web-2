@@ -1,0 +1,37 @@
+<div class="container" style="margin-top: 10px;">
+    <div class="row align-items-center">
+        <div class="col col-auto">
+            <h3>Airlines({{airlines.length}})</h3>
+        </div>
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <div class="card-deck" style="margin-left: 2%;">
+        <div *ngFor="let airline of airlines">
+            <div class="card">
+                <img class="card-image-top" src={{airline.logo}} alt="Card image cap">
+                <a class="stretched-link" routerLink="/"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row align-items-center">
+        <div class="col col-auto">
+            <h3>Car Rental Agencies({{carRentalAgencies.length}})</h3>
+        </div>
+        <div class="col">
+            <hr>
+        </div>
+    </div>
+
+    <div class="card-deck" style="margin-left: 2%;">
+        <div *ngFor="let agency of carRentalAgencies">
+            <div class="card">
+                <img class="card*image-top" src="{{agency.logo}}" alt="Card image cap">
+                <a class="stretched-link" routerLink="/"></a>
+            </div>
+        </div>
+    </div>
+</div>

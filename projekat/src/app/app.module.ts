@@ -13,6 +13,7 @@ import { MainComponent } from './pages/main/main.component';
 import { AirlineProfileComponent } from './components/airline-profile/airline-profile.component';
 import { FriendListComponent } from './components/friend-list/friend-list.component';
 import { PlaneSeatsComponent } from './components/plane-seats/plane-seats.component';
+import { PartnersComponent } from './pages/partners/partners.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { PlaneSeatsComponent } from './components/plane-seats/plane-seats.compon
     AirlineProfileComponent,
     FriendListComponent,
     PlaneSeatsComponent,
+    PartnersComponent,
   ],
   imports: [
     BrowserModule,
