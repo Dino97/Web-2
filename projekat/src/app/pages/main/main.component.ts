@@ -12,15 +12,17 @@ export class MainComponent implements OnInit {
   destinations: {continent: string, cities: City[]}[];
   //cities: City[];
   flightForm: FormGroup;
+  carForm: FormGroup;
 
   constructor(private cityService: CityService) { }
 
   ngOnInit(): void {
     this.destinations = this.cityService.mockedCities();
-    this.initForm();
+    this.initFlightForm();
+    this.initCarForm();
   }
 
-  initForm(){
+  initFlightForm(){
     this.flightForm = new FormGroup({
       'origin': new FormControl(null, Validators.required),
       'destination': new FormControl(null, Validators.required),
@@ -30,5 +32,33 @@ export class MainComponent implements OnInit {
     })
   }
 
-  onSubmit(){}
+  initCarForm(){
+    this.carForm = new FormGroup({
+      'pickup': new FormControl(null, Validators.required),
+      'fromDate': new FormControl(null),
+      'fromTime': new FormControl(null),
+      'toDate': new FormControl(null),
+      'toTime': new FormControl(null)
+    })
+  }
+
+  onSubmitFlight(){}
+
+  onSubmitRent(){}
+
+  pathIsFlights(){
+    if(location.pathname === "/flights"){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  pathIsCars(){
+    if(location.pathname === "/cars"){
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

@@ -8,34 +8,68 @@
         </div>
     </div>
 
-    <div class="container bg-white border border-secondary rounded">
-        <form [formGroup]="flightForm" (ngSubmit)="onSubmit()">
-            <div class="row">
-                <div class="col form-group">
-                    <label class="col-form-group" for="origin">Origin</label>
-                    <input class="form-control" type="text" id="origin" formControlName="origin"/>
+    <div *ngIf="pathIsFlights()">
+        <div class="container bg-white border border-secondary rounded">
+            <form [formGroup]="flightForm" (ngSubmit)="onSubmitFlight()">
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col form-group">
+                        <label class="col-form-group" for="origin">Origin</label>
+                        <input class="form-control" type="text" id="origin" formControlName="origin"/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="col-form-group" for="destination">Destination</label>
+                        <input class="form-control" type="text" id="destination" formControlName="destination"/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="col-form-group" for="from">Departure</label>
+                        <input class="form-control" type="date" id="from" formControlName="from"/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="col-form-group" for="to">Return</label>
+                        <input class="form-control" type="date" id="to" formControlName="to"/>
+                    </div>
+                    <div class="col form-group col-md-1">
+                        <label class="col-form-group" for="passNum">Passengers</label>
+                        <input class="form-control" type="number" min="1" max="9" id="passNum" formControlName="passNum"/>
+                    </div>
+                    <div class="col col-auto form-group">
+                        <button class="btn btn-success btn-block" style="margin-top: 35%;" type="submit">Search</button>
+                    </div>
                 </div>
-                <div class="col form-group">
-                    <label class="col-form-group" for="destination">Destination</label>
-                    <input class="form-control" type="text" id="destination" formControlName="destination"/>
+            </form>
+        </div>
+    </div>
+
+    <div *ngIf="pathIsCars()">
+        <div class="container bg-white border border-secondary rounded">
+            <form [formGroup]=carForm (ngSubmit)="onSubmitRent()">
+                <div class="row" style="margin-top: 5px;">
+                    <div class="col form-group">
+                        <label class="col-form-group" for="pickup">Pick-up Location</label>
+                        <input class="form-control" type="text" id="pickup" formControlName="pickup"/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="col-form-group" for="fromDate">Pick-up Date</label>
+                        <input class="form-control" type="date" id="fromDate" formControlName="fromDate"/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="col-form-group" for="fromTime">Pick-up Time</label>
+                        <input class="form-control" type="time" id="fromTime" formControlName="fromTime"/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="col-form-group" for="toDate">Drop-off Date</label>
+                        <input class="form-control" type="date" id="toDate" formControlName="toDate"/>
+                    </div>
+                    <div class="col form-group col-md-2">
+                        <label class="col-form-group" for="toTime">Drop-off Time</label>
+                        <input class="form-control" type="time" id="toTime" formControlName="toTime"/>
+                    </div>
+                    <div class="col col-auto form-group">
+                        <button class="btn btn-success btn-block" style="margin-top: 35%;" type="submit">Search</button>
+                    </div>
                 </div>
-                <div class="col form-group">
-                    <label class="col-form-group" for="from">Departure</label>
-                    <input class="form-control" type="date" id="from" formControlName="from"/>
-                </div>
-                <div class="col form-group">
-                    <label class="col-form-group" for="to">Return</label>
-                    <input class="form-control" type="date" id="to" formControlName="to"/>
-                </div>
-                <div class="col form-group col-md-1">
-                    <label class="col-form-group" for="passNum">Passengers</label>
-                    <input class="form-control" type="number" min="1" max="9" id="passNum" formControlName="passNum"/>
-                </div>
-                <div class="col col-auto form-group">
-                    <button class="btn btn-success btn-block" style="margin-top: 35%;" type="submit">Search</button>
-                </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
 </section>

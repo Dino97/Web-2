@@ -15,7 +15,8 @@ const routes: Routes = [
   { path: "profile", component: ProfileComponent },
   { path: "airprofile", component: AirlineProfileComponent },
   { path: "register", component: RegisterComponent },
-  { path: "partners", component: PartnersComponent}
+  { path: "partners", component: PartnersComponent},
+  { path: "cars", component: MainComponent}
 ];
 
 @NgModule({
