@@ -14,6 +14,8 @@ import { AirlineProfileComponent } from './components/airline-profile/airline-pr
 import { FriendListComponent } from './components/friend-list/friend-list.component';
 import { PlaneSeatsComponent } from './components/plane-seats/plane-seats.component';
 import { PartnersComponent } from './pages/partners/partners.component';
+import { CitiesComponent } from './components/cities/cities.component';
+import { RentResultsComponent } from './components/rent-results/rent-results.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { PartnersComponent } from './pages/partners/partners.component';
     FriendListComponent,
     PlaneSeatsComponent,
     PartnersComponent,
+    CitiesComponent,
+    RentResultsComponent,
   ],
   imports: [
     BrowserModule,

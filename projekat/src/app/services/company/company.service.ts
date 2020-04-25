@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Company } from 'src/app/entities/company/company';
 import { Airline } from 'src/app/entities/airline/airline';
-import { CarRental } from 'src/app/entities/carRental/car-rental';
+import { CarRentalService } from 'src/app/entities/cars/carRentalService/car-rental-service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class CompanyService {
 
   constructor() { }
 
-  mockedAirlines(){
+  getAirlines(){
     let airlines = new Array<Airline>();
 
     const a1 = new Airline("Air Serbia", "Hvala Arapima", "../../../assets/vectors/companies/airlines/airserbia.svg");
@@ -28,17 +29,17 @@ export class CompanyService {
     return airlines;
   }
 
-  mockedRentalAgencies(){
-    let agencies = new Array<CarRental>();
+  getRentalServices(){
+    let sevices = new Array<CarRentalService>();
 
-    const a1 = new CarRental("Alamo", "", "../../../assets/vectors/companies/car-rental-agencies/alamo.svg");
-    const a2 = new CarRental("Hertz", "", "../../../assets/vectors/companies/car-rental-agencies/hertz.svg");
-    const a3 = new CarRental("Europacar", "", "../../../assets/vectors/companies/car-rental-agencies/europcar.svg");
+    const a1 = new CarRentalService("Alamo", "", "../../../assets/vectors/companies/car-rental-agencies/alamo.svg");
+    const a2 = new CarRentalService("Hertz", "", "../../../assets/vectors/companies/car-rental-agencies/hertz.svg");
+    const a3 = new CarRentalService("Europacar", "", "../../../assets/vectors/companies/car-rental-agencies/europcar.svg");
 
-    agencies.push(a1);
-    agencies.push(a2);
-    agencies.push(a3);
+    sevices.push(a1);
+    sevices.push(a2);
+    sevices.push(a3);
   
-    return agencies;
+    return sevices;
   }
 }

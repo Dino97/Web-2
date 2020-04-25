@@ -8,30 +8,20 @@ export class CityService {
 
   constructor() { }
 
-  mockedCities(){
+  getCities(){
     //let cities = new Array<City>();
+    let id = 0;
 
-    const c1 = new City("New York", "../../../assets/images/cities/new-york.jpg");
-    const c2 = new City("Belgrade", "../../../assets/images/cities/new-york.jpg");
-    const c3 = new City("Amsterdam", "../../../assets/images/cities/new-york.jpg");
-    const c4 = new City("Paris", "../../../assets/images/cities/new-york.jpg");
-    const c5 = new City("Berlin", "../../../assets/images/cities/new-york.jpg");
-    const c6 = new City("Tokyo", "../../../assets/images/cities/new-york.jpg");
-    const c7 = new City("Moscow", "../../../assets/images/cities/new-york.jpg");
-    const c8 = new City("Sydney", "../../../assets/images/cities/new-york-flipped.jpg");
-    const c9 = new City("London", "../../../assets/images/cities/new-york.jpg");
-    const c10 = new City("Cairo", "../../../assets/images/cities/new-york.jpg");
-
-    /*cities.push(c1);
-    cities.push(c2);
-    cities.push(c3);
-    cities.push(c4);
-    cities.push(c5);
-    cities.push(c6);
-    cities.push(c7);
-    cities.push(c8);
-    cities.push(c9);
-    cities.push(c10);*/
+    const c1 = new City("New York", "../../../assets/images/cities/new-york.jpg", id++);
+    const c2 = new City("Belgrade", "../../../assets/images/cities/new-york.jpg", id++);
+    const c3 = new City("Amsterdam", "../../../assets/images/cities/new-york.jpg", id++);
+    const c4 = new City("Paris", "../../../assets/images/cities/new-york.jpg", id++);
+    const c5 = new City("Berlin", "../../../assets/images/cities/new-york.jpg", id++);
+    const c6 = new City("Tokyo", "../../../assets/images/cities/new-york.jpg", id++);
+    const c7 = new City("Moscow", "../../../assets/images/cities/new-york.jpg", id++);
+    const c8 = new City("Sydney", "../../../assets/images/cities/new-york-flipped.jpg", id++);
+    const c9 = new City("London", "../../../assets/images/cities/new-york.jpg", id++);
+    const c10 = new City("Cairo", "../../../assets/images/cities/new-york.jpg", id++);
 
     const destinations = [
       {continent: "Europe", cities: [c2, c3, c4, c5, c7, c9]},

@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { City } from 'src/app/entities/city/city';
-import { CityService } from 'src/app/services/city/city.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
@@ -9,15 +7,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent implements OnInit {
-  destinations: {continent: string, cities: City[]}[];
   //cities: City[];
   flightForm: FormGroup;
   carForm: FormGroup;
 
-  constructor(private cityService: CityService) { }
+  constructor() { }
 
   ngOnInit(): void {
-    this.destinations = this.cityService.mockedCities();
     this.initFlightForm();
     this.initCarForm();
   }
@@ -47,7 +43,7 @@ export class MainComponent implements OnInit {
   onSubmitRent(){}
 
   pathIsFlights(){
-    if(location.pathname === "/flights"){
+    if(location.pathname.includes("/flights")){
       return true;
     } else {
       return false;
@@ -55,7 +51,7 @@ export class MainComponent implements OnInit {
   }
 
   pathIsCars(){
-    if(location.pathname === "/cars"){
+    if(location.pathname.includes("/cars")){
       return true;
     } else {
       return false;

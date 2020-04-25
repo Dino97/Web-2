@@ -1,5 +1,4 @@
 <section id="hero">
-
     <div class="container">
         <div class="row">
             <div class="col-auto hero-title ml-auto">
@@ -74,34 +73,7 @@
 
 </section>
 
-<div class="container" style="margin-top: 10px;">
-    <div *ngFor="let destination of destinations">
-        <div class="row align-items-center">
-            <div class="col col-auto">
-                <h3>{{destination.continent}}({{destination.cities.length}})</h3>
-            </div>
-            <div class="col">
-                <hr/>
-            </div>
-        </div>
-        
-        <div class="card-deck" style="margin-left: 2%;">
-            <div *ngFor="let city of destination.cities" >
-                <div class="card text-white">
-                    <img class="card-img" src={{city.img}} alt="Card image" data-scrim-top="9">
-                    <div class="card-img-overlay">
-                        <div class="row">
-                            <div class="col-auto card-img-text">
-                                <h5 class="card-title" style="padding-top: 8px;">{{city.name}}</h5>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="stretched-link"></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<router-outlet style="margin-top: 10px;"></router-outlet>
 
 <footer class="page-footer font-small bg-dark">
     <div class="footer-copyright text-center text-white py-3">© 2020 Copyright: localhost:4200</div>

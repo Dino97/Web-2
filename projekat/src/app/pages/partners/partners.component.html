@@ -19,7 +19,7 @@
 
     <div class="row align-items-center">
         <div class="col col-auto">
-            <h3>Car Rental Agencies({{carRentalAgencies.length}})</h3>
+            <h3>Car Rental Services({{carRentalServices.length}})</h3>
         </div>
         <div class="col">
             <hr>
@@ -27,9 +27,9 @@
     </div>
 
     <div class="card-deck" style="margin-left: 2%;">
-        <div *ngFor="let agency of carRentalAgencies">
+        <div *ngFor="let service of carRentalServices">
             <div class="card">
-                <img class="card*image-top" src="{{agency.logo}}" alt="Card image cap">
+                <img class="card*image-top" src="{{service.logo}}" alt="Card image cap">
                 <a class="stretched-link" routerLink="/"></a>
             </div>
         </div>
