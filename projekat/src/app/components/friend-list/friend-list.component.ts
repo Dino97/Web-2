@@ -18,5 +18,4 @@ export class FriendListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

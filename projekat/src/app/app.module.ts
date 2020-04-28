@@ -16,6 +16,7 @@ import { PlaneSeatsComponent } from './components/plane-seats/plane-seats.compon
 import { PartnersComponent } from './pages/partners/partners.component';
 import { CitiesComponent } from './components/cities/cities.component';
 import { RentResultsComponent } from './components/rent-results/rent-results.component';
+import { FriendsComponent } from './pages/friends/friends.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { RentResultsComponent } from './components/rent-results/rent-results.com
     PartnersComponent,
     CitiesComponent,
     RentResultsComponent,
+    FriendsComponent,
   ],
   imports: [
     BrowserModule,
