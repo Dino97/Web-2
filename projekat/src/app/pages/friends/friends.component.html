@@ -1,0 +1,26 @@
+
+<div class="container">
+    <h4> Invitations </h4>
+    <h6> Flights </h6>
+    <p *ngFor="let invitation of getFlightInvitations()">
+        {{ invitation.fromUser }} has invited you to join his/her flight to {{ invitation.flight.to.city }}
+        <a routerLink="/friends"> <i class="fas fa-times"></i> </a>
+        <a routerLink="/friends"> <i class="fas fa-check"></i> </a>
+    </p>
+
+    <hr>
+
+    <h6> Friend requests </h6>
+    <table class="table" style="width: 100px;">
+        <tr *ngFor="let user of getFriendRequests()">
+            <td style="vertical-align: middle;"> {{ user }} </td>
+            <td> <a class="nav-link mr-4" routerLink="/friends"> <i class="fas fa-user-check"></i> </a> </td>
+            <td> <a class="nav-link mr-4" routerLink="/friends"> <i class="fas fa-user-times"></i> </a> </td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h4> Friends </h4>
+    <app-friend-list></app-friend-list>
+</div>
