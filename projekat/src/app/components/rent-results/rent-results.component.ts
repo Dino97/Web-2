@@ -10,6 +10,7 @@ export class RentResultsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    
   }
 
 }

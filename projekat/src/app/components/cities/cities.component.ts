@@ -15,5 +15,4 @@ export class CitiesComponent implements OnInit {
   ngOnInit(): void {
     this.destinations = this.cityService.getCities();
   }
-
 }
