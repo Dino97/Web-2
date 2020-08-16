@@ -17,6 +17,7 @@ import { PartnersComponent } from './pages/partners/partners.component';
 import { CitiesComponent } from './components/cities/cities.component';
 import { RentResultsComponent } from './components/rent-results/rent-results.component';
 import { FriendsComponent } from './pages/friends/friends.component';
+import { HeroCompComponent } from './components/hero-comp/hero-comp.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { FriendsComponent } from './pages/friends/friends.component';
     CitiesComponent,
     RentResultsComponent,
     FriendsComponent,
+    HeroCompComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,7 @@ import { FriendsComponent } from './pages/friends/friends.component';
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "flights", pathMatch: "full"},
+  { path: "", redirectTo: "partners", pathMatch: "full"},
   { path: "login", component: LoginComponent },
   { path: "profile", component: ProfileComponent },
   { path: "airprofile", component: AirlineProfileComponent },
