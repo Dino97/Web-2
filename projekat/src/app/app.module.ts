@@ -9,7 +9,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent} from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { SmedAccComponent } from './components/smed-acc/smed-acc.component';
-import { MainComponent } from './pages/main/main.component';
 import { AirlineProfileComponent } from './components/airline-profile/airline-profile.component';
 import { FriendListComponent } from './components/friend-list/friend-list.component';
 import { PlaneSeatsComponent } from './components/plane-seats/plane-seats.component';
@@ -18,6 +17,8 @@ import { CitiesComponent } from './components/cities/cities.component';
 import { RentResultsComponent } from './components/rent-results/rent-results.component';
 import { FriendsComponent } from './pages/friends/friends.component';
 import { HeroCompComponent } from './components/hero-comp/hero-comp.component';
+import { RentPageComponent } from './pages/rent-page/rent-page.component';
+import { FlightPageComponent } from './pages/flight-page/flight-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,6 @@ import { HeroCompComponent } from './components/hero-comp/hero-comp.component';
     LoginComponent,
     ProfileComponent,
     SmedAccComponent,
-    MainComponent,
     AirlineProfileComponent,
     FriendListComponent,
     PlaneSeatsComponent,
@@ -36,6 +36,8 @@ import { HeroCompComponent } from './components/hero-comp/hero-comp.component';
     RentResultsComponent,
     FriendsComponent,
     HeroCompComponent,
+    RentPageComponent,
+    FlightPageComponent,
   ],
   imports: [
     BrowserModule,
