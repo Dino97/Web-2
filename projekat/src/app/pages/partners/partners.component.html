@@ -26,12 +26,5 @@
         </div>
     </div>
 
-    <div class="card-deck" style="margin-left: 2%;">
-        <div *ngFor="let service of carRentalServices">
-            <div class="card">
-                <img class="card*image-top" src="{{service.logo}}" alt="Card image cap">
-                <a class="stretched-link" routerLink="/"></a>
-            </div>
-        </div>
-    </div>
+    <app-car-service-display style="margin-left: 2%;"></app-car-service-display>
 </div>

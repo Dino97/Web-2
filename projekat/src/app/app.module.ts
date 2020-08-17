@@ -19,6 +19,8 @@ import { FriendsComponent } from './pages/friends/friends.component';
 import { HeroCompComponent } from './components/hero-comp/hero-comp.component';
 import { RentPageComponent } from './pages/rent-page/rent-page.component';
 import { FlightPageComponent } from './pages/flight-page/flight-page.component';
+import { CarRentalServiceComponent } from './pages/car-rental-service/car-rental-service.component';
+import { CarServiceDisplayComponent } from './components/car-service-display/car-service-display.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,8 @@ import { FlightPageComponent } from './pages/flight-page/flight-page.component';
     HeroCompComponent,
     RentPageComponent,
     FlightPageComponent,
+    CarRentalServiceComponent,
+    CarServiceDisplayComponent,
   ],
   imports: [
     BrowserModule,
