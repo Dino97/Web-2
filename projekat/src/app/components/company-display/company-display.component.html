@@ -1,0 +1,10 @@
+<div class="mt-5">
+    <img src="{{company.logo}}" class="float-left mr-3" alt=""/>
+    <div class="row">
+        <h1 class="mb-4"><b>{{company.name}}</b></h1>
+        <div class="ml-auto mt-3">
+            <app-rating-display [rating]="company.rating.rating"></app-rating-display>
+        </div>
+    </div>
+    <p class="text-justify">{{company.description}}</p>
+</div>

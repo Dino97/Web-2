@@ -32,9 +32,15 @@ export class CompanyService {
   getRentalServices(){
     let sevices = new Array<CarRentalService>();
 
-    const a1 = new CarRentalService("Alamo", "", "../../../assets/vectors/companies/car-rental-agencies/alamo.svg");
-    const a2 = new CarRentalService("Hertz", "", "../../../assets/vectors/companies/car-rental-agencies/hertz.svg");
-    const a3 = new CarRentalService("Europacar", "", "../../../assets/vectors/companies/car-rental-agencies/europcar.svg");
+    const a1 = new CarRentalService("Alamo"
+                                    , ""
+                                    , "../../../assets/vectors/companies/car-rental-agencies/alamo.svg");
+    const a2 = new CarRentalService("Hertz"
+                                    , ""
+                                    , "../../../assets/vectors/companies/car-rental-agencies/hertz.svg");
+    const a3 = new CarRentalService("Europacar"
+                                    , "The best offers for rent a car services, price stability, special offers designed to fit needs of our clients, the latest models of vehicles, large range of diesel and automatic vehicles, the youngest vehicles on the market, Europcar your reliable partner. You can rely on us. Weather you need daily rent in the country or abroad, temporary solution for couple of months or purchase on a longer period, Europcar is your reliable partner. With our fleet of over 50 groups and over 55 models of vehicle, from the smallest city vehicles and commercial vehicles, to business limos and 4x4 vehicles, Europcar is here to offer you best solution."
+                                    , "../../../assets/vectors/companies/car-rental-agencies/europcar.svg");
 
     sevices.push(a1);
     sevices.push(a2);

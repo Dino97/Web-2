@@ -8,15 +8,17 @@
         </div>
     </div>
 
-    <div class="card-deck" style="margin-left: 2%;">
-        <div *ngFor="let airline of airlines">
-            <div class="card">
-                <img class="card-image-top" src={{airline.logo}} alt="Card image cap">
-                <a class="stretched-link" routerLink="/"></a>
+    <div style="margin-left: 4%;">
+        <div class="card-deck" >
+            <div *ngFor="let airline of airlines">
+                <div class="card">
+                    <img class="card-image-top" src={{airline.logo}} alt="Card image cap">
+                    <a class="stretched-link" routerLink="/"></a>
+                </div>
             </div>
         </div>
     </div>
-
+    
     <div class="row align-items-center">
         <div class="col col-auto">
             <h3>Car Rental Services({{carRentalServices.length}})</h3>
@@ -25,6 +27,8 @@
             <hr>
         </div>
     </div>
-
-    <app-car-service-display style="margin-left: 2%;"></app-car-service-display>
+    <div style="margin-left: 4%;">
+        <app-car-service-display></app-car-service-display>
+    </div>
+    
 </div>

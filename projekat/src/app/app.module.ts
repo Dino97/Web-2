@@ -21,6 +21,8 @@ import { RentPageComponent } from './pages/rent-page/rent-page.component';
 import { FlightPageComponent } from './pages/flight-page/flight-page.component';
 import { CarRentalServiceComponent } from './pages/car-rental-service/car-rental-service.component';
 import { CarServiceDisplayComponent } from './components/car-service-display/car-service-display.component';
+import { CompanyDisplayComponent } from './components/company-display/company-display.component';
+import { RatingDisplayComponent } from './components/rating-display/rating-display.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { CarServiceDisplayComponent } from './components/car-service-display/car
     FlightPageComponent,
     CarRentalServiceComponent,
     CarServiceDisplayComponent,
+    CompanyDisplayComponent,
+    RatingDisplayComponent,
   ],
   imports: [
     BrowserModule,
