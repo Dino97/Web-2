@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingAPI", "BookingAPI\BookingAPI.csproj", "{30F02DA6-1345-406F-A995-320CE686304F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookingAPI", "BookingAPI\BookingAPI.csproj", "{30F02DA6-1345-406F-A995-320CE686304F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{3F3AD27E-BE39-40EA-B1A6-DF93BD0CD6C8}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookingRepository", "BookingRepository\BookingRepository.csproj", "{9F1BB01F-1BB9-47C9-BB46-324FE2AA20D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csproj", "{3F3AD27E-BE39-40EA-B1A6-DF93BD0CD6C8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{3F3AD27E-BE39-40EA-B1A6-DF93BD0CD6C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3AD27E-BE39-40EA-B1A6-DF93BD0CD6C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3AD27E-BE39-40EA-B1A6-DF93BD0CD6C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9F1BB01F-1BB9-47C9-BB46-324FE2AA20D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9F1BB01F-1BB9-47C9-BB46-324FE2AA20D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9F1BB01F-1BB9-47C9-BB46-324FE2AA20D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9F1BB01F-1BB9-47C9-BB46-324FE2AA20D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

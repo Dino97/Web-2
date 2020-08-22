@@ -7,7 +7,7 @@ namespace Common.Model
     public class Address
     {
         public string Location { get; set; }
-        public int Lat { get; set; }
-        public int Lon { get; set; }
+        public float Lat { get; set; }
+        public float Lon { get; set; }
     }
 }

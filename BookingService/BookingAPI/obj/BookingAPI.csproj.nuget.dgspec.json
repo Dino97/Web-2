@@ -27,9 +27,6 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\BookingRepository\\BookingRepository.csproj": {
-                "projectPath": "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\BookingRepository\\BookingRepository.csproj"
-              },
               "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\Common\\Common.csproj": {
                 "projectPath": "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\Common\\Common.csproj"
               }
@@ -44,6 +41,28 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.7, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -58,62 +77,6 @@
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
             },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
-        }
-      }
-    },
-    "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\BookingRepository\\BookingRepository.csproj": {
-      "version": "1.0.0",
-      "restore": {
-        "projectUniqueName": "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\BookingRepository\\BookingRepository.csproj",
-        "projectName": "BookingRepository",
-        "projectPath": "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\BookingRepository\\BookingRepository.csproj",
-        "packagesPath": "C:\\Users\\Dino\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\BookingRepository\\obj\\",
-        "projectStyle": "PackageReference",
-        "configFilePaths": [
-          "C:\\Users\\Dino\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
-        ],
-        "originalTargetFrameworks": [
-          "netcoreapp3.1"
-        ],
-        "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {}
-        },
-        "frameworks": {
-          "netcoreapp3.1": {
-            "projectReferences": {
-              "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\Common\\Common.csproj": {
-                "projectPath": "C:\\Users\\Dino\\source\\repos\\Web-2\\BookingService\\Common\\Common.csproj"
-              }
-            }
-          }
-        },
-        "warningProperties": {
-          "warnAsError": [
-            "NU1605"
-          ]
-        }
-      },
-      "frameworks": {
-        "netcoreapp3.1": {
-          "imports": [
-            "net461",
-            "net462",
-            "net47",
-            "net471",
-            "net472",
-            "net48"
-          ],
-          "assetTargetFallback": true,
-          "warn": true,
-          "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
