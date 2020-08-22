@@ -23,10 +23,22 @@ namespace BookingAPI.Controllers
             return new string[] { "Dinulja", "Isus" }[id];
         }
 
-        [HttpPost]
+        // Treba HttpPost, get je da bi se moglo samo ukucati kao URL i izvrsiti
+        [HttpGet]
+        [Route("RegisterDefaultUser")]
         public void Create()
         {
-
+            if (db.Read<User>("Dinulja") == null)
+            {
+                db.Create(new User()
+                {
+                    FirstName = "Dino",
+                    LastName = "Tabakovic",
+                    Username = "Dinulja",
+                    Password = "1234",
+                    UserType = UserType.Admin
+                });
+            }
         }
     }
 }
