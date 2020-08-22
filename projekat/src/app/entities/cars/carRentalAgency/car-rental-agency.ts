@@ -1,14 +1,13 @@
 import { Car } from '../car/car';
 import { CarRentalService } from '../carRentalService/car-rental-service';
+import { Location } from '../../location/location';
 
 export class CarRentalAgency {
-    address: string;
+    location: Location;
     cars: Car[];
-    ownedBy: CarRentalService;
 
-    constructor(address: string, cars: Car[], owner: CarRentalService){
-        this.address = address;
+    constructor(location: Location, cars: Car[]){
+        this.location = location;
         this.cars = cars;
-        this.ownedBy = owner;
     }
 }

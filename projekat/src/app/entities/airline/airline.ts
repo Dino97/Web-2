@@ -1,8 +1,5 @@
-class Location {
-    address: string;
-}
-
 import { Company } from '../company/company';
+import { Location } from '../location/location';
 
 export class Airline extends Company {
     location: Location;
