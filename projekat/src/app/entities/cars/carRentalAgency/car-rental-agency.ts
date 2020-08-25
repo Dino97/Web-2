@@ -4,10 +4,8 @@ import { Location } from '../../location/location';
 
 export class CarRentalAgency {
     location: Location;
-    cars: Car[];
 
-    constructor(location: Location, cars: Car[]){
+    constructor(location: Location){
         this.location = location;
-        this.cars = cars;
     }
 }

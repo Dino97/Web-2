@@ -1,5 +1,38 @@
 <div class="container">
     <app-company-display [company] = "message"></app-company-display>
-    <p style="clear: left;">dadadsadsa</p>
+    <div class="row justify-content-between mt-5">
+        <div class="col-8">
+            <div class="container">
+                <h3><b>Our vehicles</b></h3>
+                <div class="row scrolling-wrapper flex-row flex-nowrap">
+                    <div *ngFor="let car of message.cars">
+                        <div class="col-3">
+                            <div class="card">
+                                <img class="card-img-top" src="{{car.image}}" alt="">
+                                <div class="card-body">
+                                    <h5 class="cart-title float-right">{{car.pricePerDay}}$</h5>
+                                    <h5 class="card-title">{{car.model}}</h5>
+                                    <h5 class="card-title text-justify d-flex justify-content-center">{{car.availableIn.location.countryShort}}, {{car.availableIn.location.city}}</h5>
+                                    <app-rating-display [rating]="car.rating.rating"></app-rating-display>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-3 mr-5">
+            <h3><b>Branches</b></h3>
+            <ul class="list-group">
+                <div *ngFor="let agency of message.branches">
+                    <li class="list-group-item list-group-item-action">
+                        {{agency.location.country}}, {{agency.location.city}}<br/>
+                        {{agency.location.address}}
+                    </li>
+                </div>
+            </ul>
+        </div>
+    </div>
 </div>
+    
 

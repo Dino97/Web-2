@@ -1,16 +1,16 @@
 export class Location {
     country: string;
+    countryShort: string
     city: string;
-    zipCode: number;
-    adress: string;
+    address: string;
     lat: number;
     lon: number;
 
-    constructor(country: string, city: string, zipCode: number, adress: string, lat: number, lon: number){
+    constructor(country: string, countryShort: string, city: string, address: string, lat: number, lon: number){
         this.country = country;
+        this.countryShort = countryShort;
         this.city =  city;
-        this. zipCode = zipCode;
-        this.adress = adress;
+        this.address = address;
         this.lat = lat;
         this.lon = lon;
     }
