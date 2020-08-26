@@ -4,43 +4,22 @@ using BookingAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAPI.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200825133218_NewUser")]
+    partial class NewUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("BookingAPI.Model.Friend", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("FriendId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RequestStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("UserFriends");
-                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
@@ -252,23 +231,18 @@ namespace BookingAPI.Migrations
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(20)");
-
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(30)");
 
-                    b.HasDiscriminator().HasValue("User");
-                });
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
 
-            modelBuilder.Entity("BookingAPI.Model.Friend", b =>
-                {
-                    b.HasOne("BookingAPI.Model.User", null)
-                        .WithMany("Friends")
-                        .HasForeignKey("UserId");
+                    b.HasIndex("UserId");
+
+                    b.HasDiscriminator().HasValue("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -320,6 +294,13 @@ namespace BookingAPI.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BookingAPI.Model.User", b =>
+                {
+                    b.HasOne("BookingAPI.Model.User", null)
+                        .WithMany("Friends")
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }

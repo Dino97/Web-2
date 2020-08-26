@@ -2,9 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookingAPI.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -26,19 +28,28 @@ namespace BookingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
+            services.AddCors(/*options =>
             {
-                options.AddPolicy("CorsPolicy",
+                /*options.AddPolicy("CorsPolicy",
                     builder =>
                     {
                         builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
                     }
                 );
-            });
+            }*/);
 
             services.AddControllers();
             services.AddDbContext<BookingDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("BookingDatabase")));
+
+            services.AddDefaultIdentity<User>().AddEntityFrameworkStores<BookingDbContext>();
+
+            services.Configure<IdentityOptions>(options => 
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +64,9 @@ namespace BookingAPI
 
             app.UseRouting();
 
-            app.UseCors("CorsPolicy");
+            app.UseCors(builder => { builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod(); });
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

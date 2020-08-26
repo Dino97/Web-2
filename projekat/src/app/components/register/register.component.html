@@ -7,54 +7,81 @@
         <div class="col pt-1 col-md-3"><hr/></div>
     </div>
 
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="form-group row justify-content-center">
-            <div class="col col-md-4">
+    <form [formGroup]="service.formModel" autocomplete="off" (ngSubmit)="onSubmit()">
+        <div class="row justify-content-center">
+            <div class="form-group col col-md-4">
                 <label class="col-form-label" for="email">E-mail</label>
-                <input class="form-control" type="email" id="email" formControlName="email"/>
+                <input class="form-control" type="email" id="email" formControlName="Email">
+                <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">
+                    Please enter an e-mail address.
+                </label>
+                <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">
+                    Invalid e-mail address.
+                </label>
             </div>
-            <div class="col col-md-4">
+            <div class="form-group col col-md-4">
                 <label class="col-form-label" for="username">Username</label>
-                <input class="form-control" type="text" id="username" formControlName="username"/>
+                <input class="form-control" type="text" id="username" formControlName="UserName">
+                <label class="text-danger" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">
+                    Please enter a username.
+                </label>
             </div>
         </div>
-        <div class="form-group row justify-content-center">
-            <div class="col col-md-4">
+        <div class="row justify-content-center" formGroupName="Passwords">
+            <div class="form-group col col-md-4">
                 <label class="col-form-label" for="password">Password</label>
-                <input class="form-control" type="password" id="password" formControlName="password"/>
-            </div>
-            <div class="col col-md-4">
+                <input class="form-control" type="password" id="password" formControlName="Password">
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">
+                    You must enter a password.
+                </label>
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">
+                    Your password must be at least 6 characters long.
+                </label>
+        </div>
+            <div class="form-group col col-md-4">
                 <label class="col-form-label" for="confirmPass">Confirm password</label>
-                <input class="form-control" type="password" id="confirmPass" formControlName="confirmPass"/>
+                <input class="form-control" type="password" id="confirmPass" formControlName="ConfirmPass">
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPass').touched && service.formModel.get('Passwords.ConfirmPass').errors?.required">
+                    You must confirm your password.
+                </label>
+                <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPass').touched && service.formModel.get('Passwords.ConfirmPass').errors?.passwordMissmatch">
+                    Passwords must match.
+                </label>
             </div>
         </div>
-        <div class="form-group row justify-content-center">
-            <div class="col col-md-4">
+        <div class="row justify-content-center">
+            <div class="form-group col col-md-4">
                 <label class="col-form-label" for="name">Name</label>
-                <input class="form-control" type="text" id="name" formControlName="name"/>
+                <input class="form-control" type="text" id="name" formControlName="FirstName">
+                <label class="text-danger" *ngIf="service.formModel.get('FirstName').touched && service.formModel.get('FirstName').errors?.required">
+                    Please enter your name.
+                </label>
             </div>
-            <div class="col col col-md-4">
+            <div class="form-group col col col-md-4">
                 <label class="col-form-label" for="lastName">Last name</label>
-                <input class="form-control" type="text" id="lastName" formControlName="lastName"/>
+                <input class="form-control" type="text" id="lastName" formControlName="LastName">
+                <label class="text-danger" *ngIf="service.formModel.get('LastName').touched && service.formModel.get('LastName').errors?.required">
+                    Please enter your last name.
+                </label>
             </div>
         </div>
-        <div class="form-group row justify-content-center">
-            <div class="col col-md-4">
+        <div class="row justify-content-center">
+            <div class="form-group col col-md-4">
                 <label class="col-form-label" for="city">City</label>
-                <input class="form-control" type="text" id="city" formControlName="city"/>
+                <input class="form-control" type="text" id="city" formControlName="City"/>
             </div>
-            <div class="col col-md-4">
+            <div class="form-group col col-md-4">
                 <label class="col-form-label" for="phone">Phone number</label>
-                <input class="form-control" type="tel" id="phone" formControlName="phone"/>
+                <input class="form-control" type="tel" id="phone" formControlName="PhoneNumber"/>
             </div>
         </div>
-        <div class="row form-group justify-content-center align-items-center">
+        <div class="row justify-content-center align-items-center">
             <div class="col col-md-2">
-                <button class="btn btn-block btn-success " type="submit">Register</button>
+                <button class="btn btn-block btn-success" [disabled]="service.formModel.invalid" type="submit">Register</button>
             </div>
         </div>
-        <div class="row form-group justify-content-center align-items-center">
-            <div class="col col-auto">
+        <div class="row justify-content-center align-items-center">
+            <div class="col col-auto mb-4">
                 <small>
                     Already have an account? <a routerLink="/login">Login</a> now!
                 </small>

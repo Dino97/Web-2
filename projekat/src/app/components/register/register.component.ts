@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { UserService } from 'src/app/services/user/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -7,26 +9,34 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
 
-  constructor() { }
+  constructor(public service: UserService, private toastr: ToastrService) { }
 
-  ngOnInit(): void {
-    this.initForm()
+  ngOnInit(): void { 
+    this.service.formModel.reset();
   }
 
-  initForm(){
-    this.registerForm = new FormGroup({
-      'email': new FormControl(null, Validators.required),
-      'username': new FormControl(null, Validators.required),
-      'password': new FormControl(null, Validators.required),
-      'confirmPass': new FormControl(null, Validators.required),
-      'name': new FormControl(null),
-      'lastName': new FormControl(null),
-      'city': new FormControl(null),
-      'phone': new FormControl(null)
-    })
+  onSubmit(){
+    this.service.register().subscribe(
+      (res:any) => {
+        if(res.succeeded){
+          this.service.formModel.reset();
+          this.toastr.success('New user created.', 'Registration successful!');
+        }else{
+          res.errors.forEach(element => {
+            switch (element.code) {
+              case 'DuplicateUserName':
+                this.toastr.error('Username is already taken.', 'Registration failed!');
+                break;
+            
+              default:
+                this.toastr.error(element.description, 'Registration failed!');
+                break;
+            }
+          });
+        }
+      },
+      err => console.log(err)
+    );
   }
-
-  onSubmit(){}
 }
