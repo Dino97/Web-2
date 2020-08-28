@@ -11,6 +11,7 @@ import { FriendsComponent } from './pages/friends/friends.component';
 import { FlightPageComponent } from './pages/flight-page/flight-page.component';
 import { RentPageComponent } from './pages/rent-page/rent-page.component';
 import { CarRentalServiceComponent } from './pages/car-rental-service/car-rental-service.component';
+import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 
 
 const routes: Routes = [
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: "rentalService", component: CarRentalServiceComponent},
   { path: "cars", component: RentPageComponent },
   { path: "flights", component: FlightPageComponent },
-  { path: "friends", component: FriendsComponent }
+  { path: "friends", component: FriendsComponent },
+  { path: "flightsearch", component: FlightSearchComponent}
 ];
 
 @NgModule({

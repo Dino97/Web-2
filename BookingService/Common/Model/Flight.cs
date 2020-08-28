@@ -5,7 +5,7 @@ namespace Common.Model
 {
     public class Flight
     {
-        public DateTime TakeOff { get; set; }
+        public DateTime Departure { get; set; }
         public DateTime Landing { get; set; }
         public float FlightDuration { get; set; }
         public float FlightDistance { get; set; }
