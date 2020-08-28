@@ -1,4 +1,4 @@
-﻿using Common.Model;
+﻿using BookingAPI.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingAPI.Controllers
@@ -8,8 +8,6 @@ namespace BookingAPI.Controllers
     public class ProfileController : ControllerBase
     {
         private BookingDb db;
-
-
 
         public ProfileController(BookingDbContext db)
         {
@@ -34,10 +32,9 @@ namespace BookingAPI.Controllers
                 {
                     FirstName = "Dino",
                     LastName = "Tabakovic",
-                    Username = "Dinulja",
+                    /*Username = "Dinulja",
                     Password = "1234",
-                    UserType = UserType.Admin
-                });
+                    UserType = UserType.Admin*/                });
             }
         }
     }

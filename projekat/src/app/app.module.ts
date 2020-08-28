@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +27,7 @@ import { CarServiceDisplayComponent } from './components/car-service-display/car
 import { CompanyDisplayComponent } from './components/company-display/company-display.component';
 import { RatingDisplayComponent } from './components/rating-display/rating-display.component';
 import { FlightSearchComponent } from './components/flight-search/flight-search.component';
+import { UserService } from './services/user/user.service';
 
 @NgModule({
   declarations: [
@@ -48,16 +51,18 @@ import { FlightSearchComponent } from './components/flight-search/flight-search.
     CarServiceDisplayComponent,
     CompanyDisplayComponent,
     RatingDisplayComponent,
-    FlightSearchComponent,
+    FlightSearchComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
