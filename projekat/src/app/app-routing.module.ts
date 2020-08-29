@@ -13,6 +13,7 @@ import { RentPageComponent } from './pages/rent-page/rent-page.component';
 import { CarRentalServiceComponent } from './pages/car-rental-service/car-rental-service.component';
 import { ProfileGuard } from './guards/profile/profile.guard';
 import { LoggedInGuard } from './guards/loggeIn/logged-in.guard';
+import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,8 @@ const routes: Routes = [
   { path: "rentalService", component: CarRentalServiceComponent},
   { path: "cars", component: RentPageComponent },
   { path: "flights", component: FlightPageComponent },
-  { path: "friends", component: FriendsComponent }
+  { path: "friends", component: FriendsComponent },
+  { path: "flightsearch", component: FlightSearchComponent}
 ];
 
 @NgModule({

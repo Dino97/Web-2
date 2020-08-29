@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
- 
 import { ToastrModule } from 'ngx-toastr';
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/core/header/header.component';
@@ -26,6 +26,7 @@ import { CarRentalServiceComponent } from './pages/car-rental-service/car-rental
 import { CarServiceDisplayComponent } from './components/car-service-display/car-service-display.component';
 import { CompanyDisplayComponent } from './components/company-display/company-display.component';
 import { RatingDisplayComponent } from './components/rating-display/rating-display.component';
+import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 import { UserService } from './services/user/user.service';
 import { AuthInterceptor } from './auth.interceptor';
 
@@ -51,6 +52,7 @@ import { AuthInterceptor } from './auth.interceptor';
     CarServiceDisplayComponent,
     CompanyDisplayComponent,
     RatingDisplayComponent,
+    FlightSearchComponent
   ],
   imports: [
     BrowserModule,

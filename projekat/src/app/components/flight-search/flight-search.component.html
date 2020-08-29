@@ -1,0 +1,60 @@
+
+<div class="container">
+    <form [formGroup]="flightForm" (ngSubmit)="search()">
+        <div class="row" style="margin-top: 5px;">
+            <div class="col form-group">
+                <label class="col-form-group" for="from"> From </label>
+                <input class="form-control" type="text" id="from" formControlName="from"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group" for="to"> To </label>
+                <input class="form-control" type="text" id="to" formControlName="to"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group" for="departure"> Departure </label>
+                <input class="form-control" type="date" id="departure" formControlName="departure"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group" for="landing"> Landing </label>
+                <input class="form-control" type="date" id="landing" formControlName="landing"/>
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 15px;">
+            <div class="col form-group">
+                <label class="col-form-group" for="tripType"> Trip type </label>
+                <select class="form-control" id="tripType" formControlName="tripType">
+                    <option> Round-trip </option>
+                    <option> One way </option>
+                    <option> Multi-city </option>
+                </select>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group" for="passNum"> Passengers </label>
+                <input class="form-control" type="number" min="1" max="9" id="passNum" formControlName="passNum"/>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group" for="flightClass"> Class </label>
+                <select class="form-control" id="flightClass" formControlName="class">
+                    <option> Economy </option>
+                    <option> Business </option>
+                    <option> First class </option>
+                </select>
+            </div>
+            <div class="col form-group">
+                <label class="col-form-group" for="luggage"> Luggage </label>
+                <input class="form-control" type="number" id="luggage" formControlName="luggage"/>
+            </div>
+        </div>
+
+        <div class="row justify-content-center" style="margin-top: 5px;">
+            <div class="col col-auto form-group">
+                <button class="btn btn-success btn-block" type="submit"> Search </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<ul class="search-result">
+    <li *ngFor="let flight of flightResults$ | async"> Test </li>
+</ul>
