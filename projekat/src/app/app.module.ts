@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
  
 import { ToastrModule } from 'ngx-toastr';
@@ -27,6 +27,7 @@ import { CarServiceDisplayComponent } from './components/car-service-display/car
 import { CompanyDisplayComponent } from './components/company-display/company-display.component';
 import { RatingDisplayComponent } from './components/rating-display/rating-display.component';
 import { UserService } from './services/user/user.service';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,11 @@ import { UserService } from './services/user/user.service';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [UserService],
+  providers: [UserService, {
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

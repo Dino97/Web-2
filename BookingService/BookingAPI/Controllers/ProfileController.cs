@@ -1,17 +1,42 @@
 ﻿using BookingAPI.Model;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace BookingAPI.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ProfileController : ControllerBase
     {
+        private UserManager<User> userManager;
         private BookingDb db;
 
-        public ProfileController(BookingDbContext db)
+        public ProfileController(BookingDbContext db, UserManager<User> userManager)
         {
             this.db = new BookingDb(db);
+            this.userManager = userManager;
+        }
+
+        [HttpGet]
+        [Authorize]
+        //GET: api/Profile
+        public async Task<object> GetUserProfile()
+        {
+            string userName = User.Claims.First(c => c.Type == "UserName").Value;
+            BookingAPI.Model.User user = await userManager.FindByNameAsync(userName);
+
+            return new
+            {
+                user.UserName,
+                user.Email, 
+                user.FirstName,
+                user.LastName,
+                user.City,
+                user.PhoneNumber
+            };
         }
 
         [HttpGet("{id}")]
