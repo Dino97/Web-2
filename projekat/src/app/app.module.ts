@@ -4,6 +4,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -61,12 +63,29 @@ import { AuthInterceptor } from './auth.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SocialLoginModule
   ],
-  providers: [UserService, {
+  providers: [UserService, 
+  {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
+  },
+  {
+    provide: "SocialAuthServiceConfig",
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider("clientId")
+        },
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('803053426901714')
+        }
+      ]} as SocialAuthServiceConfig
   }],
   bootstrap: [AppComponent]
 })

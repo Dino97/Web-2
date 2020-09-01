@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import JwtDecode from 'jwt-decode';
+import { SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import JwtDecode from 'jwt-decode';
 export class HeaderComponent implements OnInit {
   username: string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: SocialAuthService) { }
 
   ngOnInit(): void {
   }
@@ -27,6 +28,9 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
     this.username = ""; 
+    if(JwtDecode(localStorage.getItem('token')).LoginType == "social"){
+      this.authService.signOut();
+    }
     localStorage.removeItem('token');
     this.router.navigateByUrl('/');
   }
