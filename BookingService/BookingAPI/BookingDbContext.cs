@@ -6,12 +6,20 @@ namespace BookingAPI
 {
     public class BookingDbContext : IdentityDbContext
     {
-        public BookingDbContext(DbContextOptions<BookingDbContext> options) :
-            base (options)
-        {}
-
         public DbSet<User> AppUsers { get; set; }
-
+        public DbSet<Reservation> Reservations { get; set; }
         public DbSet<Friend> UserFriends { get; set; }
+
+
+
+        public BookingDbContext(DbContextOptions<BookingDbContext> options) :
+            base(options)
+        { }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            //builder.Entity<Reservation>().HasData(new Reservation() {})
+        }
     }
 }
