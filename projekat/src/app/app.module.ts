@@ -83,7 +83,7 @@ import { AuthInterceptor } from './auth.interceptor';
       providers: [
         {
           id: GoogleLoginProvider.PROVIDER_ID,
-          provider: new GoogleLoginProvider("clientId")
+          provider: new GoogleLoginProvider('978851679667-ojajf92olvnbupcd0ib4cvp1i4sl5uu4.apps.googleusercontent.com')
         },
         {
           id: FacebookLoginProvider.PROVIDER_ID,
