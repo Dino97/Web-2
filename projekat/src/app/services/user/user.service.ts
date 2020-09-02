@@ -63,4 +63,19 @@ export class UserService {
   socialLogin(userData){
     return this.http.post(this.BaseURI + "User/SocialLogin", userData);
   }
+
+  roleMatch(allowedRoles): boolean {
+    let isMatch = false
+    let payload = JSON.parse(window.atob(localStorage.getItem('token').split('.')[1]));
+    let userRole = payload.role;
+
+    allowedRoles.forEach(element => {
+      if(userRole == element){
+        isMatch = true;
+        return false
+      }
+    });
+
+    return isMatch;
+  }
 }

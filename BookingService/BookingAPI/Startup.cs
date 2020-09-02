@@ -39,7 +39,9 @@ namespace BookingAPI
             services.AddDbContext<BookingDbContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("BookingDatabase")));
 
-            services.AddDefaultIdentity<User>().AddEntityFrameworkStores<BookingDbContext>();
+            services.AddDefaultIdentity<User>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<BookingDbContext>();
 
             services.Configure<IdentityOptions>(options =>          // podesavanje sifre
             {

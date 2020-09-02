@@ -50,6 +50,7 @@ namespace BookingAPI.Controllers
             try
             {
                 var result = await userManager.CreateAsync(user, model.Password);
+                await userManager.AddToRoleAsync(user, "RegisteredUser");
                 return Ok(result);
             }
             catch (Exception ex)
@@ -67,7 +68,7 @@ namespace BookingAPI.Controllers
 
             if(user != null && await userManager.CheckPasswordAsync(user, model.Password))
             {
-                string token = TokenGenerator(user, "regular");
+                string token = await TokenGenerator(user, "regular");
                 
                 return Ok(new { token });
             }
@@ -109,7 +110,7 @@ namespace BookingAPI.Controllers
                 }
 
                 //LOGIN
-                string token = TokenGenerator(user, "social");
+                string token = await TokenGenerator(user, "social");
 
                 return Ok(new { token });
             }
@@ -119,13 +120,17 @@ namespace BookingAPI.Controllers
             }
         }
 
-        public string TokenGenerator(User user, string loginType)
+        public async Task<string> TokenGenerator(User user, string loginType)
         {
+            var roles = await userManager.GetRolesAsync(user);
+            IdentityOptions options = new IdentityOptions();
+
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim("UserName", user.UserName),
+                        new Claim(options.ClaimsIdentity.RoleClaimType, roles.FirstOrDefault()),
                         new Claim("LoginType", loginType)
                     }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
