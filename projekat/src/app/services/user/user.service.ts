@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { SocialUser } from 'angularx-social-login';
 
 
 @Injectable({
@@ -48,5 +49,18 @@ export class UserService {
     }
     
     return this.http.post(this.BaseURI + 'User/Register', body);
+  }
+
+  login(formData){
+    return this.http.post(this.BaseURI + "User/Login", formData);
+  }
+
+  getUserProfile(){
+    //let tokenHeader = new HttpHeaders({"Authorization": "Bearer " + localStorage.getItem("token")});
+    return this.http.get(this.BaseURI + "Profile"/*, {headers: tokenHeader}*/);
+  }
+
+  socialLogin(userData){
+    return this.http.post(this.BaseURI + "User/SocialLogin", userData);
   }
 }

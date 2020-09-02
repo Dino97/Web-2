@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import JwtDecode from 'jwt-decode';
+import { SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-header',
@@ -8,15 +11,15 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   username: string;
 
-  constructor() { }
+  constructor(private router: Router, private authService: SocialAuthService) { }
 
   ngOnInit(): void {
-    this.username = "";
   }
 
   isRegistered(){
-    if(JSON.parse(localStorage.getItem('sessionUserRole')) != null){
-      this.username = JSON.parse(localStorage.getItem('sessionUserName'));
+    let token = localStorage.getItem('token');
+    if(token != undefined){
+      this.username = JwtDecode(token).UserName;
       return true;
     } else {
       return false;
@@ -25,8 +28,11 @@ export class HeaderComponent implements OnInit {
 
   logOut(){
     this.username = ""; 
-    localStorage.removeItem('sessionUserName');
-    localStorage.removeItem('sessionUserRole');
+    if(JwtDecode(localStorage.getItem('token')).LoginType == "social"){
+      this.authService.signOut();
+    }
+    localStorage.removeItem('token');
+    this.router.navigateByUrl('/');
   }
 
   pathIsLogin(){

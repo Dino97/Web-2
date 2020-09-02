@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators, NgForm} from '@angular/forms';
+import { UserService } from 'src/app/services/user/user.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -7,40 +10,32 @@ import { FormGroup, FormControl, Validators} from '@angular/forms';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  //loginForm: FormGroup;
+  formModel = {
+    UserName: '',
+    Password: ''
+  }
 
-  constructor() { }
+  constructor(private service: UserService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.initForm()
   }
 
-  private initForm(){
-    this.loginForm = new FormGroup({
-      'username': new FormControl(null, Validators.required),
-      'password': new FormControl(null, Validators.required)
-    });
-  }
+ 
 
-  onSubmit(){
-    let registered = false;
-
-    if(this.loginForm.value.username === "user" && this.loginForm.value.password === "user"){
-      localStorage.setItem('sessionUserRole', JSON.stringify('USER'));
-      registered = true;
-    } else if (this.loginForm.value.username === "admin" && this.loginForm.value.password === "admin"){
-      localStorage.setItem('sessionUserRole', JSON.stringify('ADMIN'));
-      registered = true;
-    } else if (this.loginForm.value.username === "adminRent" && this.loginForm.value.password === "adminRent"){
-      localStorage.setItem('sessionUserRole', JSON.stringify('RENT ADMIN'));
-      registered = true;
-    } else if(this.loginForm.value.username === "adminFlight" && this.loginForm.value.password === "userFlight"){
-      localStorage.setItem('sessionUserRole', JSON.stringify('FLIGHT ADMIN'));
-      registered = true;
-    }
-
-    if(registered){
-      localStorage.setItem('sessionUserName', JSON.stringify(this.loginForm.value.username));
-    }
+  onSubmit(form: NgForm){
+    this.service.login(form.value).subscribe(
+      (res: any) => {
+        localStorage.setItem("token", res.token);
+        this.router.navigateByUrl("/");
+      },
+      err => {
+        if(err.status == 400){
+          this.toastr.error("Incorrect username or password", "Authentication failed");
+        } else {
+          console.log(err["message"]);
+        }
+      }
+    )
   }
 }

@@ -11,6 +11,8 @@ import { FriendsComponent } from './pages/friends/friends.component';
 import { FlightPageComponent } from './pages/flight-page/flight-page.component';
 import { RentPageComponent } from './pages/rent-page/rent-page.component';
 import { CarRentalServiceComponent } from './pages/car-rental-service/car-rental-service.component';
+import { ProfileGuard } from './guards/profile/profile.guard';
+import { LoggedInGuard } from './guards/loggeIn/logged-in.guard';
 import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 import { TravelHistoryComponent } from './components/travel-history/travel-history.component';
 import { NewFlightComponent } from './components/new-flight/new-flight.component';
@@ -18,10 +20,10 @@ import { NewFlightComponent } from './components/new-flight/new-flight.component
 
 const routes: Routes = [
   { path: "", redirectTo: "partners", pathMatch: "full"},
-  { path: "login", component: LoginComponent },
-  { path: "profile", component: ProfileComponent },
+  { path: "login", component: LoginComponent, canActivate: [LoggedInGuard]},
+  { path: "profile", component: ProfileComponent, canActivate: [ProfileGuard]},
   { path: "airprofile", component: AirlineProfileComponent },
-  { path: "register", component: RegisterComponent },
+  { path: "register", component: RegisterComponent, canActivate: [LoggedInGuard]},
   { path: "partners", component: PartnersComponent },
   /*{ path: "cars", component: MainComponent, children: [
     { path: "", component: CitiesComponent },

@@ -3,9 +3,9 @@
         <h3>{{ word }} using an existing account</h3>
     </div>
     <div class="row justify-content-center">
-        <a type="button"><i class="fab fa-facebook-square"></i></a>
+        <a type="button" (click)="logInWithSocial('Facebook')"><i class="fab fa-facebook-square"></i></a>
         <a type="button"><i class="fab fa-twitter-square"></i></a>
-        <a type="button"><i class="fab fa-google-plus-square"></i></a>
+        <a type="button" (click)="logInWithSocial('Google')"><i class="fab fa-google-plus-square"></i></a>
         <a type="button"><i class="fab fa-linkedin"></i></a>
     </div>
 </div>
