@@ -3,11 +3,13 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators'
 import { Router } from '@angular/router';
+import { SocialAuthService } from 'angularx-social-login';
+import JwtDecode from 'jwt-decode';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor{
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private authService: SocialAuthService) { }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>{
         if(localStorage.getItem('token') != null){
@@ -19,6 +21,9 @@ export class AuthInterceptor implements HttpInterceptor{
                     succ => { },
                     err => { 
                         if(err.status == 401){
+                            if(JwtDecode(localStorage.getItem('token')).LoginType == "social"){
+                                this.authService.signOut();
+                              }
                             localStorage.removeItem('token');
                             this.router.navigateByUrl('/login');
                         }

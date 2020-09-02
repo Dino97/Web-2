@@ -128,7 +128,7 @@ namespace BookingAPI.Controllers
                         new Claim("UserName", user.UserName),
                         new Claim("LoginType", loginType)
                     }),
-                Expires = DateTime.UtcNow.AddDays(1),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
             };
 
@@ -139,6 +139,7 @@ namespace BookingAPI.Controllers
         }
 
         private const string FacebookApiTokenInfoUrl = "https://graph.facebook.com/debug_token?input_token={0}&access_token=803053426901714|0c0ca7a71518fb0ca06e1f92fb527efb";
+        private const string GoogleApitTokenIngoUrl = "https://oauth2.googleapis.com/tokeninfo?id_token={0}";
 
         public bool VerifyToken(string provider, string providerToken)
         {
@@ -149,6 +150,9 @@ namespace BookingAPI.Controllers
             {
                 case "FACEBOOK":
                     requestUri = new Uri(string.Format(FacebookApiTokenInfoUrl, providerToken));
+                    break;
+                case "GOOGLE":
+                    requestUri = new Uri(string.Format(GoogleApitTokenIngoUrl, providerToken));
                     break;
             }
 

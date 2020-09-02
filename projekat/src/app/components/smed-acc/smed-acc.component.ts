@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { SocialAuthService, FacebookLoginProvider, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 import { UserService } from 'src/app/services/user/user.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-smed-acc',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router';
 export class SmedAccComponent implements OnInit {
   @Input() word: string;
 
-  constructor(private authService: SocialAuthService, private service: UserService, private router: Router) { }
+  constructor(private authService: SocialAuthService, private service: UserService, private router: Router, private toastr: ToastrService) { }
 
   ngOnInit(): void { }
 
@@ -29,9 +30,9 @@ export class SmedAccComponent implements OnInit {
         //console.log(platform + ' logged in user data is= ', user);
         let userData = {
           Provider: user.provider,
-          IdToken: user.authToken,
+          IdToken: platform == "GOOGLE"? user.idToken : user.authToken,
           Email: user.email,
-          UserName: user.name,
+          UserName: "",
           FirstName: user.firstName,
           LastName: user.lastName,
         }
@@ -43,6 +44,8 @@ export class SmedAccComponent implements OnInit {
           },
           err => {
             console.log(err);
+            this.toastr.error(err["message"], "Authentication failed");
+            this.authService.signOut();
           }
         )
       },
