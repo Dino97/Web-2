@@ -21,7 +21,7 @@ import { NewFlightComponent } from './components/new-flight/new-flight.component
 const routes: Routes = [
   { path: "", redirectTo: "partners", pathMatch: "full"},
   { path: "login", component: LoginComponent, canActivate: [LoggedInGuard]},
-  { path: "profile", component: ProfileComponent, canActivate: [ProfileGuard]},
+  { path: "profile", component: ProfileComponent, canActivate: [ProfileGuard]}, // canActivate: [ProfileGuard], data: {permittedRoles}: ['Uloga1', ...]
   { path: "airprofile", component: AirlineProfileComponent },
   { path: "register", component: RegisterComponent, canActivate: [LoggedInGuard]},
   { path: "partners", component: PartnersComponent },

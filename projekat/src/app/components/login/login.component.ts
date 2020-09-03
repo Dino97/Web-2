@@ -21,8 +21,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
- 
-
   onSubmit(form: NgForm){
     this.service.login(form.value).subscribe(
       (res: any) => {
