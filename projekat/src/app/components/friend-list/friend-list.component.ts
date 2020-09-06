@@ -29,15 +29,19 @@ export class FriendListComponent implements OnInit {
     }));
   }
 
-  acceptFriend(username) {
-    console.log("Friend accepted " + username)
-  }
-
-  declineFriend(username) {
-    console.log("Friend declined " + username)
+  addFriend(username) {
+    this.friendService.addFriend(username).subscribe(_ => { window.location.reload(); });
   }
 
   deleteFriend(username) {
-    this.friendService.deleteFriend(username);
+    this.friendService.deleteFriend(username).subscribe(_ => { window.location.reload(); });
+  }
+
+  acceptFriend(username) {
+    this.friendService.acceptFriend(username).subscribe(_ => { window.location.reload(); });
+  }
+
+  declineFriend(username) {
+    this.friendService.declineFriend(username).subscribe(_ => { window.location.reload(); });
   }
 }

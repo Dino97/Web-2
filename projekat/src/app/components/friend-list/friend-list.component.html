@@ -1,31 +1,30 @@
 
+<h4> Add friend </h4>
+<input #usernameTextbox type="text">
+<button class="btn btn-success" style="margin-left: 5px; margin-bottom: 30px;" (click)="addFriend(usernameTextbox.value)"> Add friend </button>
+
 <h4> Friend requests </h4>
 <table class="table" style="width: 100px;">
-    <thead>
-        <tr>
-            <th> Username </th>
-            <th> </th>
-            <th> </th>
-        </tr>
-    </thead>
     <tbody>
         <tr *ngFor="let request of requests">
             <td style="vertical-align: middle;"> {{ request.username }} </td>
             <td> <a class="nav-link mr-4" (click)=acceptFriend(request.username)> <i class="fas fa-user-check"></i> </a> </td>
             <td> <a class="nav-link mr-4" (click)=declineFriend(request.username)> <i class="fas fa-user-times"></i> </a> </td>
         </tr>
+        <p *ngIf="!requests.length" style="width: 300px;"> No friend requests. </p>
     </tbody>
 </table>
 
 <h4> Friends </h4>
-<table class="table table-striped">
-    <thead>
+<table class="table" style="width: 1px;">
+    <!--<thead>
         <tr>
             <th> Username </th>
             <th> First name </th>
             <th> Last name </th>
+            <th> </th>
         </tr>
-    </thead>
+    </thead>-->
     <tbody>
         <tr *ngFor="let friend of friends">
             <td> {{ friend.username }} </td>
@@ -33,5 +32,6 @@
             <td> {{ friend.lastName }} </td>
             <td> <a (click)="deleteFriend(friend.username)"> <i class="fas fa-trash"></i> </a> </td>
         </tr>
+        <p *ngIf="!friends.length" style="width: 300px;"> No friends. </p>
     </tbody>
 </table>

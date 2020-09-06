@@ -16,12 +16,6 @@ namespace BookingAPI.Controllers
     [ApiController]
     public class FriendController : ControllerBase
     {
-        public class FriendRequestData
-        {
-            public string From { get; set; }
-            public string To { get; set; }
-        }
-
         private BookingDbContext dbContext;
         private UserManager<User> userManager;
 
@@ -36,18 +30,20 @@ namespace BookingAPI.Controllers
         [HttpPost]
         [Authorize]
         [Route("AddFriend")]
-        public void AddFriend([FromBody] FriendRequestData data)
+        public void AddFriend(string friendUsername)
         {
+            string username = User.Claims.First(c => c.Type == "UserName").Value;
+
             FriendRequest request = dbContext.FriendRequests.FirstOrDefault(fr => 
-                fr.From == data.From && fr.To == data.To ||
-                fr.From == data.To && fr.To == data.From);
+                fr.From == username && fr.To == friendUsername ||
+                fr.From == friendUsername && fr.To == username);
 
             if (request == null)
             {
                 request = new FriendRequest()
                 {
-                    From = data.From,
-                    To = data.To,
+                    From = username,
+                    To = friendUsername,
                     Sent = DateTime.Now,
                     Status = FriendRequest.EStatus.Sent
                 };
@@ -90,7 +86,7 @@ namespace BookingAPI.Controllers
 
             foreach (FriendRequest fr in friendRequests)
             {
-                User sender = await userManager.FindByNameAsync(fr.To);
+                User sender = await userManager.FindByNameAsync(fr.From);
 
                 if (sender != null)
                     requests.Add(sender);
@@ -127,9 +123,11 @@ namespace BookingAPI.Controllers
         [HttpPost]
         [Authorize]
         [Route("AcceptFriendRequest")]
-        public void AcceptFriendRequest([FromBody] FriendRequestData data)
+        public void AcceptFriendRequest(string friendUsername)
         {
-            FriendRequest request = dbContext.FriendRequests.FirstOrDefault(fr => fr.From == data.From && fr.To == data.To);
+            string username = User.Claims.First(c => c.Type == "UserName").Value;
+
+            FriendRequest request = dbContext.FriendRequests.FirstOrDefault(fr => fr.From == friendUsername && fr.To == username);
 
             if (request != null)
             {
@@ -144,9 +142,11 @@ namespace BookingAPI.Controllers
         [HttpPost]
         [Authorize]
         [Route("DeclineFriendRequest")]
-        public void DeclineFriendRequest([FromBody] FriendRequestData data)
+        public void DeclineFriendRequest(string friendUsername)
         {
-            FriendRequest request = dbContext.FriendRequests.FirstOrDefault(fr => fr.From == data.From && fr.To == data.To);
+            string username = User.Claims.First(c => c.Type == "UserName").Value;
+
+            FriendRequest request = dbContext.FriendRequests.FirstOrDefault(fr => fr.From == friendUsername && fr.To == username);
 
             if (request != null)
             {
