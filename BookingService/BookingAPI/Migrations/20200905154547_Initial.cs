@@ -3,13 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookingAPI.Migrations
 {
-    public partial class NewUser : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Users");
-
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
                 columns: table => new
@@ -46,17 +43,26 @@ namespace BookingAPI.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(20)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(30)", nullable: true),
-                    UserId = table.Column<string>(nullable: true)
+                    City = table.Column<string>(type: "nvarchar(20)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AspNetUsers_AspNetUsers_UserId",
-                        column: x => x.UserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "FriendRequests",
+                columns: table => new
+                {
+                    From = table.Column<string>(nullable: false),
+                    To = table.Column<string>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    Sent = table.Column<DateTime>(nullable: false),
+                    Status = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FriendRequests", x => new { x.From, x.To });
                 });
 
             migrationBuilder.CreateTable(
@@ -165,6 +171,98 @@ namespace BookingAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "UserFriends",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FriendId = table.Column<int>(nullable: false),
+                    RequestStatus = table.Column<int>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserFriends", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_UserFriends_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Flight",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FromName = table.Column<string>(nullable: true),
+                    ToName = table.Column<string>(nullable: true),
+                    Departure = table.Column<DateTime>(nullable: false),
+                    Landing = table.Column<DateTime>(nullable: false),
+                    FlightDuration = table.Column<float>(nullable: false),
+                    FlightDistance = table.Column<float>(nullable: false),
+                    TicketPrice = table.Column<float>(nullable: false),
+                    Rating = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Flight", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Airport",
+                columns: table => new
+                {
+                    Name = table.Column<string>(nullable: false),
+                    City = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
+                    FlightId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Airport", x => x.Name);
+                    table.ForeignKey(
+                        name: "FK_Airport_Flight_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flight",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reservations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FlightId = table.Column<int>(nullable: true),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservations_Flight_FlightId",
+                        column: x => x.FlightId,
+                        principalTable: "Flight",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reservations_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Airport_FlightId",
+                table: "Airport",
+                column: "FlightId");
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -193,11 +291,6 @@ namespace BookingAPI.Migrations
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_AspNetUsers_UserId",
-                table: "AspNetUsers",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "EmailIndex",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
@@ -208,10 +301,55 @@ namespace BookingAPI.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Flight_FromName",
+                table: "Flight",
+                column: "FromName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Flight_ToName",
+                table: "Flight",
+                column: "ToName");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_FlightId",
+                table: "Reservations",
+                column: "FlightId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservations_UserId",
+                table: "Reservations",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserFriends_UserId",
+                table: "UserFriends",
+                column: "UserId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Flight_Airport_FromName",
+                table: "Flight",
+                column: "FromName",
+                principalTable: "Airport",
+                principalColumn: "Name",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Flight_Airport_ToName",
+                table: "Flight",
+                column: "ToName",
+                principalTable: "Airport",
+                principalColumn: "Name",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Airport_Flight_FlightId",
+                table: "Airport");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -228,37 +366,25 @@ namespace BookingAPI.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "FriendRequests");
+
+            migrationBuilder.DropTable(
+                name: "Reservations");
+
+            migrationBuilder.DropTable(
+                name: "UserFriends");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
 
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Username = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UserType = table.Column<int>(type: "int", nullable: false),
-                    Username1 = table.Column<string>(type: "nvarchar(450)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Username);
-                    table.ForeignKey(
-                        name: "FK_Users_Users_Username1",
-                        column: x => x.Username1,
-                        principalTable: "Users",
-                        principalColumn: "Username",
-                        onDelete: ReferentialAction.Restrict);
-                });
+            migrationBuilder.DropTable(
+                name: "Flight");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_Username1",
-                table: "Users",
-                column: "Username1");
+            migrationBuilder.DropTable(
+                name: "Airport");
         }
     }
 }

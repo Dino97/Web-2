@@ -8,7 +8,7 @@ namespace BookingAPI
     {
         public DbSet<User> AppUsers { get; set; }
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<Friend> UserFriends { get; set; }
+        public DbSet<FriendRequest> FriendRequests { get; set; }
 
 
 
@@ -20,6 +20,7 @@ namespace BookingAPI
         {
             base.OnModelCreating(builder);
             //builder.Entity<Reservation>().HasData(new Reservation() {})
+            builder.Entity<FriendRequest>().HasKey(fr => new { fr.From, fr.To });
         }
     }
 }
