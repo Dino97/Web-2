@@ -33,6 +33,7 @@ import { UserService } from './services/user/user.service';
 import { TravelHistoryComponent } from './components/travel-history/travel-history.component';
 import { NewFlightComponent } from './components/new-flight/new-flight.component';
 import { AuthInterceptor } from './auth.interceptor';
+import { NewAdminComponent } from './components/new-admin/new-admin.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AuthInterceptor } from './auth.interceptor';
     RatingDisplayComponent,
     FlightSearchComponent,
     TravelHistoryComponent,
-    NewFlightComponent
+    NewFlightComponent,
+    NewAdminComponent
   ],
   imports: [
     BrowserModule,

@@ -10,8 +10,6 @@ namespace BookingAPI
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<FriendRequest> FriendRequests { get; set; }
 
-
-
         public BookingDbContext(DbContextOptions<BookingDbContext> options) :
             base(options)
         { }
