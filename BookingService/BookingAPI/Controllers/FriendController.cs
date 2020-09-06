@@ -34,6 +34,9 @@ namespace BookingAPI.Controllers
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
+            if (username.Equals(friendUsername))
+                return;
+
             FriendRequest request = dbContext.FriendRequests.FirstOrDefault(fr => 
                 fr.From == username && fr.To == friendUsername ||
                 fr.From == friendUsername && fr.To == username);

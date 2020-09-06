@@ -11,8 +11,8 @@ import { tap } from 'rxjs/operators';
 })
 export class FriendListComponent implements OnInit {
 
-  friends: UserProfile[];
-  requests: UserProfile[];
+  friends;
+  requests;
 
   constructor(private friendService: FriendService) {
     this.friends = [];
@@ -20,28 +20,28 @@ export class FriendListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.friendService.getFriends().subscribe(friends => friends.map(friend => {
-      this.friends.push(new UserProfile(friend.userName, friend.firstName, friend.lastName, friend.address))
-    }));
-    
-    this.friendService.getFriendRequests().subscribe(requests => requests.map(sender => {
-      this.requests.push(new UserProfile(sender.userName, sender.firstName, sender.lastName, sender.address))
-    }));
+    this.refresh();
   }
 
-  addFriend(username) {
-    this.friendService.addFriend(username).subscribe(_ => { window.location.reload(); });
+  addFriend(usernameTextbox: HTMLInputElement) {
+    this.friendService.addFriend(usernameTextbox.value).subscribe(_ => { this.refresh() });
+    usernameTextbox.value = "";
   }
 
   deleteFriend(username) {
-    this.friendService.deleteFriend(username).subscribe(_ => { window.location.reload(); });
+    this.friendService.deleteFriend(username).subscribe(_ => { this.refresh() });
   }
 
   acceptFriend(username) {
-    this.friendService.acceptFriend(username).subscribe(_ => { window.location.reload(); });
+    this.friendService.acceptFriend(username).subscribe(_ => { this.refresh() });
   }
 
   declineFriend(username) {
-    this.friendService.declineFriend(username).subscribe(_ => { window.location.reload(); });
+    this.friendService.declineFriend(username).subscribe(_ => { this.refresh() });
+  }
+
+  refresh() {
+    this.friendService.getFriends().subscribe(friends => this.friends = friends);
+    this.friendService.getFriendRequests().subscribe(requests => this.requests = requests);
   }
 }

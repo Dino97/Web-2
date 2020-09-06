@@ -20,7 +20,7 @@ namespace BookingAPI
         {
             base.OnModelCreating(builder);
             //builder.Entity<Reservation>().HasData(new Reservation() {})
-            //builder.Entity<FriendRequest>().HasKey(fr => new { fr.From, fr.To });
+            builder.Entity<FriendRequest>().HasKey(fr => new { fr.From, fr.To });
         }
     }
 }
