@@ -1,0 +1,22 @@
+<h4> NEW FLIGHT </h4>
+
+<div>
+    <form [formGroup]="newFlightForm">
+        <label for="departure"> Departure </label>
+        <input type="date" class="form-control" id="departure">
+
+        <label for="landing"> Landing </label>
+        <input type="date" class="form-control" id="landing">
+
+        <label for="duration"> Duration </label>
+        <input type="text" class="form-control" id="duration">
+
+        <label for="distance"> Distance (km) </label>
+        <input type="number" class="form-control" id="distance">
+
+        <label for="price"> Price </label>
+        <input type="number" class="form-control" id="price">
+
+        <button type="submit" class="btn btn-success btn-block"> Create </button>
+    </form>
+</div>

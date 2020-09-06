@@ -30,6 +30,8 @@ import { CompanyDisplayComponent } from './components/company-display/company-di
 import { RatingDisplayComponent } from './components/rating-display/rating-display.component';
 import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 import { UserService } from './services/user/user.service';
+import { TravelHistoryComponent } from './components/travel-history/travel-history.component';
+import { NewFlightComponent } from './components/new-flight/new-flight.component';
 import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
@@ -54,7 +56,9 @@ import { AuthInterceptor } from './auth.interceptor';
     CarServiceDisplayComponent,
     CompanyDisplayComponent,
     RatingDisplayComponent,
-    FlightSearchComponent
+    FlightSearchComponent,
+    TravelHistoryComponent,
+    NewFlightComponent
   ],
   imports: [
     BrowserModule,

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Common.Model;
+using BookingAPI.Model;
 
 namespace BookingAPI.Controllers
 {
@@ -40,6 +40,20 @@ namespace BookingAPI.Controllers
                 Rating = 4,
                 TicketPrice = 199
             }};
+        }
+
+        [HttpGet]
+        [Route("GetUserReservations")]
+        public async Task<ActionResult<IEnumerable<Reservation>>> GetUserReservations()
+        {
+            return null;
+        }
+
+        [HttpPost]
+        [Route("CancelReservation")]
+        public void CancelReservation()
+        {
+
         }
     }
 }

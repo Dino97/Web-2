@@ -26,7 +26,6 @@ namespace BookingAPI.Model
         public string LastName { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public string City { get; set; }
-        public virtual ICollection<Friend> Friends { get; set; }
         //public UserType UserType { get; set; }
     }
 }

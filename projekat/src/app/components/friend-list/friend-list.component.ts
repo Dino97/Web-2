@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from "../profile/user-profile"
+import { FriendService } from "../../services/friend/friend.service"
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-friend-list',
@@ -9,13 +12,32 @@ import { UserProfile } from "../profile/user-profile"
 export class FriendListComponent implements OnInit {
 
   friends: UserProfile[];
+  requests: UserProfile[];
 
-  constructor() { 
-    this.friends = [
-      new UserProfile("Vladimirko", "Isus", "Hristov", "Kod masinske")
-    ];
+  constructor(private friendService: FriendService) {
+    this.friends = [];
+    this.requests = [];
   }
 
   ngOnInit(): void {
+    this.friendService.getFriends().subscribe(friends => friends.map(friend => {
+      this.friends.push(new UserProfile(friend.userName, friend.firstName, friend.lastName, friend.address))
+    }));
+    
+    this.friendService.getFriendRequests().subscribe(requests => requests.map(sender => {
+      this.requests.push(new UserProfile(sender.userName, sender.firstName, sender.lastName, sender.address))
+    }));
+  }
+
+  acceptFriend(username) {
+    console.log("Friend accepted " + username)
+  }
+
+  declineFriend(username) {
+    console.log("Friend declined " + username)
+  }
+
+  deleteFriend(username) {
+    this.friendService.deleteFriend(username);
   }
 }

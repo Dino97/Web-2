@@ -1,3 +1,23 @@
+
+<h4> Friend requests </h4>
+<table class="table" style="width: 100px;">
+    <thead>
+        <tr>
+            <th> Username </th>
+            <th> </th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let request of requests">
+            <td style="vertical-align: middle;"> {{ request.username }} </td>
+            <td> <a class="nav-link mr-4" (click)=acceptFriend(request.username)> <i class="fas fa-user-check"></i> </a> </td>
+            <td> <a class="nav-link mr-4" (click)=declineFriend(request.username)> <i class="fas fa-user-times"></i> </a> </td>
+        </tr>
+    </tbody>
+</table>
+
+<h4> Friends </h4>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -11,7 +31,7 @@
             <td> {{ friend.username }} </td>
             <td> {{ friend.firstName }} </td>
             <td> {{ friend.lastName }} </td>
-            <td> <a href> <i class="fas fa-trash"></i> </a> </td>
+            <td> <a (click)="deleteFriend(friend.username)"> <i class="fas fa-trash"></i> </a> </td>
         </tr>
     </tbody>
 </table>
