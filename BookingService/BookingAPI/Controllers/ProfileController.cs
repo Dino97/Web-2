@@ -59,8 +59,10 @@ namespace BookingAPI.Controllers
                     LastName = "Tabakovic",
                     /*Username = "Dinulja",
                     Password = "1234",
-                    UserType = UserType.Admin*/                });
+                    UserType = UserType.Admin*/                
+                });
             }
         }
+        //[Authorize(Roles = "Admin, Customerwa")]
     }
 }
