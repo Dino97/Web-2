@@ -20,6 +20,11 @@
         </div>
         <div *ngIf="isRegistered()">
             <ul class="navbar-nav">
+                <div *ngIf="isSysAdmin()">
+                    <li class="nav-item">
+                        <a class="nav-link mr-4" style="color: white;" routerLink="/newAdmin">Add Admin</a>
+                    </li>
+                </div>
                 <li class="nav-item">
                     <a class="nav-link mr-4" style="color: white;" routerLink="/profile"> <i class="fas fa-user"></i> {{ username }}</a>
                 </li>

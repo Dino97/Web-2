@@ -26,6 +26,14 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  isSysAdmin(){
+    if(JwtDecode(localStorage.getItem('token')).role === "SystemAdmin"){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   logOut(){
     this.username = ""; 
     if(JwtDecode(localStorage.getItem('token')).LoginType == "social"){

@@ -16,6 +16,7 @@ import { LoggedInGuard } from './guards/loggeIn/logged-in.guard';
 import { FlightSearchComponent } from './components/flight-search/flight-search.component';
 import { TravelHistoryComponent } from './components/travel-history/travel-history.component';
 import { NewFlightComponent } from './components/new-flight/new-flight.component';
+import { NewAdminComponent } from './components/new-admin/new-admin.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,8 @@ const routes: Routes = [
   { path: "friends", component: FriendsComponent },
   { path: "flightsearch", component: FlightSearchComponent },
   { path: "home", component: TravelHistoryComponent },
-  { path: "newflight", component: NewFlightComponent }
+  { path: "newflight", component: NewFlightComponent },
+  { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}}
 ];
 
 @NgModule({

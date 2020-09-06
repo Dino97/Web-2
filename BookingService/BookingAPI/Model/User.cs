@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace BookingAPI.Model
 {
-    public enum UserType
+    /*public enum UserType
     {
         User,   // neko bolje ime mozda
         AirlineAdmin,
         CarRentalServiceAdmin,
         Admin
-    }
+    }*/
 
     public class User : IdentityUser
     {
