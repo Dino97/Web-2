@@ -20,28 +20,27 @@ export class FriendService {
     return this.http.get<any[]>(this.baseUri + "Friend/GetFriendRequests");
   }
 
-  addFriend(username) {
-
+  addFriend(username): Observable<any> {
+    return this.handleFriendOperation("AddFriend", username);
   }
 
-  acceptFriend(username) {
-
+  acceptFriend(username): Observable<any> {
+    return this.handleFriendOperation("AcceptFriendRequest", username);
   }
 
-  declineFriend(username) {
-    
+  declineFriend(username): Observable<any> {
+    return this.handleFriendOperation("DeclineFriendRequest", username);
   }
 
-  deleteFriend(username) {
-    let body = { friendUsername: username };
+  deleteFriend(username): Observable<any> {
+    return this.handleFriendOperation("DeleteFriend", username);
+  }
 
+  handleFriendOperation(operation: string, username: string): Observable<any> {
     let httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json'
-      })
+      params: new HttpParams().set("friendUsername", username)
     };
 
-    this.http.post(this.baseUri + "Friend/DeleteFriend", body, httpOptions);
-    console.log(body);
+    return this.http.post(this.baseUri + "Friend/" + operation, null, httpOptions);
   }
 }
