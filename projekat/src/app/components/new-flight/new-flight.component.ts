@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { AirportService } from 'src/app/services/airport/airport.service';
 
 @Component({
   selector: 'app-new-flight',
@@ -7,11 +8,25 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./new-flight.component.css']
 })
 export class NewFlightComponent implements OnInit {
-  newFlightForm: FormGroup;
 
-  constructor() { }
+  airports;
+  unusedAirports;
 
-  ngOnInit(): void {
+  location1;
+  location2;
+  location3;
+  location4;
+  location5;
+
+  constructor(private airportService: AirportService) {
+    this.airports = [];
   }
 
+  ngOnInit(): void {
+    this.airportService.getAirports().subscribe(res => { this.airports = res; console.log(res) });
+  }
+
+  createFlight() {
+
+  }
 }

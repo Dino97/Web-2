@@ -1,1 +1,6 @@
-<p>plane-seats works!</p>
+
+<div class="grid-container">
+    <div class="grid-item" #seatElem *ngFor="let seat of seats; let i = index" (click)="selectSeat(i, seatElem)"> {{ i + 1 }} </div>
+</div>
+
+Selected seats: {{ selectedSeats }}

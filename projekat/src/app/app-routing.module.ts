@@ -17,6 +17,7 @@ import { FlightSearchComponent } from './components/flight-search/flight-search.
 import { TravelHistoryComponent } from './components/travel-history/travel-history.component';
 import { NewFlightComponent } from './components/new-flight/new-flight.component';
 import { NewAdminComponent } from './components/new-admin/new-admin.component';
+import { PlaneSeatsComponent } from './components/plane-seats/plane-seats.component';
 
 
 const routes: Routes = [
@@ -37,7 +38,8 @@ const routes: Routes = [
   { path: "flightsearch", component: FlightSearchComponent },
   { path: "home", component: TravelHistoryComponent },
   { path: "newflight", component: NewFlightComponent },
-  { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}}
+  { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}},
+  { path: "seats", component: PlaneSeatsComponent }
 ];
 
 @NgModule({

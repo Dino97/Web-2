@@ -1,0 +1,26 @@
+.grid-container {
+    display: grid;
+    padding: 10px;
+    background-color: lightgray;
+    grid-template-columns: auto auto auto;
+    grid-gap: 5px;
+    border-radius: 5px;
+}
+
+.grid-item {
+    background-color: gray;
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    font-size: 18px;
+    text-align: center;
+    border-radius: 5px;
+
+    cursor: pointer;
+    user-select: none; /* Standard */
+    -ms-user-select: none; /* IE10+/Edge */
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Safari */    
+}
+
+.grid-item.selected {
+    background-color: greenyellow;
+}

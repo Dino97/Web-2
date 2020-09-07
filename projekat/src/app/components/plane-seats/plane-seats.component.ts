@@ -7,9 +7,41 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlaneSeatsComponent implements OnInit {
 
+  seats: number[];
+  selectedSeats: string;
+
   constructor() { }
 
   ngOnInit(): void {
+    this.seats = new Array(36);
+
+    for (let index = 0; index < this.seats.length; index++)
+      this.seats[index] = 0;
   }
 
+  selectSeat(index, element) {
+
+    if (this.seats[index] == 0) {
+      this.seats[index] = 1;
+      element.classList.add("selected");
+    }
+    else {
+      this.seats[index] = 0;
+      element.classList.remove("selected");
+    }
+    
+    this.selectedSeats = "";
+
+    for (let index = 0; index < this.seats.length; index++) {
+      const element = this.seats[index];
+      
+      if (element == 1)
+      {
+        if (this.selectedSeats != "")
+          this.selectedSeats += ", ";
+        
+        this.selectedSeats += ((index + 1));
+      }
+    }
+  }
 }

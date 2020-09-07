@@ -1,22 +1,45 @@
 <h4> NEW FLIGHT </h4>
 
 <div>
-    <form [formGroup]="newFlightForm">
-        <label for="departure"> Departure </label>
-        <input type="date" class="form-control" id="departure">
+    <label for="departure"> Departure </label>
+    <input type="date" class="form-control" id="departure">
 
-        <label for="landing"> Landing </label>
-        <input type="date" class="form-control" id="landing">
+    <label for="landing"> Landing </label>
+    <input type="date" class="form-control" id="landing">
 
-        <label for="duration"> Duration </label>
-        <input type="text" class="form-control" id="duration">
+    <label for="duration"> Duration </label>
+    <input type="text" class="form-control" id="duration">
 
-        <label for="distance"> Distance (km) </label>
-        <input type="number" class="form-control" id="distance">
+    <label for="distance"> Distance (km) </label>
+    <input type="number" class="form-control" id="distance">
 
-        <label for="price"> Price </label>
-        <input type="number" class="form-control" id="price">
+    <label for="price"> Price </label>
+    <input type="number" class="form-control" id="price">
 
-        <button type="submit" class="btn btn-success btn-block"> Create </button>
-    </form>
+    <select class="form-control" [(ngModel)]="location1">
+        <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let airport of airports" [ngValue]="airport.name"> {{ airport.name }}, {{ airport.city }}, {{ airport.country }}</option>
+    </select>
+
+    <select class="form-control" [(ngModel)]="location2" *ngIf="location1">
+        <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let airport of airports" [ngValue]="airport.name"> {{ airport.name }}, {{ airport.city }}, {{ airport.country }}</option>
+    </select>
+
+    <select class="form-control" [(ngModel)]="location3" *ngIf="location2">
+        <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let airport of airports" [ngValue]="airport.name"> {{ airport.name }}, {{ airport.city }}, {{ airport.country }}</option>
+    </select>
+
+    <select class="form-control" [(ngModel)]="location4" *ngIf="location3">
+        <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let airport of airports" [ngValue]="airport.name"> {{ airport.name }}, {{ airport.city }}, {{ airport.country }}</option>
+    </select>
+
+    <select class="form-control" [(ngModel)]="location5" *ngIf="location4">
+        <option disabled selected value> -- select an option -- </option>
+        <option *ngFor="let airport of airports" [ngValue]="airport.name"> {{ airport.name }}, {{ airport.city }}, {{ airport.country }}</option>
+    </select>
+
+    <button class="btn btn-success btn-block" (click)="createFlight()"> Create </button>
 </div>
