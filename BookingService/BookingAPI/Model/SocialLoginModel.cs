@@ -13,9 +13,5 @@ namespace BookingAPI.Model
         public string UserName { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        //public string id { get; set; }
-        //public string photoUrl { get; set; }
-        //public string authToken { get; set; }
-        //public string authorizationCode { get; set; }
     }
 }

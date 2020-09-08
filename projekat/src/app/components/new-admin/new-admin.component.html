@@ -1,1 +1,119 @@
-<p>new-admin works!</p>
+<div class="container">
+    <form [formGroup]="service.formModel" autocomplete="off" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col col-md-6">
+                <div class="row justify-content-center">
+                    <h4 class="my-4">Administrator Details</h4>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="email">E-mail</label>
+                        <input class="form-control" type="email" id="email" formControlName="Email">
+                        <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.required">
+                            Please enter an e-mail address.
+                        </label>
+                        <label class="text-danger" *ngIf="service.formModel.get('Email').touched && service.formModel.get('Email').errors?.email">
+                            Invalid e-mail address.
+                        </label>
+                    </div>
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="username">Username</label>
+                        <input class="form-control" type="text" id="username" formControlName="UserName">
+                        <label class="text-danger" *ngIf="service.formModel.get('UserName').touched && service.formModel.get('UserName').errors?.required">
+                            Please enter a username.
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center" formGroupName="Passwords">
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="password">Password</label>
+                        <input class="form-control" type="password" id="password" formControlName="Password">
+                        <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.required">
+                            You must enter a password.
+                        </label>
+                        <label class="text-danger" *ngIf="service.formModel.get('Passwords.Password').touched && service.formModel.get('Passwords.Password').errors?.minlength">
+                            Your password must be at least 6 characters long.
+                        </label>
+                </div>
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="confirmPass">Confirm password</label>
+                        <input class="form-control" type="password" id="confirmPass" formControlName="ConfirmPass">
+                        <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPass').touched && service.formModel.get('Passwords.ConfirmPass').errors?.required">
+                            You must confirm your password.
+                        </label>
+                        <label class="text-danger" *ngIf="service.formModel.get('Passwords.ConfirmPass').touched && service.formModel.get('Passwords.ConfirmPass').errors?.passwordMissmatch">
+                            Passwords must match.
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="name">Name</label>
+                        <input class="form-control" type="text" id="name" formControlName="FirstName">
+                        <label class="text-danger" *ngIf="service.formModel.get('FirstName').touched && service.formModel.get('FirstName').errors?.required">
+                            Please enter your name.
+                        </label>
+                    </div>
+                    <div class="form-group col col col-md-5">
+                        <label class="col-form-label" for="lastName">Last name</label>
+                        <input class="form-control" type="text" id="lastName" formControlName="LastName">
+                        <label class="text-danger" *ngIf="service.formModel.get('LastName').touched && service.formModel.get('LastName').errors?.required">
+                            Please enter your last name.
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="city">City</label>
+                        <input class="form-control" type="text" id="city" formControlName="City"/>
+                    </div>
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="phone">Phone number</label>
+                        <input class="form-control" type="tel" id="phone" formControlName="PhoneNumber"/>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="row justify-content-center">
+                    <h4 class="my-4">Company Details</h4>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="companyName">Company name</label>
+                        <input class="form-control" type="text" id="companyName" formControlName="CompanyName"/>
+                        <label class="text-danger" *ngIf="service.formModel.get('CompanyName').touched && service.formModel.get('CompanyName').errors?.required">
+                            Company name is mandatory.
+                        </label>
+                    </div>
+                    <div class="form-group col col-md-5">
+                        <label class="col-form-label" for="companyType">Company type</label>
+                        <select class="form-control" name="companyType" id="companyType" formControlName="CompanyType">
+                            <option value="Airline">Airline</option>
+                            <option value="RentalAgency">Rental Agency</option>
+                        </select>
+                        <label class="text-danger" *ngIf="service.formModel.get('CompanyType').touched && service.formModel.get('CompanyType').errors?.required">
+                            Company type is mandatory.
+                        </label>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col col-md-10">
+                        <label class="col-form-label" for="companyDescription">Company Description</label>
+                        <textarea rows="4" class="form-control" id="companyDescription" formControlName="CompanyDescription"></textarea>
+                    </div>
+                    <label class="text-danger" *ngIf="service.formModel.get('CompanyDescription').touched && service.formModel.get('CompanyDescription').errors?.required">
+                        Company description is mandatory.
+                    </label>
+                    <label class="text-danger" *ngIf="service.formModel.get('CompanyDescription').touched && service.formModel.get('CompanyDescription').errors?.maxLength">
+                        Company description must be under 640 characters.
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center">
+            <div class="col col-md-3">
+                <button class="btn btn-block btn-success mt-3" [disabled]="service.formModel.invalid" type="submit">Add administrator</button>
+            </div>
+        </div>
+    </form>
+</div>

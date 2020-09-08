@@ -133,7 +133,7 @@ namespace BookingAPI.Controllers
                         new Claim(options.ClaimsIdentity.RoleClaimType, roles.FirstOrDefault()),
                         new Claim("LoginType", loginType)
                     }),
-                Expires = DateTime.UtcNow.AddMinutes(30),
+                Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.UTF8.GetBytes(appSettings.JWT_Secret)), SecurityAlgorithms.HmacSha256Signature)
             };
 

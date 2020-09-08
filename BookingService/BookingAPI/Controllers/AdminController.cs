@@ -14,10 +14,12 @@ namespace BookingAPI.Controllers
     [ApiController]
     public class AdminController : ControllerBase
     {
+        BookingDbContext dbContext;
         private UserManager<User> userManager;
 
-        public AdminController(UserManager<User> userManager)
+        public AdminController(UserManager<User> userManager, BookingDbContext dbContext)
         {
+            this.dbContext = dbContext;
             this.userManager = userManager;
         }
 
@@ -27,8 +29,6 @@ namespace BookingAPI.Controllers
         //POST: api/Admin/NewAdmin
         public async Task<IActionResult> RegisterAdmin(AdminModel model)
         {
-            string role;
-            
             User user = new User()
             {
                 UserName = model.UserName,
@@ -39,19 +39,27 @@ namespace BookingAPI.Controllers
                 PhoneNumber = model.PhoneNumber
             };
 
-            if(model.AdminType == "Flight")
-            {
-                role = "AirlineAdmin";
-            }
-            else
-            {
-                role = "RentACarAdmin";
-            }
-
             try
             {
                 var result = await userManager.CreateAsync(user, model.Password);
-                await userManager.AddToRoleAsync(user, role);
+
+                if (model.CompanyType == "AirlineAdmin")
+                {
+                    await userManager.AddToRoleAsync(user, "AirlineAdmin");
+                    // dodaj u Airlines;
+                }
+                else
+                {
+                    await userManager.AddToRoleAsync(user, "RentACarAdmin");
+                    dbContext.RentalAgencies.Add(new RentalAgency() {
+                        AdminId = user.Id,
+                        Description = model.CompanyDescription,
+                        Name = model.CompanyName 
+                    });
+                }
+
+                dbContext.SaveChanges();
+
                 return Ok(result);
             }
             catch (Exception ex)

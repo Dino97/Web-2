@@ -7,6 +7,8 @@ namespace BookingAPI.Model
 {
     public class AdminModel : UserModel
     {
-        public string AdminType { get; set; }
+        public string CompanyType { get; set; }
+        public string CompanyName { get; set; }
+        public string CompanyDescription { get; set; }
     }
 }
