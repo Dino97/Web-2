@@ -4,14 +4,16 @@ using BookingAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAPI.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200907212422_RentalAgencyTable")]
+    partial class RentalAgencyTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -106,24 +108,6 @@ namespace BookingAPI.Migrations
                     b.ToTable("FriendRequests");
                 });
 
-            modelBuilder.Entity("BookingAPI.Model.Image", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<byte[]>("ImageData")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("ImageTitle")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Images");
-                });
-
             modelBuilder.Entity("BookingAPI.Model.RentalAgency", b =>
                 {
                     b.Property<int>("Id")
@@ -136,9 +120,6 @@ namespace BookingAPI.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LogoId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
