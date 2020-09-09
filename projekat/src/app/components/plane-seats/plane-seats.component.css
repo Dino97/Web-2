@@ -8,11 +8,12 @@
 }
 
 .grid-item {
-    background-color: gray;
+    background-color: darkgray;
     border: 1px solid rgba(0, 0, 0, 0.8);
     font-size: 18px;
     text-align: center;
     border-radius: 5px;
+    color: white;
 
     cursor: pointer;
     user-select: none; /* Standard */
@@ -23,4 +24,11 @@
 
 .grid-item.selected {
     background-color: greenyellow;
+    color: green;
+}
+
+.grid-item.taken {
+    background-color: gray;
+    cursor: default;
+    background: repeating-linear-gradient(45deg, darkgray, darkgray 5px, gray 5px, gray 10px );
 }

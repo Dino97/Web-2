@@ -11,9 +11,9 @@ import { Flight } from '../../entities/flight/flight';
 })
 export class FlightSearchComponent implements OnInit {
   flightForm: FormGroup;
-  flightResults$: Observable<Flight[]>;
+  flightResults;
 
-  constructor(private flights: FlightService) { }
+  constructor(private flightService: FlightService) { }
 
   ngOnInit(): void {
     this.flightForm = new FormGroup({
@@ -29,6 +29,6 @@ export class FlightSearchComponent implements OnInit {
   }
 
   search() {
-    this.flights.searchFlights().toPromise().then((res: Flight[]) => console.log(res[0]));
+    this.flightService.searchFlights(this.flightForm.controls['from'].value).subscribe(res => this.flightResults = res)
   }
 }

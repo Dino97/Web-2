@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-plane-seats',
@@ -7,10 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlaneSeatsComponent implements OnInit {
 
+  @Input() takenSeats: number[];
+  @Output() seatsSelectedEvent = new EventEmitter<number[]>();
+
   seats: number[];
   selectedSeats: string;
 
-  constructor() { }
+
+  
+  constructor() {}
 
   ngOnInit(): void {
     this.seats = new Array(36);
@@ -43,5 +49,13 @@ export class PlaneSeatsComponent implements OnInit {
         this.selectedSeats += ((index + 1));
       }
     }
+  }
+
+  emitSeats() {
+    this.seatsSelectedEvent.emit(this.seats);
+  }
+
+  taken(i): boolean {
+    return this.takenSeats.find(s => s == i) != undefined;
   }
 }

@@ -1,6 +1,17 @@
 
 <div class="grid-container">
-    <div class="grid-item" #seatElem *ngFor="let seat of seats; let i = index" (click)="selectSeat(i, seatElem)"> {{ i + 1 }} </div>
+    <!--<div class="grid-item" #seatElem *ngFor="let seat of seats; let i = index" (click)="selectSeat(i, seatElem)"> {{ i + 1 }} </div>-->
+    <div *ngFor="let seat of seats; let i = index">
+        <div class="grid-item" #seatElem (click)="selectSeat(i, seatElem)" *ngIf="!taken(i)">
+            {{ i + 1 }}
+        </div>
+        <div class="grid-item taken" *ngIf="taken(i)">
+            {{ i + 1 }}
+        </div>
+    </div>
 </div>
-
 Selected seats: {{ selectedSeats }}
+
+<br>
+
+<button class="btn btn-success" (click)="emitSeats()" style="margin: 25px 0px;"> Select </button>

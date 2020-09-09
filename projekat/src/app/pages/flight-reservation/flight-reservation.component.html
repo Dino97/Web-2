@@ -1,0 +1,27 @@
+
+<div class="container" style="padding-top: 25px;">
+    <!--<button class="btn btn-success" (click)="back()"> Back </button>-->
+    <div *ngIf="step == 0">
+        <h4>Select seats:</h4>
+        <div style="width: 125px;">
+            <app-plane-seats (seatsSelectedEvent)="selectSeats($event)" [takenSeats]="reservedSeats"></app-plane-seats>
+        </div>
+    </div>
+
+    <div *ngIf="step == 1">
+        <div *ngFor="let seat of seats; let seatIndex = index" style="margin-bottom: 25px;">
+            <h4>Seat {{ seat }}</h4>
+            <label> For: </label>
+            <select class="form-control" [(ngModel)]="seatOccupant[seatIndex]">
+                <option disabled selected value> -- Select an option -- </option>
+                <option value="Self" *ngIf="!selfSelected"> Self </option>
+                <option value="UU" *ngIf="numberOfSeats > 1"> Unregistered user </option>
+                <option [ngValue]="friend.userName" *ngFor="let friend of friends"> {{ friend.firstName }} {{friend.lastName }} </option>
+            </select>
+            <label for="firstName"> First name: </label>
+            <input type="text" class="form-control" id="firstName">
+            <label for="lastName"> Last name: </label>
+            <input type="text" class="form-control" id="lastName">
+        </div>
+    </div>
+</div>

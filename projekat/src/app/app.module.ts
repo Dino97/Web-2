@@ -34,6 +34,7 @@ import { TravelHistoryComponent } from './components/travel-history/travel-histo
 import { NewFlightComponent } from './components/new-flight/new-flight.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { NewAdminComponent } from './components/new-admin/new-admin.component';
+import { FlightReservationComponent } from './pages/flight-reservation/flight-reservation.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { NewAdminComponent } from './components/new-admin/new-admin.component';
     FlightSearchComponent,
     TravelHistoryComponent,
     NewFlightComponent,
-    NewAdminComponent
+    NewAdminComponent,
+    FlightReservationComponent
   ],
   imports: [
     BrowserModule,

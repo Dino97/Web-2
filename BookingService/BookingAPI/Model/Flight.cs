@@ -8,10 +8,12 @@ namespace BookingAPI.Model
         public int Id { get; set; }
         public DateTime Departure { get; set; }
         public DateTime Landing { get; set; }
-        public Airport[] Locations { get; set; }
+        public List<Airport> Locations { get; set; }
         public float FlightDuration { get; set; }
         public float FlightDistance { get; set; }
         public float TicketPrice { get; set; }
         public int Rating { get; set; }
+
+        //public string Seats { get; set; }
     }
 }

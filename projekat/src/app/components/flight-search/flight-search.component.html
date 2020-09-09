@@ -49,12 +49,29 @@
 
         <div class="row justify-content-center" style="margin-top: 5px;">
             <div class="col col-auto form-group">
-                <button class="btn btn-success btn-block" type="submit"> Search </button>
+                <button class="btn btn-success btn-block" (click)="search()"> Search </button>
             </div>
+        </div>
+
+        <div class="row">
+            <table class="table table-striped">
+                <tr>
+                    <th> Departure </th>
+                    <th> Landing </th>
+                    <th> Layovers </th>
+                    <th> Duration </th>
+                    <th> Company </th>
+                    <th> Price </th>
+                </tr>
+                <tr *ngFor="let flight of flightResults">
+                    <td> {{ flight.departure }} </td>
+                    <td> {{ flight.landing }} </td>
+                    <td> {{ flight.locations.length - 2 }} </td>
+                    <td> {{ flight.flightDuration }}h </td>
+                    <td> NOT SET </td>
+                    <td> {{ flight.ticketPrice }}$ </td>
+                </tr>
+            </table>
         </div>
     </form>
 </div>
-
-<ul class="search-result">
-    <li *ngFor="let flight of flightResults$ | async"> Test </li>
-</ul>

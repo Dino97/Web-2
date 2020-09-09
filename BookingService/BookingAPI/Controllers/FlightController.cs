@@ -23,36 +23,55 @@ namespace BookingAPI.Controllers
             this.dbContext = dbContext;
         }
 
-        [HttpPost]
-        [Authorize(Roles = "AirlineAdmin")]
-        [Route("NewFlight")]
-        public void NewFlight()
+        [HttpGet]
+        [Route("GetFlight")]
+        public Flight GetFlight(int id)
         {
+            return dbContext.Flights.Find(id);
+        }
+
+        [HttpPost]
+        //[Authorize(Roles = "AirlineAdmin")]
+        [Route("NewFlight")]
+        public void NewFlight(NewFlightParams newFlight)
+        {
+            List<Airport> destinations = new List<Airport>();
+            foreach (string destination in newFlight.Destinations)
+            {
+                Airport a = dbContext.Airports.Find(destination);
+
+                if (a != null)
+                    destinations.Add(a);
+            }
+
             Flight flight = new Flight()
             {
-                Departure = new DateTime(),
-                Landing = new DateTime(),
-                FlightDistance = 0,
-                FlightDuration = 0,
-                Rating = 0,
-                Locations = { },
-                TicketPrice = 0
+                Departure = newFlight.Departure,
+                Landing = newFlight.Landing,
+                FlightDistance = newFlight.FlightDistance,
+                FlightDuration = newFlight.FlightDuration,
+                TicketPrice = newFlight.TicketPrice,
+                Locations = destinations.ToList(),
+                Rating = 0
             };
 
             dbContext.Flights.Add(flight);
             dbContext.SaveChanges();
         }
 
-        [HttpGet]
+        [HttpPost]
+        [Route("Search")]
         public IEnumerable<Flight> Search(FlightSearchParams searchParams)
         {
-            /*dbContext.Flights.Where(f => 
-                f.
-            )*/
+            /*IEnumerable<Flight> flights = dbContext.Flights.Where(f =>
+                f.Locations[0].Name.Equals(searchParams.Origin) || 
+                f.Locations[0].City.Equals(searchParams.Origin) || 
+                f.Locations[0].Country.Equals(searchParams.Origin)
+            );*/
 
-            DateTime departure = searchParams.Departure.Date;
+            IEnumerable<Flight> flights = dbContext.Flights.Include(f => f.Locations);
 
-            return null;
+            return flights;
         }
 
         [HttpGet]
@@ -100,5 +119,15 @@ namespace BookingAPI.Controllers
 
         //public enum EClass { Economy, Business, First }
         //public EClass Class { get; set; }
+    }
+
+    public class NewFlightParams
+    {
+        public DateTime Departure { get; set; }
+        public DateTime Landing { get; set; }
+        public float FlightDistance { get; set; }
+        public float FlightDuration { get; set; }
+        public float TicketPrice { get; set; }
+        public string[] Destinations { get; set; }
     }
 }
