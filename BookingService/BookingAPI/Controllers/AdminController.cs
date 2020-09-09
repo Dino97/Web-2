@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BookingAPI.Controllers
 {
@@ -42,24 +43,38 @@ namespace BookingAPI.Controllers
             try
             {
                 var result = await userManager.CreateAsync(user, model.Password);
-
-                if (model.CompanyType == "AirlineAdmin")
+                
+                if (result.Succeeded)
                 {
-                    await userManager.AddToRoleAsync(user, "AirlineAdmin");
-                    // dodaj u Airlines;
-                }
-                else
-                {
-                    await userManager.AddToRoleAsync(user, "RentACarAdmin");
-                    dbContext.RentalAgencies.Add(new RentalAgency() {
-                        AdminId = user.Id,
-                        Description = model.CompanyDescription,
-                        Name = model.CompanyName 
+                    EntityEntry<Image> entityEntry = dbContext.Add(new Image()
+                    {
+                        ImageData = Convert.FromBase64String(model.CompanyLogo.Split(',')[1]),
+                        ImageTitle = model.CompanyName + " Logo"
                     });
+
+                    dbContext.SaveChanges();
+
+                    if (model.CompanyType == "Airline")
+                    {
+                        await userManager.AddToRoleAsync(user, "AirlineAdmin");
+                        // dodaj u Airlines;
+                    }
+                    else
+                    {
+                        await userManager.AddToRoleAsync(user, "RentACarAdmin");
+
+                        dbContext.RentalAgencies.Add(new RentalAgency()
+                        {
+                            AdminId = user.Id,
+                            Description = model.CompanyDescription,
+                            Name = model.CompanyName,
+                            LogoId = entityEntry.Entity.Id
+                        });
+
+                        dbContext.SaveChanges();
+                    }
                 }
-
-                dbContext.SaveChanges();
-
+   
                 return Ok(result);
             }
             catch (Exception ex)

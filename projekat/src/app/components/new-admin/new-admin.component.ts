@@ -8,6 +8,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./new-admin.component.css']
 })
 export class NewAdminComponent implements OnInit {
+  imageUrl: string = "/assets/images/noLogo.png";
+  file2Upload: File = null;
+  reader: FileReader;
+  image;
 
   constructor(public service: AdminService, private toastr: ToastrService) { }
 
@@ -15,8 +19,20 @@ export class NewAdminComponent implements OnInit {
     this.service.formModel.reset();
   }
 
+  handlerFileInput(file: FileList){
+    this.file2Upload = file[0];
+
+    let reader = new FileReader();
+    reader.onload = (event: any) => {
+      this.imageUrl = event.target.result;
+      //this.service.formModel.value.CompanyLogo = reader.result
+      this.image = reader.result;
+    }
+    reader.readAsDataURL(this.file2Upload);
+  }
+
   onSubmit(){
-    this.service.addAdmin().subscribe(
+    this.service.addAdmin(this.image).subscribe(
       (res:any) => {
         if(res.succeeded){
           this.service.formModel.reset();
@@ -27,7 +43,6 @@ export class NewAdminComponent implements OnInit {
               case 'DuplicateUserName':
                 this.toastr.error('Username is already taken.', 'Registration failed!');
                 break;
-            
               default:
                 this.toastr.error(element.description, 'Registration failed!');
                 break;

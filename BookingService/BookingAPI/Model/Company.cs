@@ -10,5 +10,6 @@ namespace BookingAPI.Model
         public string AdminId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+        public int LogoId { get; set; }
     }
 }

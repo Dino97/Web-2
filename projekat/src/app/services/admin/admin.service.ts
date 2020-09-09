@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { Company } from 'src/app/entities/company/company';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class AdminService {
     'LastName': ['', [Validators.required]],
     'City': [''],
     'PhoneNumber': [''],
+    'CompanyLogo': ['', [Validators.required]],
     'CompanyName': ['', [Validators.required]],
     'CompanyType': ['', [Validators.required]],
     'CompanyDescription': ['', [Validators.required, Validators.maxLength(640)]],
@@ -38,7 +40,7 @@ export class AdminService {
     }
   }
 
-  addAdmin(){
+  addAdmin(image){
     let body = {
       UserName: this.formModel.value.UserName,
       Email: this.formModel.value.Email,
@@ -49,7 +51,8 @@ export class AdminService {
       City: this.formModel.value.City,
       CompanyName: this.formModel.value.CompanyName,
       CompanyDescription: this.formModel.value.CompanyDescription,
-      CompanyType: this.formModel.value.CompanyType
+      CompanyType: this.formModel.value.CompanyType,
+      CompanyLogo: image
     }
 
     return this.http.post(this.BaseURI + "Admin/NewAdmin", body);
