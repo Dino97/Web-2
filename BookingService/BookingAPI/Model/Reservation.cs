@@ -17,5 +17,9 @@ namespace BookingAPI.Model
 
         [Required]
         public User User { get; set; }
+
+        public string Seats { get; set; }
+
+        //public bool Confirmed { get; set; }
     }
 }

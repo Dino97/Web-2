@@ -75,29 +75,6 @@ namespace BookingAPI.Controllers
         }
 
         [HttpGet]
-        [Authorize]
-        [Route("GetUserReservations")]
-        public IEnumerable<Reservation> GetUserReservations()
-        {
-            string username = User.Claims.First(c => c.Type == "UserName").Value;
-
-            return dbContext.Reservations.Where(r => r.User.UserName.Equals(username));
-        }
-
-        [HttpPost]
-        [Route("CancelReservation")]
-        public void CancelReservation(int id)
-        {
-            Reservation reservation = dbContext.Reservations.Find(id);
-
-            if (reservation == null && reservation.Flight.Departure > DateTime.Now.AddHours(3))
-            {
-                dbContext.Entry(reservation).State = EntityState.Deleted;
-                dbContext.SaveChanges();
-            }
-        }
-
-        [HttpGet]
         [Route("GetAirports")]
         public IEnumerable<Airport> GetAirports()
         {

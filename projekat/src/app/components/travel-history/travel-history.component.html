@@ -8,7 +8,11 @@
         <th> Actions </th>
     </tr>
 
-    <tr *ngFor="let res of getUserReservations()">
-        
+    <tr *ngFor="let res of reservations">
+        <td></td>
+        <td></td>
+        <td> {{ res.flight.departure }} </td>
+        <td> {{ res.flight.landing }} </td>
+        <td> <i class="fas fa-plane-slash" (click)="cancelReservation()"></i> </td>
     </tr>
 </table>

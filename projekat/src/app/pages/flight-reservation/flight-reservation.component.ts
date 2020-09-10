@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { FlightService } from 'src/app/services/flight/flight.service';
+import { ReservationService } from 'src/app/services/reservation/reservation.service';
 
 @Component({
   selector: 'app-flight-reservation',
@@ -12,27 +13,43 @@ export class FlightReservationComponent implements OnInit {
   step: number;
   seats: number[];
   friends: Object[];
-  seatOccupant = [];
   reservedSeats: number[];
+  flight: any;
+  
+  passengers = [];
+  passports = [];
 
   numberOfSeats = 0;
   selfSelected: boolean;
 
+  
 
-  constructor(private flightService: FlightService, private friendService: FriendService) {
+  constructor(private flightService: FlightService, 
+              private reservationService: ReservationService, 
+              private friendService: FriendService) {
     this.step = 0;
     this.seats = [];
-    this.reservedSeats = [5, 3];
   }
 
   ngOnInit(): void {
-    this.flightService.getFlight(2).subscribe(flight => console.log(flight));
+    this.flightService.getFlight(2).subscribe(flight => { 
+      this.flight = flight;
+      this.reservedSeats = [];
+      
+      for (let index = 0; index < this.flight.seats.length; index++) {
+        const element = this.flight.seats[index];
+
+        if (element != '0')
+          this.reservedSeats.push(index);
+      }
+    });
     this.friendService.getFriends().subscribe(friends => this.friends = friends);
   }
 
   selectSeats(seats: number[]) {
     this.numberOfSeats = 0;
 
+    // Count selected seats.
     for (let index = 0; index < seats.length; index++) {
       const element = seats[index];
 
@@ -42,30 +59,22 @@ export class FlightReservationComponent implements OnInit {
       }
     }
 
-    /*if (this.numberOfSeats > 1)
-      this.step = 1;
-    else
-      this.step = 2;*/
-
-      this.step = 1;
-
-      // if only one seat is selected, do not offer friends as option
+    if (this.numberOfSeats > 0)
+    {
+      // if only one seat is selected, do not offer friends as option.
       if (this.numberOfSeats == 1)
         this.friends = [];
+      
+      this.step = 1;
+    }
   }
 
-  back() {
-    if (this.step == 2) {
-      if (this.numberOfSeats > 1) {
-        this.step = 1;
-      }
-      else {
-        this.step = 0;
-      }
-
-      return;
-    }
-
-    this.step--;
+  createReservation() {
+    this.reservationService.createReservation({
+      flightId: 2,
+      passengers: this.passengers,
+      seats: this.seats,
+      passports: this.passports
+    });
   }
 }
