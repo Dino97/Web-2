@@ -46,10 +46,14 @@ namespace BookingAPI.Controllers
                 
                 if (result.Succeeded)
                 {
+                    string imageName = model.CompanyName + "Logo";
+                    string location = AppDomain.CurrentDomain.BaseDirectory + imageName;
+                    System.IO.File.WriteAllBytes(location, Convert.FromBase64String(model.CompanyLogo.Split(',')[1]));
+                    
                     EntityEntry<Image> entityEntry = dbContext.Add(new Image()
                     {
-                        ImageData = Convert.FromBase64String(model.CompanyLogo.Split(',')[1]),
-                        ImageTitle = model.CompanyName + " Logo"
+                        ImageLocation = location,
+                        ImageTitle = imageName
                     });
 
                     dbContext.SaveChanges();

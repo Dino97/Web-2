@@ -10,8 +10,6 @@ namespace BookingAPI
     {
         private DbContext dbContext;
 
-
-
         public BookingDb(DbContext context)
         {
             this.dbContext = context;
