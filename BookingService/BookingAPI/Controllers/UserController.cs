@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookingAPI.Model;
 using Common.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -57,6 +58,25 @@ namespace BookingAPI.Controllers
             {
                 throw ex;
             }
+        }
+
+        [HttpPut]
+        [Authorize]
+        [Route("UpdateUser")]
+        public async Task<IActionResult> UpdateUser(ChangeableUserData data)
+        {
+            string username = User.Claims.First(c => c.Type == "UserName").Value;
+            User user = await userManager.FindByNameAsync(username);
+
+            if (user == null)
+                return BadRequest();
+
+            user.FirstName = data.FirstName;
+            user.LastName = data.LastName;
+            user.City = data.City;
+
+            await userManager.UpdateAsync(user);
+            return NoContent();
         }
 
         [HttpPost]
@@ -178,6 +198,13 @@ namespace BookingAPI.Controllers
             }
 
             return true;
+        }
+
+        public class ChangeableUserData
+        {
+            public string FirstName { get; set; }
+            public string LastName { get; set; }
+            public string City { get; set; }
         }
     }
 }

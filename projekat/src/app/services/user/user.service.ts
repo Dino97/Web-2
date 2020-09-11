@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { SocialUser } from 'angularx-social-login';
 
 
@@ -77,5 +77,9 @@ export class UserService {
     });
 
     return isMatch;
+  }
+
+  updateProfile(userData) {
+    return this.http.put(this.BaseURI + "User/UpdateUser", userData);
   }
 }
