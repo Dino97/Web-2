@@ -20,6 +20,6 @@ namespace BookingAPI.Model
 
         public string Seats { get; set; }
 
-        //public bool Confirmed { get; set; }
+        public bool Confirmed { get; set; }
     }
 }

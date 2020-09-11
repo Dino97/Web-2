@@ -13,6 +13,9 @@ namespace BookingAPI
         public DbSet<Airport> Airports { get; set; }
         public DbSet<RentalAgency> RentalAgencies { get; set; }
         public DbSet<Image> Images { get; set; }
+        public DbSet<FlightInvitation> FlightInvitations { get; set; }
+
+
 
         public BookingDbContext(DbContextOptions<BookingDbContext> options) :
             base(options)

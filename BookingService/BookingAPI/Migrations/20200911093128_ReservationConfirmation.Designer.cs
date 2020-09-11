@@ -4,14 +4,16 @@ using BookingAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAPI.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200911093128_ReservationConfirmation")]
+    partial class ReservationConfirmation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,33 +85,6 @@ namespace BookingAPI.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Flights");
-                });
-
-            modelBuilder.Entity("BookingAPI.Model.FlightInvitation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FromId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ToId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FromId");
-
-                    b.HasIndex("ReservationId");
-
-                    b.HasIndex("ToId");
-
-                    b.ToTable("FlightInvitations");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.FriendRequest", b =>
@@ -425,21 +400,6 @@ namespace BookingAPI.Migrations
                         .HasColumnType("nvarchar(30)");
 
                     b.HasDiscriminator().HasValue("User");
-                });
-
-            modelBuilder.Entity("BookingAPI.Model.FlightInvitation", b =>
-                {
-                    b.HasOne("BookingAPI.Model.User", "From")
-                        .WithMany()
-                        .HasForeignKey("FromId");
-
-                    b.HasOne("BookingAPI.Model.Reservation", "Reservation")
-                        .WithMany()
-                        .HasForeignKey("ReservationId");
-
-                    b.HasOne("BookingAPI.Model.User", "To")
-                        .WithMany()
-                        .HasForeignKey("ToId");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.Reservation", b =>

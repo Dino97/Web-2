@@ -38,7 +38,43 @@ namespace BookingAPI.Controllers
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
-            return dbContext.Reservations.Include(r => r.Flight).Where(r => r.User.UserName.Equals(username));
+            return dbContext.Reservations.Include(r => r.Flight).Where(r => r.User.UserName.Equals(username) && r.Confirmed == true);
+        }
+
+        [HttpGet]
+        [Authorize]
+        [Route("GetFlightInvitations")]
+        public IEnumerable<FlightInvitation> GetFlightInvitations()
+        {
+            string username = User.Claims.First(c => c.Type == "UserName").Value;
+
+            return dbContext.FlightInvitations.Include(i => i.From)
+                                              .Include(i => i.To)
+                                              .Where(r => r.To.UserName.Equals(username));
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("AcceptFlightInvite")]
+        public void AcceptFlightInvite(int id)
+        {
+            FlightInvitation invite = dbContext.FlightInvitations.Include(fi => fi.Reservation).FirstOrDefault(fi => fi.Id == id);
+            invite.Reservation.Confirmed = true;
+
+            dbContext.Entry(invite).State = EntityState.Deleted;
+            dbContext.SaveChanges();
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("DeclineFlightInvite")]
+        public void DeclineFlightInvite(int id)
+        {
+            FlightInvitation invite = dbContext.FlightInvitations.Include(fi => fi.Reservation).ThenInclude(r => r.Flight).FirstOrDefault(fi => fi.Id == id);
+            FreeReservedSeats(invite.Reservation);
+
+            dbContext.Entry(invite).State = EntityState.Deleted;
+            dbContext.SaveChanges();
         }
 
         [HttpPost]
@@ -53,7 +89,7 @@ namespace BookingAPI.Controllers
 
             if (flight != null)
             {
-                Reservation personalReservation = new Reservation() { Flight = flight, User = user, Seats = "" };
+                Reservation personalReservation = new Reservation() { Flight = flight, User = user, Seats = "", Confirmed = true };
 
                 for (int i = 0; i < data.Passengers.Length; i++)
                 {
@@ -71,10 +107,21 @@ namespace BookingAPI.Controllers
                         {
                             Flight = flight,
                             User = friend,
-                            Seats = data.Seats[i].ToString()
+                            Seats = data.Seats[i].ToString(),
+                            Confirmed = false
                         };
 
                         dbContext.Reservations.Add(friendReservation);
+
+                        // Add invitation
+                        FlightInvitation invitation = new FlightInvitation()
+                        {
+                            From = user,
+                            To = friend,
+                            Reservation = friendReservation
+                        };
+
+                        dbContext.FlightInvitations.Add(invitation);
                     }
 
                     // Reserve seat on flight
@@ -101,22 +148,23 @@ namespace BookingAPI.Controllers
 
             if (reservation != null && reservation.Flight.Departure > DateTime.Now.AddHours(3))
             {
-                // Free reserved seats
-                {
-                    char[] seats = reservation.Flight.Seats.ToCharArray();
-
-                    foreach (string seatStr in reservation.Seats.Split(','))
-                    {
-                        int seatIndex = int.Parse(seatStr) - 1;
-                        seats[seatIndex] = '0';
-                    }
-
-                    reservation.Flight.Seats = new string(seats);
-                }
-
+                FreeReservedSeats(reservation);
                 dbContext.Entry(reservation).State = EntityState.Deleted;
                 dbContext.SaveChanges();
             }
+        }
+
+        private void FreeReservedSeats(Reservation reservation)
+        {
+            char[] seats = reservation.Flight.Seats.ToCharArray();
+
+            foreach (string seatStr in reservation.Seats.Split(','))
+            {
+                int seatIndex = int.Parse(seatStr) - 1;
+                seats[seatIndex] = '0';
+            }
+
+            reservation.Flight.Seats = new string(seats);
         }
     }
 }
