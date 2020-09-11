@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CarRentalService } from 'src/app/entities/cars/carRentalService/car-rental-service';
-import { DataExchangeService } from 'src/app/services/data-exchange/data-exchange.service';
 import { RentalAgencyService } from 'src/app/services/rentalAgency/rental-agency.service';
 import { Company } from 'src/app/entities/company/company';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-car-rental-service',
@@ -10,21 +9,24 @@ import { Company } from 'src/app/entities/company/company';
   styleUrls: ['./car-rental-service.component.css']
 })
 export class CarRentalServiceComponent implements OnInit {
-  message: CarRentalService
+  //message: CarRentalService
   company: Company;
 
-  constructor(private data: DataExchangeService, private service: RentalAgencyService) { }
+  constructor(/*private data: DataExchangeService,*/ private service: RentalAgencyService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.data.currentMessage.subscribe(message => this.message = message);
-    /*this.service.getAgency("Alamo").subscribe(
+    //this.data.currentMessage.subscribe(message => this.message = message);
+    let companyName;
+    this.route.params.subscribe(params => companyName = params["name"]);
+
+    this.service.getAgency(companyName).subscribe(
       res => {
-        this.company = new Company(res["name"], res["description"], this.message.logo)
+        this.company = new Company(res["name"], res["description"], res["logo"]);
       },
       err => {
         console.log(err);
       }
-    )*/
+    )
   }
 
 }

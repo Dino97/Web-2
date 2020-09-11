@@ -2,7 +2,7 @@
     <div *ngFor="let service of carRentalServices">
         <div class="card">
             <img class="card*image-top" src="{{service.logo}}" alt="Card image cap">
-            <a class="stretched-link" routerLink="/rentalService" (click)=sendMessage(service)></a>
+            <a class="stretched-link" routerLink="/rentalService/{{service.name}}"></a>
         </div>
     </div>
 </div>

@@ -1,11 +1,11 @@
 <div class="container">
-    <app-company-display [company] = "message"></app-company-display>
+    <app-company-display [company] = "company"></app-company-display>
     <div class="row justify-content-between mt-5">
         <div class="col-8">
             <div class="container">
                 <h3><b>Our vehicles</b></h3>
                 <div class="row scrolling-wrapper flex-row flex-nowrap">
-                    <div *ngFor="let car of message.cars">
+                    <!--<div *ngFor="let car of message.cars">
                         <div class="col-3">
                             <div class="card">
                                 <img class="card-img-top" src="{{car.image}}" alt="">
@@ -17,11 +17,11 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
-        <div class="col-3 mr-5">
+        <!--<div class="col-3 mr-5">
             <h3><b>Branches</b></h3>
             <ul class="list-group">
                 <div *ngFor="let agency of message.branches">
@@ -31,7 +31,7 @@
                     </li>
                 </div>
             </ul>
-        </div>
+        </div>-->
     </div>
 </div>
     

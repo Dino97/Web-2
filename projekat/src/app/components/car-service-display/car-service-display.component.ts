@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarRentalService } from 'src/app/entities/cars/carRentalService/car-rental-service';
 import { CompanyService } from 'src/app/services/company/company.service';
 import { DataExchangeService } from 'src/app/services/data-exchange/data-exchange.service';
+import { RentalAgencyService } from 'src/app/services/rentalAgency/rental-agency.service';
 
 @Component({
   selector: 'app-car-service-display',
@@ -9,18 +10,25 @@ import { DataExchangeService } from 'src/app/services/data-exchange/data-exchang
   styleUrls: ['./car-service-display.component.css']
 })
 export class CarServiceDisplayComponent implements OnInit {
-  carRentalServices: Array<CarRentalService>;
-  message: CarRentalService;
+  carRentalServices;
+  //message: CarRentalService;
 
-  constructor(private companyService: CompanyService, private data: DataExchangeService) { }
+  constructor(private service: RentalAgencyService, private data: DataExchangeService) { }
 
   ngOnInit(): void {
-    this.carRentalServices = this.companyService.getRentalServices()
-    this.data.currentMessage.subscribe(message => this.message = message);
+    this.service.getAgencies().subscribe(
+      res => {
+        this.carRentalServices = res
+      }, 
+      err =>{
+        console.log(err);
+      }
+    )
+    //this.data.currentMessage.subscribe(message => this.message = message);
   }
 
-  sendMessage(newMessage: CarRentalService){
-    this.data.changeMessage(newMessage);
-  }
+  /*sendMessage(newMessage: CarRentalService){
+    this.data.changeMessage(newMessage);(click)=sendMessage(service)
+  }*/
 
 }

@@ -49,14 +49,6 @@ namespace BookingAPI.Controllers
                     string imageName = model.CompanyName + "Logo";
                     string location = AppDomain.CurrentDomain.BaseDirectory + imageName;
                     System.IO.File.WriteAllBytes(location, Convert.FromBase64String(model.CompanyLogo.Split(',')[1]));
-                    
-                    EntityEntry<Image> entityEntry = dbContext.Add(new Image()
-                    {
-                        ImageLocation = location,
-                        ImageTitle = imageName
-                    });
-
-                    dbContext.SaveChanges();
 
                     if (model.CompanyType == "Airline")
                     {
@@ -72,11 +64,15 @@ namespace BookingAPI.Controllers
                             AdminId = user.Id,
                             Description = model.CompanyDescription,
                             Name = model.CompanyName,
-                            LogoId = entityEntry.Entity.Id
+                            Logo = new Image()
+                            {
+                                ImageLocation = location,
+                                ImageTitle = imageName
+                            }
                         });
-
-                        dbContext.SaveChanges();
                     }
+
+                    dbContext.SaveChanges();
                 }
    
                 return Ok(result);
