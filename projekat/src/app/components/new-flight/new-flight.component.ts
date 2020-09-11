@@ -20,6 +20,7 @@ export class NewFlightComponent implements OnInit {
   location5;
 
   errorMsg = "";
+  today: Date;
 
 
 
@@ -28,6 +29,7 @@ export class NewFlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.today = new Date();
     this.airportService.getAirports().subscribe(res => this.airports = res);
   }
 

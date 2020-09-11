@@ -16,6 +16,7 @@ export class FlightSearchComponent implements OnInit {
   filteredSearchResults: any[];
 
   airports;
+  today: Date;
 
   // Filtering
   airlineFilter = "";
@@ -27,6 +28,8 @@ export class FlightSearchComponent implements OnInit {
   constructor(private flightService: FlightService, private airportService: AirportService) { }
 
   ngOnInit(): void {
+    this.today = new Date();
+
     this.flightForm = new FormGroup({
       'from': new FormControl(null, Validators.required),
       'to': new FormControl(null, Validators.required),

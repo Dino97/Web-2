@@ -18,11 +18,11 @@
             </div>
             <div class="col form-group">
                 <label class="col-form-group" for="departure"> Departure </label>
-                <input class="form-control" type="date" id="departure" formControlName="departure"/>
+                <input class="form-control" type="date" id="departure" min="{{today|date:'yyyy-MM-dd'}}" formControlName="departure"/>
             </div>
             <div class="col form-group">
                 <label class="col-form-group" for="landing"> Landing </label>
-                <input class="form-control" type="date" id="landing" formControlName="landing"/>
+                <input class="form-control" type="date" id="landing" min="{{today|date:'yyyy-MM-dd'}}" formControlName="landing"/>
             </div>
         </div>
         
