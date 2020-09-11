@@ -37,9 +37,8 @@ const routes: Routes = [
   { path: "friends", component: FriendsComponent },
   { path: "flightsearch", component: FlightSearchComponent },
   { path: "home", component: TravelHistoryComponent },
-  { path: "newflight", component: NewFlightComponent },
   { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}},
-  { path: "flightreservation", component: FlightReservationComponent }
+  { path: "flightreservation/:id", component: FlightReservationComponent }
 ];
 
 @NgModule({

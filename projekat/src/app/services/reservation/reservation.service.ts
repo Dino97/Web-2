@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -18,5 +18,13 @@ export class ReservationService {
 
   createReservation(data) {
     this.http.post(this.baseUri + "Reservation/CreateReservation", data).subscribe();
+  }
+
+  cancelReservation(reservation) {
+    let options = {
+      params: new HttpParams().set("id", reservation.id)
+    }
+
+    this.http.post(this.baseUri + "Reservation/CancelReservation", null, options).subscribe();
   }
 }

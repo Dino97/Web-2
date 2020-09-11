@@ -35,23 +35,24 @@ namespace BookingAPI.Controllers
         [Route("NewFlight")]
         public void NewFlight(NewFlightParams newFlight)
         {
-            List<Airport> destinations = new List<Airport>();
-            foreach (string destination in newFlight.Destinations)
+            string destinations = "";
+            for (int i = 0; i < newFlight.Destinations.Length; i++)
             {
-                Airport a = dbContext.Airports.Find(destination);
+                destinations += newFlight.Destinations[i];
 
-                if (a != null)
-                    destinations.Add(a);
+                if (i < newFlight.Destinations.Length - 1)
+                    destinations += ",";
             }
 
             Flight flight = new Flight()
             {
                 Departure = newFlight.Departure,
-                Landing = newFlight.Landing,
+                Landing = newFlight.Landing.AddHours(newFlight.FlightDuration),
                 FlightDistance = newFlight.FlightDistance,
                 FlightDuration = newFlight.FlightDuration,
                 TicketPrice = newFlight.TicketPrice,
-                Locations = destinations.ToList(),
+                Locations = destinations,
+                Seats = new string('0', 36),
                 Rating = 0
             };
 
@@ -63,13 +64,49 @@ namespace BookingAPI.Controllers
         [Route("Search")]
         public IEnumerable<Flight> Search(FlightSearchParams searchParams)
         {
-            /*IEnumerable<Flight> flights = dbContext.Flights.Where(f =>
-                f.Locations[0].Name.Equals(searchParams.Origin) || 
-                f.Locations[0].City.Equals(searchParams.Origin) || 
-                f.Locations[0].Country.Equals(searchParams.Origin)
-            );*/
+            List<Flight> flights = dbContext.Flights.Where(f =>
+                f.Departure.Date == searchParams.Departure.Date &&
+                f.Landing.Date == searchParams.Landing.Date
+            ).ToList();
 
-            IEnumerable<Flight> flights = dbContext.Flights.Include(f => f.Locations);
+            // Filter by location
+            for (int i = flights.Count - 1; i >= 0; i--)
+            {
+                Airport[] locations = ParseLocations(flights[i].Locations);
+
+                // Filter by origin
+                if (locations[0].Name.Equals(searchParams.From) == false)
+                {
+                    flights.RemoveAt(i);
+                    continue;
+                }
+
+                // Filter by destination
+                {
+                    bool foundDestination = false;
+                    for (int j = 1; j < locations.Length; j++)
+                    {
+                        if (locations[j].Name.Equals(searchParams.To))
+                        {
+                            foundDestination = true;
+                            break;
+                        }
+                    }
+
+                    if (!foundDestination)
+                    {
+                        flights.RemoveAt(i);
+                        continue;
+                    }
+                }
+            }
+
+            // Filter by passenger number
+            for (int i = flights.Count - 1; i >= 0; i--)
+            {
+                if (flights[i].Seats.Count(c => c == '0') < searchParams.Passengers)
+                    flights.RemoveAt(i);
+            }
 
             return flights;
         }
@@ -80,14 +117,25 @@ namespace BookingAPI.Controllers
         {
             return dbContext.Airports;
         }
+
+        private Airport[] ParseLocations(string locations)
+        {
+            string[] ids = locations.Split(',');
+            Airport[] airports = new Airport[ids.Length];
+
+            for (int i = 0; i < ids.Length; i++)
+                airports[i] = dbContext.Airports.Find(ids[i]);
+
+            return airports;
+        }
     }
 
     public class FlightSearchParams
     {
         public enum ETripType { RoundTrip, OneWay, MultiCity }
 
-        public string Origin { get; set; }
-        public string Destination { get; set; }
+        public string From { get; set; }
+        public string To { get; set; }
         public DateTime Departure { get; set; }
         public DateTime Landing { get; set; }
         public ETripType TripType { get; set; }

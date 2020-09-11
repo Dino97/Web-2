@@ -1,18 +1,27 @@
 
-<table class="table">
-    <tr>
-        <th> From </th>
-        <th> To </th>
-        <th> Departure </th>
-        <th> Landing </th>
-        <th> Actions </th>
-    </tr>
-
-    <tr *ngFor="let res of reservations">
-        <td></td>
-        <td></td>
-        <td> {{ res.flight.departure }} </td>
-        <td> {{ res.flight.landing }} </td>
-        <td> <i class="fas fa-plane-slash" (click)="cancelReservation()"></i> </td>
-    </tr>
-</table>
+<div class="container">
+    <table class="table table-striped">
+        <tr>
+            <th> From </th>
+            <th> To </th>
+            <th> Departure </th>
+            <th> Landing </th>
+            <th> Seats </th>
+            <th> Price </th>
+            <th> Actions </th>
+        </tr>
+    
+        <tr *ngFor="let res of reservations">
+            <td></td>
+            <td></td>
+            <td> {{ res.flight.departure }} </td>
+            <td> {{ res.flight.landing }} </td>
+            <td> {{ res.seats }} </td>
+            <td> {{ res.flight.ticketPrice }} </td>
+            <td> 
+                <a style="color: #007bff; cursor: pointer;" (click)="cancelReservation(res)" *ngIf="canCancel(res)"> <i class="fas fa-plane-slash"></i> </a>
+                <div *ngIf="!canCancel(res)" style="width: 100px;"> Cannot cancel reservation {{ cancelTime }} hours before flight. </div>
+            </td>
+        </tr>
+    </table>
+</div>

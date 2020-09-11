@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { FlightService } from 'src/app/services/flight/flight.service';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
@@ -24,7 +25,8 @@ export class FlightReservationComponent implements OnInit {
 
   
 
-  constructor(private flightService: FlightService, 
+  constructor(private route: ActivatedRoute,
+              private flightService: FlightService, 
               private reservationService: ReservationService, 
               private friendService: FriendService) {
     this.step = 0;
@@ -32,16 +34,20 @@ export class FlightReservationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.flightService.getFlight(2).subscribe(flight => { 
-      this.flight = flight;
-      this.reservedSeats = [];
-      
-      for (let index = 0; index < this.flight.seats.length; index++) {
-        const element = this.flight.seats[index];
+    this.route.params.subscribe(params => {
+      let flightId = +params['id'];
 
-        if (element != '0')
-          this.reservedSeats.push(index);
-      }
+      this.flightService.getFlight(flightId).subscribe(flight => { 
+        this.flight = flight;
+        this.reservedSeats = [];
+        
+        for (let index = 0; index < this.flight.seats.length; index++) {
+          const element = this.flight.seats[index];
+
+          if (element != '0')
+            this.reservedSeats.push(index);
+        }
+      });
     });
     this.friendService.getFriends().subscribe(friends => this.friends = friends);
   }
@@ -71,7 +77,7 @@ export class FlightReservationComponent implements OnInit {
 
   createReservation() {
     this.reservationService.createReservation({
-      flightId: 2,
+      flightId: this.flight.id,
       passengers: this.passengers,
       seats: this.seats,
       passports: this.passports

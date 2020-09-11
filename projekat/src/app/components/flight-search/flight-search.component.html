@@ -4,11 +4,17 @@
         <div class="row" style="margin-top: 5px;">
             <div class="col form-group">
                 <label class="col-form-group" for="from"> From </label>
-                <input class="form-control" type="text" id="from" formControlName="from"/>
+                <select class="form-control" id="to" formControlName="from">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option *ngFor="let airport of airports" [ngValue]="airport.name"> {{ airport.name }}, {{ airport.city }}, {{ airport.country }}</option>
+                </select>
             </div>
             <div class="col form-group">
                 <label class="col-form-group" for="to"> To </label>
-                <input class="form-control" type="text" id="to" formControlName="to"/>
+                <select class="form-control" id="to" formControlName="to">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option *ngFor="let airport of airports" [ngValue]="airport.name"> {{ airport.name }}, {{ airport.city }}, {{ airport.country }}</option>
+                </select>
             </div>
             <div class="col form-group">
                 <label class="col-form-group" for="departure"> Departure </label>
@@ -31,7 +37,7 @@
             </div>
             <div class="col form-group">
                 <label class="col-form-group" for="passNum"> Passengers </label>
-                <input class="form-control" type="number" min="1" max="9" id="passNum" formControlName="passNum"/>
+                <input class="form-control" type="number" min="1" max="36" id="passNum" formControlName="passNum"/>
             </div>
             <div class="col form-group">
                 <label class="col-form-group" for="flightClass"> Class </label>
@@ -49,29 +55,57 @@
 
         <div class="row justify-content-center" style="margin-top: 5px;">
             <div class="col col-auto form-group">
-                <button class="btn btn-success btn-block" (click)="search()"> Search </button>
+                <button class="btn btn-success btn-block" [disabled]="flightForm.invalid" (click)="search()"> Search </button>
             </div>
         </div>
-
-        <div class="row">
-            <table class="table table-striped">
-                <tr>
-                    <th> Departure </th>
-                    <th> Landing </th>
-                    <th> Layovers </th>
-                    <th> Duration </th>
-                    <th> Company </th>
-                    <th> Price </th>
-                </tr>
-                <tr *ngFor="let flight of flightResults">
-                    <td> {{ flight.departure }} </td>
-                    <td> {{ flight.landing }} </td>
-                    <td> {{ flight.locations.length - 2 }} </td>
-                    <td> {{ flight.flightDuration }}h </td>
-                    <td> NOT SET </td>
-                    <td> {{ flight.ticketPrice }}$ </td>
-                </tr>
-            </table>
-        </div>
     </form>
+
+    <hr>
+
+    <h4> Filter by </h4>
+    <div class="row">
+        <div class="col form-group">
+            <label for="airline"> Airline </label>
+            <select id="airline" class="form-control" [(ngModel)]="airlineFilter" (ngModelChange)="filterResults()">
+                <option selected value>  </option>
+                <option [ngValue]="airline" *ngFor="let airline of ['Airline1', 'Airline2', 'Airline3']"> {{ airline }} </option>
+            </select>
+        </div>
+
+        <div class="col form-group">
+            <label for="flightDuration"> Flight duration (h) </label>
+            <input type="text" id="flightDuration" class="form-control" [(ngModel)]="flightDurationFilter" (ngModelChange)="filterResults()">
+        </div>
+
+        <div class="col form-group">
+            <label for="maxPrice"> Max price ($) </label>
+            <input type="text" id="maxPrice" class="form-control" [(ngModel)]="maxPriceFilter" (ngModelChange)="filterResults()">
+        </div>
+    </div>
+
+
+    <div class="row">
+        <table class="table table-striped" style="margin-bottom: 150px;">
+            <tr>
+                <th> Locations </th>
+                <th> Departure </th>
+                <th> Landing </th>
+                <th> Layovers </th>
+                <th> Duration </th>
+                <th> Company </th>
+                <th> Price </th>
+                <th> </th>
+            </tr>
+            <tr *ngFor="let flight of filteredSearchResults">
+                <td> {{ flight.locations.split(',').join(" -> ") }} </td>
+                <td> {{ flight.departure.slice(0, flight.landing.length - 3).replace('T', ' ') }} </td>
+                <td> {{ flight.landing.slice(0, flight.landing.length - 3).replace('T', ' ') }} </td>
+                <td> {{ flight.locations.split(',').length - 2 }} </td>
+                <td> {{ flight.flightDuration }}h </td>
+                <td> NOT SET </td>
+                <td> {{ flight.ticketPrice }}$ </td>
+                <td> <a [routerLink]="['/flightreservation', flight.id]"> <i class="fas fa-plane"></i> </a> </td>
+            </tr>
+        </table>
+    </div>
 </div>

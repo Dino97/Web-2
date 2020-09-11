@@ -97,10 +97,23 @@ namespace BookingAPI.Controllers
         [Route("CancelReservation")]
         public void CancelReservation(int id)
         {
-            Reservation reservation = dbContext.Reservations.Find(id);
+            Reservation reservation = dbContext.Reservations.Include(r => r.Flight).SingleOrDefault(r => r.Id == id);
 
-            if (reservation == null && reservation.Flight.Departure > DateTime.Now.AddHours(3))
+            if (reservation != null && reservation.Flight.Departure > DateTime.Now.AddHours(3))
             {
+                // Free reserved seats
+                {
+                    char[] seats = reservation.Flight.Seats.ToCharArray();
+
+                    foreach (string seatStr in reservation.Seats.Split(','))
+                    {
+                        int seatIndex = int.Parse(seatStr) - 1;
+                        seats[seatIndex] = '0';
+                    }
+
+                    reservation.Flight.Seats = new string(seats);
+                }
+
                 dbContext.Entry(reservation).State = EntityState.Deleted;
                 dbContext.SaveChanges();
             }

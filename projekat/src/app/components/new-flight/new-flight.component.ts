@@ -28,7 +28,7 @@ export class NewFlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.airportService.getAirports().subscribe(res => { this.airports = res; console.log(res) });
+    this.airportService.getAirports().subscribe(res => this.airports = res);
   }
 
   createFlight(departure, landing, duration, distance, price) {
