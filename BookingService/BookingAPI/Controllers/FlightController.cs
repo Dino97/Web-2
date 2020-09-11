@@ -38,10 +38,13 @@ namespace BookingAPI.Controllers
             string destinations = "";
             for (int i = 0; i < newFlight.Destinations.Length; i++)
             {
-                destinations += newFlight.Destinations[i];
+                if (string.IsNullOrEmpty(newFlight.Destinations[i]))
+                    break;
 
-                if (i < newFlight.Destinations.Length - 1)
+                if (i > 0)
                     destinations += ",";
+
+                destinations += newFlight.Destinations[i];
             }
 
             Flight flight = new Flight()
