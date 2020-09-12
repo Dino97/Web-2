@@ -9,21 +9,21 @@ namespace BookingAPI
 {
     public static class BookingDbInitializer
     {
-        /*public static void SeedData(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+        public static void SeedData(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             SeedRoles(roleManager);
             SeedAdmin(userManager);
-        }*/
+        }
 
-        public async static Task SeedRoles(RoleManager<IdentityRole> roleManager)
+        public static void SeedRoles(RoleManager<IdentityRole> roleManager)
         {
             string[] roles = new string[] { "SystemAdmin", "RegularUser", "RentACarAdmin", "AirlineAdmin" };
 
             foreach (string role in roles)
             {
-                if (!(await roleManager.RoleExistsAsync(role)))
+                if (!roleManager.RoleExistsAsync(role).Result)
                 {
-                    var result = await roleManager.CreateAsync(new IdentityRole { Name = role, NormalizedName = role.ToUpper() });
+                    var result = roleManager.CreateAsync(new IdentityRole { Name = role, NormalizedName = role.ToUpper() }).Result;
 
                     if (!result.Succeeded)
                     {
@@ -32,9 +32,9 @@ namespace BookingAPI
                 }
             }
         }
-        public async static void SeedAdmin(UserManager<User> userManager)
+        public static void SeedAdmin(UserManager<User> userManager)
         {
-            if((await userManager.FindByNameAsync("admin")) == null)
+            if (userManager.FindByNameAsync("admin").Result == null)
             {
                 User user = new User
                 {
@@ -46,7 +46,7 @@ namespace BookingAPI
                     PhoneNumber = "+381600000001"
                 };
 
-                IdentityResult result = await userManager.CreateAsync(user, "admin1");
+                IdentityResult result = userManager.CreateAsync(user, "admin1").Result;
 
                 if (result.Succeeded)
                 {

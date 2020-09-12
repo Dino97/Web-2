@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using BookingAPI.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -54,7 +55,8 @@ namespace BookingAPI.Controllers
         // GET: api/RentalAgency/LoadAgencies
         public async Task<IActionResult> LoadAgencies()
         {
-            var agencies = await dbContext.RentalAgencies.Include(ra => ra.Logo)
+            var agencies = await dbContext.RentalAgencies
+                .Include(ra => ra.Logo)
                 .Select(ra => new 
                 {
                     ra.Name,
@@ -63,6 +65,27 @@ namespace BookingAPI.Controllers
                 .ToListAsync();
 
             return Ok(agencies);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "RentACarAdmin")]
+        [Route("LoadBranches")]
+        // GET: api/RentalAgency/LoadBranches
+        public async Task<IActionResult> LoadBranches()
+        {
+            string admin = User.Claims.First(claim => claim.Type == "UserName").Value;
+
+            var agency = await dbContext.RentalAgencies
+                .Include(ra => ra.Branches)
+                    .ThenInclude(ra => ra.Location)
+                .Select(ra => new 
+                { 
+                    ra.AdminUserName,
+                    ra.Branches                
+                })
+                .FirstOrDefaultAsync(ra => ra.AdminUserName == admin);
+
+            return Ok(agency.Branches);
         }
     }
 }

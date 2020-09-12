@@ -91,9 +91,9 @@ namespace BookingAPI
 
             app.UseAuthorization();
 
-            BookingDbInitializer.SeedRoles(roleManager).Wait();
+            //BookingDbInitializer.SeedRoles(roleManager).Wait();
 
-            BookingDbInitializer.SeedAdmin(userManager);
+            BookingDbInitializer.SeedData(userManager, roleManager);
 
             app.UseEndpoints(endpoints =>
             {

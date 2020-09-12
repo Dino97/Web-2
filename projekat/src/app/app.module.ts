@@ -36,6 +36,7 @@ import { AuthInterceptor } from './auth.interceptor';
 import { NewAdminComponent } from './components/new-admin/new-admin.component';
 import { FlightReservationComponent } from './pages/flight-reservation/flight-reservation.component';
 import { FlightInvitationsComponent } from './components/flight-invitations/flight-invitations.component';
+import { RentalAgencyProfileComponent } from './pages/rental-agency-profile/rental-agency-profile.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { FlightInvitationsComponent } from './components/flight-invitations/flig
     NewFlightComponent,
     NewAdminComponent,
     FlightReservationComponent,
-    FlightInvitationsComponent
+    FlightInvitationsComponent,
+    RentalAgencyProfileComponent
   ],
   imports: [
     BrowserModule,

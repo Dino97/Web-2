@@ -17,4 +17,8 @@ export class RentalAgencyService {
   getAgencies(){
     return this.http.get(this.BaseURI + "LoadAgencies/");
   }
+
+  getBranches(){
+    return this.http.get(this.BaseURI + "LoadBranches");
+  }
 }
