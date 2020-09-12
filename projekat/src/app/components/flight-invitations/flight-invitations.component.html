@@ -1,0 +1,8 @@
+
+<h4> Invitations </h4>
+<p *ngFor="let invitation of flightInvitations">
+    {{ invitation.from.firstName }} {{ invitation.from.lastName }} has invited you to join his/her flight
+    <a (click)="acceptInvitation(invitation)"> <i class="fas fa-check"></i> </a>
+    <a (click)="declineInvitation(invitation)"> <i class="fas fa-times"></i> </a>
+</p>
+<p *ngIf="flightInvitations.length == 0"> No invitations. </p>
