@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: "rentalService/:name", component: CarRentalServiceComponent},
   { path: "cars", component: RentPageComponent },
   { path: "flights", component: FlightPageComponent },
-  { path: "friends", component: FriendsComponent },
+  { path: "friends", component: FriendsComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RegularUser']} },
   { path: "flightsearch", component: FlightSearchComponent },
   { path: "home", component: TravelHistoryComponent },
   { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}},

@@ -34,6 +34,22 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  isRentACarAdmin(){
+    if(JwtDecode(localStorage.getItem('token')).role === "RentACarAdmin"){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  isRegularUser(){
+    if(JwtDecode(localStorage.getItem('token')).role === "RegularUser"){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   logOut(){
     this.username = ""; 
     if(JwtDecode(localStorage.getItem('token')).LoginType == "social"){

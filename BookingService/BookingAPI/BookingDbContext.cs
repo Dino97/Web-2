@@ -14,8 +14,9 @@ namespace BookingAPI
         public DbSet<RentalAgency> RentalAgencies { get; set; }
         public DbSet<Image> Images { get; set; }
         public DbSet<FlightInvitation> FlightInvitations { get; set; }
-
-
+        public DbSet<Location> Locations { get; set; }
+        public DbSet<RentalAgencyBranch> RentalAgencyBranches { get; set; }
+        public DbSet<Car> Cars { get; set; }
 
         public BookingDbContext(DbContextOptions<BookingDbContext> options) :
             base(options)
@@ -26,6 +27,8 @@ namespace BookingAPI
             base.OnModelCreating(builder);
 
             builder.Entity<FriendRequest>().HasKey(fr => new { fr.From, fr.To });
+
+            builder.Entity<Company>().HasIndex(c => c.Name).IsUnique();
 
             #region Airports
             builder.Entity<Airport>().HasData(new Airport()

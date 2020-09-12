@@ -8,7 +8,7 @@ import { Car } from 'src/app/entities/cars/car/car';
   providedIn: 'root'
 })
 export class DataExchangeService {
-  private messageSource = new BehaviorSubject<CarRentalService>(new CarRentalService("default name", "default desc", "default pic", new Array<CarRentalAgency>(), new Array<Car>()));
+  private messageSource = new BehaviorSubject<CarRentalService>(new CarRentalService("default name", "default desc", "default pic"));
   currentMessage = this.messageSource.asObservable();
 
   constructor() { }

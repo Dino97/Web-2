@@ -61,7 +61,7 @@ namespace BookingAPI.Controllers
 
                         dbContext.RentalAgencies.Add(new RentalAgency()
                         {
-                            AdminId = user.Id,
+                            AdminUserName = user.UserName,
                             Description = model.CompanyDescription,
                             Name = model.CompanyName,
                             Logo = new Image()

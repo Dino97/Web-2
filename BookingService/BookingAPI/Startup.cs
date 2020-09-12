@@ -70,7 +70,7 @@ namespace BookingAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -90,6 +90,8 @@ namespace BookingAPI
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            BookingDbInitializer.SeedRoles(roleManager).Wait();
 
             BookingDbInitializer.SeedAdmin(userManager);
 

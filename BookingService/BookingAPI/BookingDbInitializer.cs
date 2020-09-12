@@ -9,9 +9,32 @@ namespace BookingAPI
 {
     public static class BookingDbInitializer
     {
-        public static void SeedAdmin(UserManager<User> userManager)
+        /*public static void SeedData(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
-            if(userManager.FindByNameAsync("admin").Result == null)
+            SeedRoles(roleManager);
+            SeedAdmin(userManager);
+        }*/
+
+        public async static Task SeedRoles(RoleManager<IdentityRole> roleManager)
+        {
+            string[] roles = new string[] { "SystemAdmin", "RegularUser", "RentACarAdmin", "AirlineAdmin" };
+
+            foreach (string role in roles)
+            {
+                if (!(await roleManager.RoleExistsAsync(role)))
+                {
+                    var result = await roleManager.CreateAsync(new IdentityRole { Name = role, NormalizedName = role.ToUpper() });
+
+                    if (!result.Succeeded)
+                    {
+                        throw new Exception("Failed to create role");
+                    }
+                }
+            }
+        }
+        public async static void SeedAdmin(UserManager<User> userManager)
+        {
+            if((await userManager.FindByNameAsync("admin")) == null)
             {
                 User user = new User
                 {
@@ -23,7 +46,7 @@ namespace BookingAPI
                     PhoneNumber = "+381600000001"
                 };
 
-                IdentityResult result = userManager.CreateAsync(user, "admin1").Result;
+                IdentityResult result = await userManager.CreateAsync(user, "admin1");
 
                 if (result.Succeeded)
                 {

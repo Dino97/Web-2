@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace BookingAPI.Model
 {
-    public class Image
+    public class Location
     {
         [Key]
         public int Id { get; set; }
-        public string ImageTitle { get; set; }
         [Required]
-        public string ImageLocation { get; set; }
+        public string Country { get; set; }
+        [Required]
+        public string City { get; set; }
+        public string Adress { get; set; }
+        public float Lat { get; set; }
+        public float Lon { get; set; }
     }
 }

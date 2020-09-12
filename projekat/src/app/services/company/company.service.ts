@@ -31,7 +31,7 @@ export class CompanyService {
     return airlines;
   }
 
-  getRentalServices(){
+  /*getRentalServices(){
     let sevices = new Array<CarRentalService>();
 
     let branchesEuropacar: CarRentalAgency[] = [ new CarRentalAgency(new Location("Serbia", "SRB", "Novi Sad", "Bulevar Jase Tomica 1", 0, 0))
@@ -68,5 +68,5 @@ export class CompanyService {
     sevices.push(a3);
   
     return sevices;
-  }
+  }*/
 }

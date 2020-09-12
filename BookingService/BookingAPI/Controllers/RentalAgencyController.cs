@@ -28,7 +28,11 @@ namespace BookingAPI.Controllers
         public async Task<object> GetAgency([FromQuery]string companyName)
         {
             // var rentalAgency = await dbContext.RentalAgencies.Where(ra => ra.Name == companyName).SingleAsync();
-            var rentalAgency = await dbContext.RentalAgencies.Include(ra => ra.Logo).FirstOrDefaultAsync(ra => ra.Name == companyName);
+            var rentalAgency = await dbContext.RentalAgencies
+                .Include(ra => ra.Logo)
+                .Include(ra => ra.Branches)
+                    .ThenInclude(branch => branch.Location)
+                .FirstOrDefaultAsync(ra => ra.Name == companyName);
 
             if(rentalAgency == null)
             {
@@ -40,7 +44,8 @@ namespace BookingAPI.Controllers
             return Ok(new { 
                 name = rentalAgency.Name,
                 description = rentalAgency.Description,
-                logo = "data:image/png;base64," + Convert.ToBase64String(image) 
+                logo = "data:image/png;base64," + Convert.ToBase64String(image),
+                branches = rentalAgency.Branches
             });
         }
 

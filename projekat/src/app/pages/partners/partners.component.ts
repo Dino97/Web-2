@@ -17,7 +17,6 @@ export class PartnersComponent implements OnInit {
 
   ngOnInit(): void {
     this.airlines = this.companyService.getAirlines();
-    this.carRentalServices = this.companyService.getRentalServices();
   }
 
 }

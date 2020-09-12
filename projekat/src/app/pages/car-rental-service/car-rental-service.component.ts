@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RentalAgencyService } from 'src/app/services/rentalAgency/rental-agency.service';
 import { Company } from 'src/app/entities/company/company';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CarRentalService } from 'src/app/entities/cars/carRentalService/car-rental-service';
 
 @Component({
   selector: 'app-car-rental-service',
@@ -10,18 +11,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CarRentalServiceComponent implements OnInit {
   //message: CarRentalService
-  company: Company;
+  rentalAgency: CarRentalService;
 
   constructor(/*private data: DataExchangeService,*/ private service: RentalAgencyService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.rentalAgency = new CarRentalService("", "", "")
     //this.data.currentMessage.subscribe(message => this.message = message);
     let companyName;
     this.route.params.subscribe(params => companyName = params["name"]);
 
     this.service.getAgency(companyName).subscribe(
       res => {
-        this.company = new Company(res["name"], res["description"], res["logo"]);
+        this.rentalAgency.name = res["name"],
+        this.rentalAgency.description = res["description"],
+        this.rentalAgency.logo = res["logo"],
+        this.rentalAgency.branches = res["branches"]
       },
       err => {
         console.log(err);
