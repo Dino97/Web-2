@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace BookingAPI.Controllers
 {
@@ -91,11 +92,12 @@ namespace BookingAPI.Controllers
         [HttpPost]
         [Authorize(Roles = "RentACarAdmin")]
         [Route("AddBranch")]
-        public async Task<IActionResult> AddBranch([FromBody]BranchModel model)
+        // POST: api/RentalAgency/AddBranch
+        public IActionResult AddBranch([FromBody]BranchModel model)
         {
             string admin = User.Claims.First(claim => claim.Type == "UserName").Value;
 
-            var agency = await dbContext.RentalAgencies.FirstOrDefaultAsync(ra => ra.AdminUserName == admin);
+            var agency = dbContext.RentalAgencies.FirstOrDefaultAsync(ra => ra.AdminUserName == admin);
 
             RentalAgencyBranch branch = new RentalAgencyBranch 
             {
@@ -114,17 +116,16 @@ namespace BookingAPI.Controllers
 
             try
             {
-                var result = await dbContext.RentalAgencyBranches.AddAsync(branch);
+                RentalAgencyBranch result = dbContext.RentalAgencyBranches.Add(branch).Entity;
                 //dbContext.Entry(agency).State = EntityState.Modified;
 
-                await dbContext.SaveChangesAsync();
+                dbContext.SaveChanges();
 
                 return Ok(result);
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                return BadRequest(ex.Message);
             }
         }
 

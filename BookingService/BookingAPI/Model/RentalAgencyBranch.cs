@@ -12,7 +12,7 @@ namespace BookingAPI.Model
         [Key]
         public int Id { get; set; }
         [ForeignKey("RentalAgencyId")]
-        public int AgencyId { get; set; }
+        public int RentalAgencyId { get; set; }
         [Required]
         public Location Location { get; set; }
         [Required]
