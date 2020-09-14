@@ -21,7 +21,7 @@ export class ReservationService {
   }
 
   createReservation(data) {
-    this.http.post(this.baseUri + "Reservation/CreateReservation", data).subscribe();
+    return this.http.post(this.baseUri + "Reservation/CreateReservation", data);
   }
 
   cancelReservation(reservation) {
@@ -29,7 +29,7 @@ export class ReservationService {
       params: new HttpParams().set("id", reservation.id)
     }
 
-    this.http.post(this.baseUri + "Reservation/CancelReservation", null, options).subscribe();
+    return this.http.post(this.baseUri + "Reservation/CancelReservation", null, options);
   }
 
   acceptInvitation(invitation) {

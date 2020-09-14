@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AirportService } from 'src/app/services/airport/airport.service';
 import { FlightService } from 'src/app/services/flight/flight.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-flight',
@@ -24,7 +25,7 @@ export class NewFlightComponent implements OnInit {
 
 
 
-  constructor(private airportService: AirportService, private flightService: FlightService) {
+  constructor(private airportService: AirportService, private flightService: FlightService, private toastr: ToastrService) {
     this.airports = [];
   }
 
@@ -51,6 +52,12 @@ export class NewFlightComponent implements OnInit {
         this.location4,
         this.location5
       ]
+    }).subscribe(_ => {
+      departure = landing = null;
+      departureTime = landingTime = undefined;
+      distance = price = "";
+      this.location1 = this.location2 = this.location3 = this.location4 = this.location5 = "";
+      this.toastr.success("New flight successfully created.", "Flight created")
     });
   }
 

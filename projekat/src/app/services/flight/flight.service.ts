@@ -21,8 +21,7 @@ export class FlightService {
   }
 
   newFlight(flightData) {
-    console.log(flightData)
-    this.http.post(this.baseUri + "Flight/NewFlight", flightData).subscribe();
+    return this.http.post(this.baseUri + "Flight/NewFlight", flightData);
   }
 
   searchFlights(from, to, departure, landing, passengers) {

@@ -98,8 +98,8 @@
             </tr>
             <tr *ngFor="let flight of filteredSearchResults">
                 <td> {{ flight.locations.split(',').join(" -> ") }} </td>
-                <td> {{ flight.departure.slice(0, flight.landing.length - 3).replace('T', ' ') }} </td>
-                <td> {{ flight.landing.slice(0, flight.landing.length - 3).replace('T', ' ') }} </td>
+                <td> {{ flight.departure.replace('T', ' ') }} </td>
+                <td> {{ flight.landing.replace('T', ' ') }} </td>
                 <td> {{ flight.locations.split(',').length - 2 }} </td>
                 <td> {{ flight.flightDuration }}h </td>
                 <td> {{ flight.airline.name }} </td>
