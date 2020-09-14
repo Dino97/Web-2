@@ -53,12 +53,15 @@ namespace BookingAPI.Controllers
                 destinations += newFlight.Destinations[i];
             }
 
+            DateTime departure = newFlight.Departure.AddHours(ParseTime(newFlight.DepartureTime));
+            DateTime landing = newFlight.Landing.AddHours(ParseTime(newFlight.LandingTime));
+
             Flight flight = new Flight()
             {
-                Departure = newFlight.Departure,
-                Landing = newFlight.Landing.AddHours(newFlight.FlightDuration),
+                Departure = departure,
+                Landing = landing,
                 FlightDistance = newFlight.FlightDistance,
-                FlightDuration = newFlight.FlightDuration,
+                FlightDuration = (float)(landing - departure).TotalHours,
                 TicketPrice = newFlight.TicketPrice,
                 Locations = destinations,
                 Seats = new string('0', 36),
@@ -139,6 +142,15 @@ namespace BookingAPI.Controllers
 
             return airports;
         }
+
+        private float ParseTime(string time)
+        {
+            string[] parts = time.Split(':');
+            int hrs = int.Parse(parts[0]);
+            int mins = int.Parse(parts[1]);
+
+            return hrs + mins / 60.0f;
+        }
     }
 
     public class FlightSearchParams
@@ -161,6 +173,8 @@ namespace BookingAPI.Controllers
     {
         public DateTime Departure { get; set; }
         public DateTime Landing { get; set; }
+        public string DepartureTime { get; set; }
+        public string LandingTime { get; set; }
         public float FlightDistance { get; set; }
         public float FlightDuration { get; set; }
         public float TicketPrice { get; set; }

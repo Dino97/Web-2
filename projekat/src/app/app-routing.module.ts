@@ -20,13 +20,14 @@ import { NewAdminComponent } from './components/new-admin/new-admin.component';
 import { FlightReservationComponent } from './pages/flight-reservation/flight-reservation.component';
 import { RentalAgencyProfileComponent } from './pages/rental-agency-profile/rental-agency-profile.component';
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
+import { AirlineComponent } from './pages/airline/airline.component';
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "partners", pathMatch: "full"},
+  { path: "", redirectTo: "home", pathMatch: "full"},
   { path: "login", component: LoginComponent, canActivate: [LoggedInGuard]},
   { path: "profile", component: ProfileComponent, canActivate: [ProfileGuard]}, // canActivate: [ProfileGuard], data: {permittedRoles}: ['Uloga1', ...]
-  { path: "airprofile", component: AirlineProfileComponent },
+  { path: "airprofile", component: AirlineProfileComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['AirlineAdmin']} },
   { path: "register", component: RegisterComponent, canActivate: [LoggedInGuard]},
   { path: "partners", component: PartnersComponent },
   /*{ path: "cars", component: MainComponent, children: [
@@ -43,7 +44,8 @@ const routes: Routes = [
   { path: "flightreservation/:id", component: FlightReservationComponent },
   { path: "agencyProfile", component: RentalAgencyProfileComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RentACarAdmin']}, children: [
     { path: "add", component: AddBranchComponent }
-  ]}
+  ]},
+  { path: "airline/:name", component: AirlineComponent }
 ];
 
 @NgModule({

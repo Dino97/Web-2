@@ -8,11 +8,7 @@ import { Airline } from 'src/app/entities/airline/airline';
 })
 export class AirlineProfileComponent implements OnInit {
 
-  profile: Airline;
-
-  constructor() { 
-    this.profile = new Airline("Air Serbia", "Promo description", "");
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

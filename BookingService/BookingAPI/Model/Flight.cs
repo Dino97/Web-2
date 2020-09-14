@@ -13,6 +13,7 @@ namespace BookingAPI.Model
         public float FlightDistance { get; set; }
         public float TicketPrice { get; set; }
         public int Rating { get; set; }
+        public Airline Airline { get; set; }
 
         public string Seats { get; set; }
     }

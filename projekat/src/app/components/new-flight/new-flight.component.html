@@ -1,13 +1,26 @@
 <div class="row">
     <div class="col">
-        <label for="departure"> Departure </label>
-        <input type="date" class="form-control" id="departure" min="{{today|date:'yyyy-MM-dd'}}" #departure>
+        <div class="row">
+            <div class="col">
+                <label for="departure"> Departure </label>
+                <input type="date" class="form-control" id="departure" min="{{today|date:'yyyy-MM-dd'}}" #departure>
+            </div>
+            <div class="col">
+                <label for="departureTime"> Departure time </label>
+                <input type="time" class="form-control" id="departureTime" #departureTime>
+            </div>
+        </div>
         
-        <label for="landing"> Landing </label>
-        <input type="date" class="form-control" id="landing" min="{{today|date:'yyyy-MM-dd'}}" #landing>
-        
-        <label for="duration"> Duration (h) </label>
-        <input type="text" class="form-control" id="duration" #duration>
+        <div class="row">
+            <div class="col">
+                <label for="landing"> Landing </label>
+                <input type="date" class="form-control" id="landing" min="{{today|date:'yyyy-MM-dd'}}" #landing>
+            </div>
+            <div class="col">
+                <label for="landingTime"> Landing time</label>
+                <input type="time" class="form-control" id="landingTime" #landingTime>
+            </div>
+        </div>
         
         <label for="distance"> Distance (km) </label>
         <input type="number" class="form-control" id="distance" #distance>
@@ -52,6 +65,6 @@
 
 
     <button class="btn btn-success btn-block" 
-            (click)="createFlight(departure.value, landing.value, duration.value, distance.value, price.value)" 
+            (click)="createFlight(departure.value, landing.value, departureTime.value, landingTime.value, distance.value, price.value)" 
             style="margin: 0 15px;"> Create </button>
 </div>

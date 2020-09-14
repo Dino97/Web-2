@@ -24,10 +24,24 @@ namespace BookingAPI.Controllers
 
         [HttpGet]
         [Route("GetAirlines")]
-        public async Task<ActionResult<IEnumerable<Airline>>> GetAirlines()
+        public async Task<ActionResult<IEnumerable<object>>> GetAirlines()
         {
-            List<Airline> airlines = await dbContext.Airlines.ToListAsync();
+            var airlines = await dbContext.Airlines.Include(a => a.Logo).Select(a => new
+            {
+                a.Name,
+                Logo = "data:image/png;base64," + Convert.ToBase64String(System.IO.File.ReadAllBytes(a.Logo.ImageLocation))
+            }).ToListAsync();
+
             return airlines;
+        }
+
+        [HttpGet]
+        [Route("GetQuickReservations")]
+        public async Task<ActionResult<IEnumerable<object>>> GetQuickReservations(string airline)
+        {
+            List<Flight> flights = await dbContext.Flights.Where(f => f.Airline.Name == airline).ToListAsync();
+
+            return flights;
         }
     }
 }

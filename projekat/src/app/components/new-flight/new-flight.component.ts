@@ -33,14 +33,15 @@ export class NewFlightComponent implements OnInit {
     this.airportService.getAirports().subscribe(res => this.airports = res);
   }
 
-  createFlight(departure, landing, duration, distance, price) {
+  createFlight(departure, landing, departureTime, landingTime, distance, price) {
     if (this.validate() == false)
       return;
 
     this.flightService.newFlight({ 
       departure,
       landing,
-      flightDuration: +duration,
+      departureTime,
+      landingTime,
       flightDistance: +distance,
       ticketPrice: +price,
       destinations: [

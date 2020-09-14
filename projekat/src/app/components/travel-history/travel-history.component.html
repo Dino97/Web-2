@@ -2,8 +2,7 @@
 <div class="container">
     <table class="table table-striped">
         <tr>
-            <th> From </th>
-            <th> To </th>
+            <th> Destinations </th>
             <th> Departure </th>
             <th> Landing </th>
             <th> Seats </th>
@@ -12,10 +11,9 @@
         </tr>
     
         <tr *ngFor="let res of reservations">
-            <td></td>
-            <td></td>
-            <td> {{ res.flight.departure }} </td>
-            <td> {{ res.flight.landing }} </td>
+            <td> {{ res.flight.locations.split(',').join(" -> ") }} </td>
+            <td> {{ res.flight.departure.slice(0, res.flight.departure.length - 3).replace('T', ' ') }} </td>
+            <td> {{ res.flight.landing.slice(0, res.flight.landing.length - 3).replace('T', ' ') }} </td>
             <td> {{ res.seats }} </td>
             <td> {{ res.flight.ticketPrice }} </td>
             <td> 

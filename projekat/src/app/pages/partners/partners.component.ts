@@ -10,13 +10,18 @@ import { CarRentalService } from 'src/app/entities/cars/carRentalService/car-ren
   styleUrls: ['./partners.component.css']
 })
 export class PartnersComponent implements OnInit {
-  airlines: Array<Airline>
+  airlines;
   carRentalServices: Array<CarRentalService>
+
+
 
   constructor(private companyService: CompanyService) { }
 
   ngOnInit(): void {
-    this.airlines = this.companyService.getAirlines();
+    this.companyService.getAirlines().subscribe(airlines => this.airlines = airlines);
   }
 
+  showAirline(airline) {
+
+  }
 }

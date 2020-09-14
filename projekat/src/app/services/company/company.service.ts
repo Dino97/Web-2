@@ -4,6 +4,7 @@ import { CarRentalService } from 'src/app/entities/cars/carRentalService/car-ren
 import { CarRentalAgency } from 'src/app/entities/cars/carRentalAgency/car-rental-agency';
 import { Location } from 'src/app/entities/location/location';
 import { Car } from 'src/app/entities/cars/car/car';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -11,24 +12,14 @@ import { Car } from 'src/app/entities/cars/car/car';
 })
 export class CompanyService {
 
-  constructor() { }
+  readonly baseUri: string = "http://localhost:52482/api/";
 
-  getAirlines(){
-    let airlines = new Array<Airline>();
 
-    const a1 = new Airline("Air Serbia", "Hvala Arapima", "../../../assets/vectors/companies/airlines/airserbia.svg");
-    const a3 = new Airline("Etihad Airways", "", "../../../assets/vectors/companies/airlines/etihad.svg");
-    const a4 = new Airline("Lufthansa", "", "../../../assets/vectors/companies/airlines/lufthansa.svg");
-    //const a5 = new Airline("Ryanair", "", "../../../assets/vectors/companies/airlines/ryanair.svg");
-    const a7 = new Airline("Wizz Air", "", "../../../assets/vectors/companies/airlines/wizz.svg");
 
-    airlines.push(a1);
-    airlines.push(a3);
-    airlines.push(a4);
-    //airlines.push(a5);
-    airlines.push(a7);
+  constructor(private http: HttpClient) { }
 
-    return airlines;
+  getAirlines() {
+    return this.http.get(this.baseUri + "Airline/GetAirlines");
   }
 
   /*getRentalServices(){

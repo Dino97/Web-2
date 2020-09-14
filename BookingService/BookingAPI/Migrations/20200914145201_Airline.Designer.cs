@@ -4,14 +4,16 @@ using BookingAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAPI.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200914145201_Airline")]
+    partial class Airline
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,9 +139,6 @@ namespace BookingAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AirlineName")
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<DateTime>("Departure")
                         .HasColumnType("datetime2");
 
@@ -165,8 +164,6 @@ namespace BookingAPI.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AirlineName");
 
                     b.ToTable("Flights");
                 });
@@ -610,13 +607,6 @@ namespace BookingAPI.Migrations
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("BookingAPI.Model.Flight", b =>
-                {
-                    b.HasOne("BookingAPI.Model.Airline", "Airline")
-                        .WithMany()
-                        .HasForeignKey("AirlineName");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.FlightInvitation", b =>

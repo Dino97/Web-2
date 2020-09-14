@@ -9,8 +9,8 @@
     </div>
 
     <div style="margin-left: 4%;">
-        <div class="card-deck" >
-            <div *ngFor="let airline of airlines">
+        <div class="card-deck">
+            <div *ngFor="let airline of airlines" (click)="showAirline(airline)">
                 <div class="card">
                     <img class="card-image-top" src={{airline.logo}} alt="Card image cap">
                     <a class="stretched-link" routerLink="/"></a>

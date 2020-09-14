@@ -27,11 +27,16 @@
                 </div>
                 <div *ngIf="isRentACarAdmin()">
                     <li class="nav-item">
-                        <a class="nav-link mr-4" style="color: white;" routerLink="/agencyProfile"><i class="fas fa-car"></i> Agency profile</a>
+                        <a class="nav-link mr-4" style="color: white;" routerLink="/agencyProfile"><i class="fas fa-car"></i> Agency profile </a>
+                    </li>
+                </div>
+                <div *ngIf="isAirlineAdmin()">
+                    <li class="nav-item">
+                        <a class="nav-link mr-4" style="color: white;" routerLink="/airprofile"><i class="fas fa-plane"></i> Airline </a>
                     </li>
                 </div>
                 <li class="nav-item">
-                    <a class="nav-link mr-4" style="color: white;" routerLink="/profile"> <i class="fas fa-user"></i> {{ username }}</a>
+                    <a class="nav-link mr-4" style="color: white;" routerLink="/profile"> <i class="fas fa-user"></i> {{ username }} </a>
                 </li>
                 <div *ngIf="isRegularUser()">
                     <li class="nav-item">
