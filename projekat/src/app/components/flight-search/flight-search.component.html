@@ -68,7 +68,7 @@
             <label for="airline"> Airline </label>
             <select id="airline" class="form-control" [(ngModel)]="airlineFilter" (ngModelChange)="filterResults()">
                 <option selected value>  </option>
-                <option [ngValue]="airline" *ngFor="let airline of ['Airline1', 'Airline2', 'Airline3']"> {{ airline }} </option>
+                <option [ngValue]="airline.name" *ngFor="let airline of airlines"> {{ airline.name }} </option>
             </select>
         </div>
 

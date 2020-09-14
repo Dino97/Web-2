@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FlightService } from '../../services/flight/flight.service';
 import { Flight } from '../../entities/flight/flight';
 import { AirportService } from 'src/app/services/airport/airport.service';
+import { CompanyService } from 'src/app/services/company/company.service';
 
 @Component({
   selector: 'app-flight-search',
@@ -16,6 +17,7 @@ export class FlightSearchComponent implements OnInit {
   filteredSearchResults: any[];
 
   airports;
+  airlines;
   today: Date;
 
   // Filtering
@@ -25,7 +27,9 @@ export class FlightSearchComponent implements OnInit {
 
 
 
-  constructor(private flightService: FlightService, private airportService: AirportService) { }
+  constructor(private flightService: FlightService, 
+              private airportService: AirportService,
+              private companyService: CompanyService) { }
 
   ngOnInit(): void {
     this.today = new Date();
@@ -42,6 +46,7 @@ export class FlightSearchComponent implements OnInit {
     })
 
     this.airportService.getAirports().subscribe(res => this.airports = res);
+    this.companyService.getAirlines().subscribe(res => this.airlines = res);
   }
 
   search() {
@@ -56,8 +61,9 @@ export class FlightSearchComponent implements OnInit {
   filterResults() {
     this.filteredSearchResults = this.searchResults;
 
+    console.log(this.airlineFilter);
     if (this.airlineFilter != "") {
-      //this.filteredSearchResults = this.filteredSearchResults.filter(r => r.nesto == 0);
+      this.filteredSearchResults = this.filteredSearchResults.filter(f => f.airline.name === this.airlineFilter);
     }
 
     if (this.flightDurationFilter.trim() != "") {
