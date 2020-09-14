@@ -7,14 +7,13 @@ using System.Threading.Tasks;
 
 namespace BookingAPI.Model
 {
-    public class Company
+    public class Date
     {
         [Key]
         public int Id { get; set; }
-        public string AdminUserName { get; set; }
+        [ForeignKey("CarId")]
+        public int CarId { get; set; }
         [Required]
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Image Logo { get; set; }
+        public DateTime DateReserved { get; set; }
     }
 }

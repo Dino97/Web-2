@@ -70,7 +70,7 @@ namespace BookingAPI.Controllers
                     {
                         await userManager.AddToRoleAsync(user, "RentACarAdmin");
 
-                        dbContext.RentalAgencies.Add(new RentalAgency()
+                        await dbContext.RentalAgencies.AddAsync(new RentalAgency()
                         {
                             AdminUserName = user.UserName,
                             Description = model.CompanyDescription,

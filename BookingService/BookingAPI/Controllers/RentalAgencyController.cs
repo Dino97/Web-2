@@ -87,5 +87,58 @@ namespace BookingAPI.Controllers
 
             return Ok(agency.Branches);
         }
+
+        [HttpPost]
+        [Authorize(Roles = "RentACarAdmin")]
+        [Route("AddBranch")]
+        public async Task<IActionResult> AddBranch([FromBody]BranchModel model)
+        {
+            string admin = User.Claims.First(claim => claim.Type == "UserName").Value;
+
+            var agency = await dbContext.RentalAgencies.FirstOrDefaultAsync(ra => ra.AdminUserName == admin);
+
+            RentalAgencyBranch branch = new RentalAgencyBranch 
+            {
+                ContactNumber = model.ContactNumber,
+                NearAirpot = model.NearAirport == "true" ? true : false,
+                WorkTimeFrom = String2Time(model.WorksFrom),
+                WorkTimeTo = String2Time(model.WorksTo),
+                Location = new Location
+                {
+                    Adress = model.Address,
+                    Country = model.Country,
+                    City = model.City
+                },
+                AgencyId = agency.Id
+            };
+
+            try
+            {
+                var result = await dbContext.RentalAgencyBranches.AddAsync(branch);
+                //dbContext.Entry(agency).State = EntityState.Modified;
+
+                await dbContext.SaveChangesAsync();
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+        private DateTime String2Time(string time)
+        {
+            int hours, minutes;
+            
+            Int32.TryParse(time.Split(':')[0], out hours);
+            Int32.TryParse(time.Split(':')[1], out minutes);
+            
+            DateTime retVal = DateTime.Now.AddHours(hours);
+            retVal = DateTime.Now.AddMinutes(minutes);
+
+            return retVal;
+        }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using BookingAPI.Model;
+using System;
 
 namespace BookingAPI
 {
@@ -17,6 +18,7 @@ namespace BookingAPI
         public DbSet<Location> Locations { get; set; }
         public DbSet<RentalAgencyBranch> RentalAgencyBranches { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Date> CarDates { get; set; }
         public DbSet<Airline> Airlines { get; set; }
 
         public BookingDbContext(DbContextOptions<BookingDbContext> options) :
@@ -29,7 +31,7 @@ namespace BookingAPI
 
             builder.Entity<FriendRequest>().HasKey(fr => new { fr.From, fr.To });
 
-            builder.Entity<Company>().HasIndex(c => c.Name).IsUnique();
+            builder.Entity<RentalAgency>().HasIndex(c => c.Name).IsUnique();
 
             #region Airports
             builder.Entity<Airport>().HasData(new Airport()
