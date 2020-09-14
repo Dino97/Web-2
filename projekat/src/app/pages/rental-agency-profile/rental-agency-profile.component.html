@@ -7,10 +7,12 @@
             </div>
             <ul class="list-group">
                 <div *ngFor="let agency of branches">
-                    <li class="list-group-item list-group-item-action">
-                        {{agency.location.country}}, {{agency.location.city}}<br/>
-                        {{agency.location.adress}}
-                    </li>
+                    <a routerLink="/agencyProfile/edit/{{agency.id}}">
+                        <li class="list-group-item list-group-item-action">
+                            {{agency.location.country}}, {{agency.location.city}}<br/>
+                            {{agency.location.adress}}
+                        </li>
+                    </a>
                 </div>
             </ul>
         </div>

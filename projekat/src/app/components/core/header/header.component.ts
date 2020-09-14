@@ -43,7 +43,12 @@ export class HeaderComponent implements OnInit {
   }
 
   isAirlineAdmin() {
-    return JwtDecode(localStorage.getItem('token')).role === "AirlineAdmin";
+    if(JwtDecode(localStorage.getItem('token')).role === "AirlineAdmin"){
+      return true;
+    } else {
+      return false;
+    }
+    
   }
 
   isRegularUser(){

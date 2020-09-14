@@ -111,7 +111,7 @@ namespace BookingAPI.Controllers
                     Country = model.Country,
                     City = model.City
                 },
-                AgencyId = agency.Id
+                RentalAgencyId = agency.Id
             };
 
             try

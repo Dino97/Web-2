@@ -14,8 +14,6 @@ export class CompanyService {
 
   readonly baseUri: string = "http://localhost:52482/api/";
 
-
-
   constructor(private http: HttpClient) { }
 
   getAirlines() {

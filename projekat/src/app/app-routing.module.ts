@@ -21,6 +21,7 @@ import { FlightReservationComponent } from './pages/flight-reservation/flight-re
 import { RentalAgencyProfileComponent } from './pages/rental-agency-profile/rental-agency-profile.component';
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
 import { AirlineComponent } from './pages/airline/airline.component';
+import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
 
 
 const routes: Routes = [
@@ -43,7 +44,8 @@ const routes: Routes = [
   { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}},
   { path: "flightreservation/:id", component: FlightReservationComponent },
   { path: "agencyProfile", component: RentalAgencyProfileComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RentACarAdmin']}, children: [
-    { path: "add", component: AddBranchComponent }
+    { path: "add", component: AddBranchComponent },
+    { path: "edit/:id", component: EditBranchComponent}
   ]},
   { path: "airline/:name", component: AirlineComponent }
 ];

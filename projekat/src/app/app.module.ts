@@ -39,6 +39,7 @@ import { FlightInvitationsComponent } from './components/flight-invitations/flig
 import { RentalAgencyProfileComponent } from './pages/rental-agency-profile/rental-agency-profile.component';
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
 import { AirlineComponent } from './pages/airline/airline.component';
+import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { AirlineComponent } from './pages/airline/airline.component';
     FlightInvitationsComponent,
     RentalAgencyProfileComponent,
     AddBranchComponent,
-    AirlineComponent
+    AirlineComponent,
+    EditBranchComponent
   ],
   imports: [
     BrowserModule,
