@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using BookingAPI.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
 
 namespace BookingAPI.Controllers
 {
@@ -41,6 +40,8 @@ namespace BookingAPI.Controllers
         [Route("NewFlight")]
         public async Task<ActionResult<Flight>> NewFlight(NewFlightParams newFlight)
         {
+            string username = User.Claims.First(c => c.Type == "UserName").Value;
+
             string destinations = "";
             for (int i = 0; i < newFlight.Destinations.Length; i++)
             {
@@ -52,6 +53,8 @@ namespace BookingAPI.Controllers
 
                 destinations += newFlight.Destinations[i];
             }
+
+            Airline airline = dbContext.Airlines.FirstOrDefault(a => a.AdminUsername == username);
 
             DateTime departure = newFlight.Departure.AddHours(ParseTime(newFlight.DepartureTime));
             DateTime landing = newFlight.Landing.AddHours(ParseTime(newFlight.LandingTime));
@@ -65,7 +68,8 @@ namespace BookingAPI.Controllers
                 TicketPrice = newFlight.TicketPrice,
                 Locations = destinations,
                 Seats = new string('0', 36),
-                Rating = 0
+                Rating = 0, 
+                Airline = airline
             };
 
             dbContext.Flights.Add(flight);
@@ -78,7 +82,7 @@ namespace BookingAPI.Controllers
         [Route("Search")]
         public IEnumerable<Flight> Search(FlightSearchParams searchParams)
         {
-            List<Flight> flights = dbContext.Flights.Where(f =>
+            List<Flight> flights = dbContext.Flights.Include(f => f.Airline).Where(f =>
                 f.Departure.Date == searchParams.Departure.Date &&
                 f.Landing.Date == searchParams.Landing.Date
             ).ToList();

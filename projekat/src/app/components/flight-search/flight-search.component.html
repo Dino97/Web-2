@@ -102,7 +102,7 @@
                 <td> {{ flight.landing.slice(0, flight.landing.length - 3).replace('T', ' ') }} </td>
                 <td> {{ flight.locations.split(',').length - 2 }} </td>
                 <td> {{ flight.flightDuration }}h </td>
-                <td> NOT SET </td>
+                <td> {{ flight.airline.name }} </td>
                 <td> {{ flight.ticketPrice }}$ </td>
                 <td> <a [routerLink]="['/flightreservation', flight.id]"> <i class="fas fa-plane"></i> </a> </td>
             </tr>
