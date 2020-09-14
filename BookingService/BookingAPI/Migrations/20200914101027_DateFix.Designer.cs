@@ -4,14 +4,16 @@ using BookingAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAPI.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200914101027_DateFix")]
+    partial class DateFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -79,14 +81,45 @@ namespace BookingAPI.Migrations
                     b.Property<float>("PricePerDay")
                         .HasColumnType("real");
 
-                    b.Property<int>("RentalAgencyBranchId")
+                    b.HasKey("Id");
+
+                    b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("BookingAPI.Model.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdminUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("LogoId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RentalAgencyBranchId");
+                    b.HasIndex("LogoId");
 
-                    b.ToTable("Cars");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Company");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Company");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.Date", b =>
@@ -96,7 +129,7 @@ namespace BookingAPI.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CarId")
+                    b.Property<int?>("CarId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateReserved")
@@ -242,46 +275,12 @@ namespace BookingAPI.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("BookingAPI.Model.RentalAgency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AdminUserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LogoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LogoId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("RentalAgencies");
-                });
-
             modelBuilder.Entity("BookingAPI.Model.RentalAgencyBranch", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ContactNumber")
                         .HasColumnType("nvarchar(max)");
@@ -545,6 +544,13 @@ namespace BookingAPI.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("BookingAPI.Model.RentalAgency", b =>
+                {
+                    b.HasBaseType("BookingAPI.Model.Company");
+
+                    b.HasDiscriminator().HasValue("RentalAgency");
+                });
+
             modelBuilder.Entity("BookingAPI.Model.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -561,22 +567,18 @@ namespace BookingAPI.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
-            modelBuilder.Entity("BookingAPI.Model.Car", b =>
+            modelBuilder.Entity("BookingAPI.Model.Company", b =>
                 {
-                    b.HasOne("BookingAPI.Model.RentalAgencyBranch", null)
-                        .WithMany("Cars")
-                        .HasForeignKey("RentalAgencyBranchId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("BookingAPI.Model.Image", "Logo")
+                        .WithMany()
+                        .HasForeignKey("LogoId");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.Date", b =>
                 {
                     b.HasOne("BookingAPI.Model.Car", null)
                         .WithMany("Reserved")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CarId");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.FlightInvitation", b =>
@@ -592,13 +594,6 @@ namespace BookingAPI.Migrations
                     b.HasOne("BookingAPI.Model.User", "To")
                         .WithMany()
                         .HasForeignKey("ToId");
-                });
-
-            modelBuilder.Entity("BookingAPI.Model.RentalAgency", b =>
-                {
-                    b.HasOne("BookingAPI.Model.Image", "Logo")
-                        .WithMany()
-                        .HasForeignKey("LogoId");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.RentalAgencyBranch", b =>

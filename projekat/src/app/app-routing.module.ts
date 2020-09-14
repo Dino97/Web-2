@@ -19,6 +19,7 @@ import { NewFlightComponent } from './components/new-flight/new-flight.component
 import { NewAdminComponent } from './components/new-admin/new-admin.component';
 import { FlightReservationComponent } from './pages/flight-reservation/flight-reservation.component';
 import { RentalAgencyProfileComponent } from './pages/rental-agency-profile/rental-agency-profile.component';
+import { AddBranchComponent } from './components/add-branch/add-branch.component';
 
 
 const routes: Routes = [
@@ -40,7 +41,9 @@ const routes: Routes = [
   { path: "home", component: TravelHistoryComponent },
   { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}},
   { path: "flightreservation/:id", component: FlightReservationComponent },
-  { path: "agencyProfile", component: RentalAgencyProfileComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RentACarAdmin']}}
+  { path: "agencyProfile", component: RentalAgencyProfileComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RentACarAdmin']}, children: [
+    { path: "add", component: AddBranchComponent }
+  ]}
 ];
 
 @NgModule({

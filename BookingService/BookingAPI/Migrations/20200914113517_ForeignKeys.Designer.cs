@@ -4,14 +4,16 @@ using BookingAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAPI.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200914113517_ForeignKeys")]
+    partial class ForeignKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -87,6 +89,42 @@ namespace BookingAPI.Migrations
                     b.HasIndex("RentalAgencyBranchId");
 
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("BookingAPI.Model.Company", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdminUserName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("LogoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LogoId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Company");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Company");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.Date", b =>
@@ -242,46 +280,12 @@ namespace BookingAPI.Migrations
                     b.ToTable("Locations");
                 });
 
-            modelBuilder.Entity("BookingAPI.Model.RentalAgency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AdminUserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("LogoId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("LogoId");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("RentalAgencies");
-                });
-
             modelBuilder.Entity("BookingAPI.Model.RentalAgencyBranch", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AgencyId")
-                        .HasColumnType("int");
 
                     b.Property<string>("ContactNumber")
                         .HasColumnType("nvarchar(max)");
@@ -292,7 +296,7 @@ namespace BookingAPI.Migrations
                     b.Property<bool>("NearAirpot")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("RentalAgencyId")
+                    b.Property<int>("RentalAgencyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("WorkTimeFrom")
@@ -545,6 +549,13 @@ namespace BookingAPI.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("BookingAPI.Model.RentalAgency", b =>
+                {
+                    b.HasBaseType("BookingAPI.Model.Company");
+
+                    b.HasDiscriminator().HasValue("RentalAgency");
+                });
+
             modelBuilder.Entity("BookingAPI.Model.User", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
@@ -568,6 +579,13 @@ namespace BookingAPI.Migrations
                         .HasForeignKey("RentalAgencyBranchId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BookingAPI.Model.Company", b =>
+                {
+                    b.HasOne("BookingAPI.Model.Image", "Logo")
+                        .WithMany()
+                        .HasForeignKey("LogoId");
                 });
 
             modelBuilder.Entity("BookingAPI.Model.Date", b =>
@@ -594,13 +612,6 @@ namespace BookingAPI.Migrations
                         .HasForeignKey("ToId");
                 });
 
-            modelBuilder.Entity("BookingAPI.Model.RentalAgency", b =>
-                {
-                    b.HasOne("BookingAPI.Model.Image", "Logo")
-                        .WithMany()
-                        .HasForeignKey("LogoId");
-                });
-
             modelBuilder.Entity("BookingAPI.Model.RentalAgencyBranch", b =>
                 {
                     b.HasOne("BookingAPI.Model.Location", "Location")
@@ -611,7 +622,9 @@ namespace BookingAPI.Migrations
 
                     b.HasOne("BookingAPI.Model.RentalAgency", null)
                         .WithMany("Branches")
-                        .HasForeignKey("RentalAgencyId");
+                        .HasForeignKey("RentalAgencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookingAPI.Model.Reservation", b =>
