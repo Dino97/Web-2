@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using BookingAPI.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using System.Data.Entity;
 
 namespace BookingAPI.Controllers
 {
@@ -25,15 +26,20 @@ namespace BookingAPI.Controllers
 
         [HttpGet]
         [Route("GetFlight")]
-        public Flight GetFlight(int id)
+        public async Task<ActionResult<Flight>> GetFlight(int id)
         {
-            return dbContext.Flights.Find(id);
+            var flight = await dbContext.Flights.FindAsync(id);
+
+            if (flight == null)
+                return NotFound();
+
+            return flight;
         }
 
         [HttpPost]
-        //[Authorize(Roles = "AirlineAdmin")]
+        [Authorize(Roles = "AirlineAdmin")]
         [Route("NewFlight")]
-        public void NewFlight(NewFlightParams newFlight)
+        public async Task<ActionResult<Flight>> NewFlight(NewFlightParams newFlight)
         {
             string destinations = "";
             for (int i = 0; i < newFlight.Destinations.Length; i++)
@@ -60,7 +66,9 @@ namespace BookingAPI.Controllers
             };
 
             dbContext.Flights.Add(flight);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
+
+            return CreatedAtAction("GetFlight", new { id = flight.Id }, flight);
         }
 
         [HttpPost]

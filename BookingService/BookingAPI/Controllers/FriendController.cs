@@ -30,12 +30,12 @@ namespace BookingAPI.Controllers
         [HttpPost]
         [Authorize]
         [Route("AddFriend")]
-        public void AddFriend(string friendUsername)
+        public async Task<ActionResult> AddFriend(string friendUsername)
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
             if (username.Equals(friendUsername))
-                return;
+                return BadRequest();
 
             FriendRequest request = dbContext.FriendRequests.FirstOrDefault(fr => 
                 fr.From == username && fr.To == friendUsername ||
@@ -52,14 +52,20 @@ namespace BookingAPI.Controllers
                 };
 
                 dbContext.FriendRequests.Add(request);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
+            else
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
 
         [HttpPost]
         [Authorize]
         [Route("DeleteFriend")]
-        public void DeleteFriend(string friendUsername)
+        public async Task<ActionResult> DeleteFriend(string friendUsername)
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
@@ -70,8 +76,14 @@ namespace BookingAPI.Controllers
             if (request != null)
             {
                 dbContext.Entry(request).State = EntityState.Deleted;
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
+            else
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
 
         [HttpGet]
@@ -126,7 +138,7 @@ namespace BookingAPI.Controllers
         [HttpPost]
         [Authorize]
         [Route("AcceptFriendRequest")]
-        public void AcceptFriendRequest(string friendUsername)
+        public async Task<ActionResult> AcceptFriendRequest(string friendUsername)
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
@@ -138,14 +150,20 @@ namespace BookingAPI.Controllers
 
                 dbContext.FriendRequests.Attach(request);
                 dbContext.Entry(request).State = EntityState.Modified;
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
+            else
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
 
         [HttpPost]
         [Authorize]
         [Route("DeclineFriendRequest")]
-        public void DeclineFriendRequest(string friendUsername)
+        public async Task<ActionResult> DeclineFriendRequest(string friendUsername)
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
@@ -154,8 +172,14 @@ namespace BookingAPI.Controllers
             if (request != null)
             {
                 dbContext.Entry(request).State = EntityState.Deleted;
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
+            else
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
     }
 }
