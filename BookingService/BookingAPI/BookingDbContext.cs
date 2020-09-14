@@ -17,6 +17,7 @@ namespace BookingAPI
         public DbSet<Location> Locations { get; set; }
         public DbSet<RentalAgencyBranch> RentalAgencyBranches { get; set; }
         public DbSet<Car> Cars { get; set; }
+        public DbSet<Airline> Airlines { get; set; }
 
         public BookingDbContext(DbContextOptions<BookingDbContext> options) :
             base(options)

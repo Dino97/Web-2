@@ -53,7 +53,18 @@ namespace BookingAPI.Controllers
                     if (model.CompanyType == "Airline")
                     {
                         await userManager.AddToRoleAsync(user, "AirlineAdmin");
-                        // dodaj u Airlines;
+
+                        dbContext.Airlines.Add(new Airline()
+                        {
+                            AdminUsername = user.UserName,
+                            Name = model.CompanyName,
+                            Description = model.CompanyDescription,
+                            Logo = new Image()
+                            {
+                                ImageLocation = location,
+                                ImageTitle = imageName
+                            }
+                        });
                     }
                     else
                     {
@@ -72,7 +83,7 @@ namespace BookingAPI.Controllers
                         });
                     }
 
-                    dbContext.SaveChanges();
+                    await dbContext.SaveChangesAsync();
                 }
    
                 return Ok(result);
