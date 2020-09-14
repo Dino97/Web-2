@@ -22,14 +22,14 @@ export class FlightInvitationsComponent implements OnInit {
   acceptInvitation(invitation) {
     this.reservationService.acceptInvitation(invitation).subscribe(_ => {
       this.reloadInvitations();
-      this.toastr.success(`You accepted flight invite from ${invitation.from.firstName} ${invitation.from.lastName}`, "Flight invite accepted");
+      this.toastr.success(`You accepted flight invite from ${invitation.from.firstName} ${invitation.from.lastName}.`, "Flight invite accepted");
     });
   }
 
   declineInvitation(invitation) {
     this.reservationService.declineInvitation(invitation).subscribe(_ => {
       this.reloadInvitations();
-      this.toastr.success(`You declined flight invite from ${invitation.from.firstName} ${invitation.from.lastName}`, "Flight invite declined");
+      this.toastr.success(`You declined flight invite from ${invitation.from.firstName} ${invitation.from.lastName}.`, "Flight invite declined");
     });
   }
 

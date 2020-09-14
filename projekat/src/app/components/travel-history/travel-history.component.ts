@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-travel-history',
@@ -14,7 +15,8 @@ export class TravelHistoryComponent implements OnInit {
 
 
 
-  constructor(private reservationService: ReservationService) { }
+  constructor(private reservationService: ReservationService,
+              private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadReservations();
@@ -24,7 +26,10 @@ export class TravelHistoryComponent implements OnInit {
     if (!this.canCancel(reservation))
       return;
 
-    this.reservationService.cancelReservation(reservation);
+    this.reservationService.cancelReservation(reservation).subscribe(_ => {
+      this.toastr.success("", "Reservation cancelled");
+      this.loadReservations();
+    });
   }
 
   canCancel(reservation): boolean {

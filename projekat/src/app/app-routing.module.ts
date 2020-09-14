@@ -24,7 +24,7 @@ import { AirlineComponent } from './pages/airline/airline.component';
 
 
 const routes: Routes = [
-  { path: "", redirectTo: "home", pathMatch: "full"},
+  { path: "", redirectTo: "partners", pathMatch: "full"},
   { path: "login", component: LoginComponent, canActivate: [LoggedInGuard]},
   { path: "profile", component: ProfileComponent, canActivate: [ProfileGuard]}, // canActivate: [ProfileGuard], data: {permittedRoles}: ['Uloga1', ...]
   { path: "airprofile", component: AirlineProfileComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['AirlineAdmin']} },
@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: "flights", component: FlightPageComponent },
   { path: "friends", component: FriendsComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RegularUser']} },
   { path: "flightsearch", component: FlightSearchComponent },
-  { path: "home", component: TravelHistoryComponent },
+  { path: "travelhistory", component: TravelHistoryComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RegularUser']} },
   { path: "newAdmin", component: NewAdminComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['SystemAdmin']}},
   { path: "flightreservation/:id", component: FlightReservationComponent },
   { path: "agencyProfile", component: RentalAgencyProfileComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RentACarAdmin']}, children: [

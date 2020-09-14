@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { FriendService } from 'src/app/services/friend/friend.service';
 import { FlightService } from 'src/app/services/flight/flight.service';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-flight-reservation',
@@ -25,10 +26,12 @@ export class FlightReservationComponent implements OnInit {
 
   
 
-  constructor(private route: ActivatedRoute,
+  constructor(private router: Router,
+              private route: ActivatedRoute,
               private flightService: FlightService, 
               private reservationService: ReservationService, 
-              private friendService: FriendService) {
+              private friendService: FriendService,
+              private toastr: ToastrService) {
     this.step = 0;
     this.seats = [];
   }
@@ -81,6 +84,9 @@ export class FlightReservationComponent implements OnInit {
       passengers: this.passengers,
       seats: this.seats,
       passports: this.passports
+    }).subscribe(_ => {
+      this.router.navigateByUrl("/travelhistory");
+      this.toastr.success("", "Reservation created");
     });
   }
 }
