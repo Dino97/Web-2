@@ -34,6 +34,13 @@ export class TravelHistoryComponent implements OnInit {
     return (t2 - t1) / (1000 * 60 * 60) > this.cancelTime;
   }
 
+  flightFinished(reservation): boolean {
+    let t1 = new Date().getTime();
+    let t2 = new Date(reservation.flight.landing).getTime();
+    
+    return (t2 - t1) / (1000 * 60 * 60) < 0;
+  }
+
   loadReservations() {
     this.reservationService.getUserReservations().subscribe(res => this.reservations = res);
   }

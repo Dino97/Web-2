@@ -20,7 +20,8 @@
             <td> {{ res.flight.ticketPrice }} </td>
             <td> 
                 <a style="color: #007bff; cursor: pointer;" (click)="cancelReservation(res)" *ngIf="canCancel(res)"> <i class="fas fa-plane-slash"></i> </a>
-                <div *ngIf="!canCancel(res)" style="width: 100px;"> Cannot cancel reservation {{ cancelTime }} hours before flight. </div>
+                <div *ngIf="!canCancel(res) && !flightFinished(res)" style="width: 100px;"> Cannot cancel reservation {{ cancelTime }} hours before flight. </div>
+                <div *ngIf="flightFinished(res)" style="width: 100px;"> Finished </div>
             </td>
         </tr>
     </table>

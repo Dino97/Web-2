@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BookingAPI.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -25,6 +26,7 @@ namespace BookingAPI.Controllers
         private UserManager<User> userManager;
 
 
+
         public ReservationController(BookingDbContext dbContext, UserManager<User> userManager)
         {
             this.dbContext = dbContext;
@@ -34,53 +36,79 @@ namespace BookingAPI.Controllers
         [HttpGet]
         [Authorize]
         [Route("GetUserReservations")]
-        public IEnumerable<Reservation> GetUserReservations()
+        public async Task<ActionResult<IEnumerable<Reservation>>> GetUserReservations()
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
-            return dbContext.Reservations.Include(r => r.Flight).Where(r => r.User.UserName.Equals(username) && r.Confirmed == true);
+            var res = dbContext.Reservations.Include(r => r.Flight).
+                                             Where(r => r.User.UserName.
+                                             Equals(username) && r.Confirmed == true);
+
+            return await res.ToListAsync();
         }
 
         [HttpGet]
         [Authorize]
         [Route("GetFlightInvitations")]
-        public IEnumerable<FlightInvitation> GetFlightInvitations()
+        public async Task<ActionResult<IEnumerable<FlightInvitation>>> GetFlightInvitations()
         {
             string username = User.Claims.First(c => c.Type == "UserName").Value;
 
-            return dbContext.FlightInvitations.Include(i => i.From)
-                                              .Include(i => i.To)
-                                              .Where(r => r.To.UserName.Equals(username));
+            var invites = dbContext.FlightInvitations.Include(i => i.From)
+                                                     .Include(i => i.To)
+                                                     .Where(r => r.To.UserName.Equals(username));
+
+            return await invites.ToListAsync();
         }
 
         [HttpPost]
         [Authorize]
         [Route("AcceptFlightInvite")]
-        public void AcceptFlightInvite(int id)
+        public async Task<ActionResult> AcceptFlightInvite(int id)
         {
             FlightInvitation invite = dbContext.FlightInvitations.Include(fi => fi.Reservation).FirstOrDefault(fi => fi.Id == id);
-            invite.Reservation.Confirmed = true;
 
-            dbContext.Entry(invite).State = EntityState.Deleted;
-            dbContext.SaveChanges();
+            if (invite != null)
+            {
+                invite.Reservation.Confirmed = true;
+
+                dbContext.Entry(invite).State = EntityState.Deleted;
+                await dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
         [HttpPost]
         [Authorize]
         [Route("DeclineFlightInvite")]
-        public void DeclineFlightInvite(int id)
+        public async Task<ActionResult> DeclineFlightInvite(int id)
         {
             FlightInvitation invite = dbContext.FlightInvitations.Include(fi => fi.Reservation).ThenInclude(r => r.Flight).FirstOrDefault(fi => fi.Id == id);
-            FreeReservedSeats(invite.Reservation);
 
-            dbContext.Entry(invite).State = EntityState.Deleted;
-            dbContext.SaveChanges();
+            if (invite != null)
+            {
+                FreeReservedSeats(invite.Reservation);
+
+                dbContext.Entry(invite).State = EntityState.Deleted;
+                await dbContext.SaveChangesAsync();
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
         [HttpPost]
         [Authorize]
         [Route("CreateReservation")]
-        public void CreateReservation(NewReservationParams data)
+        public async Task<ActionResult> CreateReservation(NewReservationParams data)
         {
             Flight flight = dbContext.Flights.Find(data.FlightId);
 
@@ -135,23 +163,43 @@ namespace BookingAPI.Controllers
                 personalReservation.Seats = seats.Remove(seats.Length - 1);
 
                 dbContext.Reservations.Add(personalReservation);
-                dbContext.SaveChanges();
+                await dbContext.SaveChangesAsync();
             }
+            else
+            {
+                return BadRequest();
+            }
+
+            return Ok();
         }
 
         [HttpPost]
         [Authorize]
         [Route("CancelReservation")]
-        public void CancelReservation(int id)
+        public async Task<ActionResult> CancelReservation(int id)
         {
             Reservation reservation = dbContext.Reservations.Include(r => r.Flight).SingleOrDefault(r => r.Id == id);
 
-            if (reservation != null && reservation.Flight.Departure > DateTime.Now.AddHours(3))
+            if (reservation != null)
             {
-                FreeReservedSeats(reservation);
-                dbContext.Entry(reservation).State = EntityState.Deleted;
-                dbContext.SaveChanges();
+                if (reservation.Flight.Departure > DateTime.Now.AddHours(3))
+                {
+                    FreeReservedSeats(reservation);
+
+                    dbContext.Entry(reservation).State = EntityState.Deleted;
+                    await dbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
+            else
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
         private void FreeReservedSeats(Reservation reservation)
