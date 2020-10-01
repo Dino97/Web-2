@@ -1,11 +1,15 @@
-import { Car } from '../car/car';
-import { CarRentalService } from '../carRentalService/car-rental-service';
 import { Location } from '../../location/location';
 
 export class CarRentalAgency {
-    location: Location;
+    id: number;
+    location;
+    workTimeFrom;
+    workTimeTo;
+    contactNumber;
+    cars;
+    nearAirpot;
 
-    constructor(location: Location){
-        this.location = location;
+    constructor(/*location: Location*/){
+        //this.location = location;
     }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Output, EventEmitter } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 
@@ -6,6 +6,8 @@ import { FormBuilder, Validators } from '@angular/forms';
   providedIn: 'root'
 })
 export class RentalAgencyService {
+  @Output() branchUpdateEmitter: EventEmitter<any> = new EventEmitter<any>();
+
   readonly BaseURI: string = "http://localhost:52482/api/RentalAgency/"
 
   constructor(private http: HttpClient, private fb: FormBuilder) { }
@@ -45,5 +47,24 @@ export class RentalAgencyService {
     }
 
     return this.http.post(this.BaseURI + "AddBranch/", body);
+  }
+
+  updateBranch(id: number){
+    var body = {
+      Id: id,
+      Country: this.formModel.value.Country,
+      City: this.formModel.value.City,
+      Address: this.formModel.value.Address,
+      WorksFrom: this.formModel.value.WorksFrom,
+      WorksTo: this.formModel.value.WorksTo,
+      ContactNumber: this.formModel.value.ContactNumber,
+      NearAirport: this.formModel.value.NearAirport
+    }
+
+    return this.http.put(this.BaseURI + "UpdateBranch/", body)
+  }
+
+  getBranchUpdateEmitter(){
+    return this.branchUpdateEmitter;
   }
 }

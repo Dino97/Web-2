@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider, FacebookLoginProvider } from 'angularx-social-login';
+import {MatDialogModule} from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +41,7 @@ import { RentalAgencyProfileComponent } from './pages/rental-agency-profile/rent
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
 import { AirlineComponent } from './pages/airline/airline.component';
 import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
+import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { EditBranchComponent } from './components/edit-branch/edit-branch.compon
     RentalAgencyProfileComponent,
     AddBranchComponent,
     AirlineComponent,
-    EditBranchComponent
+    EditBranchComponent,
+    AddVehicleComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +85,11 @@ import { EditBranchComponent } from './components/edit-branch/edit-branch.compon
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    SocialLoginModule
+    SocialLoginModule,
+    MatDialogModule
+  ], 
+  exports: [
+    MatDialogModule
   ],
   providers: [UserService, 
   {
@@ -105,6 +112,7 @@ import { EditBranchComponent } from './components/edit-branch/edit-branch.compon
         }
       ]} as SocialAuthServiceConfig
   }],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [AddVehicleComponent]
 })
 export class AppModule { }
