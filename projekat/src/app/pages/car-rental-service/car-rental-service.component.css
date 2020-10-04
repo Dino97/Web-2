@@ -3,24 +3,9 @@
 }
 
 .list-group{
-    max-height: 300px;
+    max-height: 260px;
     width: 300px;
     overflow-y:scroll;
     scrollbar-width: thin;
 }
 
-.card{
-    width: 200px;
-    height: 300px;
-}
-
-.card-img-top{
-    width: 200px;
-    height: 150px;
-    object-fit: cover;
-}
-
-.scrolling-wrapper{
-    overflow-x: auto;
-    scrollbar-width: thin;
-}

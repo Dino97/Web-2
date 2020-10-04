@@ -34,11 +34,23 @@ namespace BookingAPI.Controllers
                 .Include(ra => ra.Logo)
                 .Include(ra => ra.Branches)
                     .ThenInclude(branch => branch.Location)
+                .Include(ra => ra.Branches)
+                    .ThenInclude(branch => branch.Cars)
                 .FirstOrDefaultAsync(ra => ra.Name == companyName);
 
             if(rentalAgency == null)
             {
                 return NotFound();
+            }
+
+            foreach (RentalAgencyBranch branch in rentalAgency.Branches)
+            {
+                foreach (Car car in branch.Cars)
+                {
+                    string[] dbImage = car.Image.Split('%');
+                    byte[] img = await System.IO.File.ReadAllBytesAsync(dbImage[0]);
+                    car.Image = "data:image/" + dbImage[1] + ";base64," + Convert.ToBase64String(img);
+                }
             }
 
             byte[] image = await System.IO.File.ReadAllBytesAsync(rentalAgency.Logo.ImageLocation);  
@@ -47,7 +59,7 @@ namespace BookingAPI.Controllers
                 name = rentalAgency.Name,
                 description = rentalAgency.Description,
                 logo = "data:image/png;base64," + Convert.ToBase64String(image),
-                branches = rentalAgency.Branches
+                branches = rentalAgency.Branches,
             });
         }
 
@@ -78,13 +90,25 @@ namespace BookingAPI.Controllers
 
             var agency = await dbContext.RentalAgencies
                 .Include(ra => ra.Branches)
-                    .ThenInclude(ra => ra.Location)
+                    .ThenInclude(rab => rab.Location)
+                .Include(ra => ra.Branches)
+                    .ThenInclude(rab => rab.Cars)
                 .Select(ra => new 
                 { 
                     ra.AdminUserName,
                     ra.Branches                
                 })
                 .FirstOrDefaultAsync(ra => ra.AdminUserName == admin);
+
+            foreach (RentalAgencyBranch branch in agency.Branches)
+            {
+                foreach (Car car in branch.Cars)
+                {
+                    string[] dbImage = car.Image.Split('%');
+                    byte[] image = await System.IO.File.ReadAllBytesAsync(dbImage[0]);
+                    car.Image = "data:image/" + dbImage[1] + ";base64," + Convert.ToBase64String(image);
+                }
+            }
 
             return Ok(agency.Branches);
         }

@@ -3,6 +3,7 @@ import { RentalAgencyService } from 'src/app/services/rentalAgency/rental-agency
 import { Company } from 'src/app/entities/company/company';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CarRentalService } from 'src/app/entities/cars/carRentalService/car-rental-service';
+import { DataExchangeService } from 'src/app/services/data-exchange/data-exchange.service';
 
 @Component({
   selector: 'app-car-rental-service',
@@ -13,7 +14,7 @@ export class CarRentalServiceComponent implements OnInit {
   //message: CarRentalService
   rentalAgency: CarRentalService;
 
-  constructor(/*private data: DataExchangeService,*/ private service: RentalAgencyService, private route: ActivatedRoute) { }
+  constructor(private data: DataExchangeService, private service: RentalAgencyService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.rentalAgency = new CarRentalService("", "", "")
@@ -32,6 +33,10 @@ export class CarRentalServiceComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  sendCars(cars){
+    this.data.changeCars(cars);
   }
 
 }

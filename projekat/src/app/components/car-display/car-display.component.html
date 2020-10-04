@@ -1,0 +1,15 @@
+<div class="row scrolling-wrapper flex-row flex-nowrap">
+    <div *ngFor="let car of cars">
+        <div class="col-3">
+            <div class="card mb-5">
+                <img class="card-img-top" src="{{car.image}}" alt="">
+                <div class="card-body">
+                    <h3 class="cart-title float-right">{{car.pricePerDay}}€</h3>
+                    <h3 class="card-title">{{car.brand}} {{car.model}}</h3>
+                    <!--<h5 class="card-title text-justify d-flex justify-content-center">{{car.availableIn.location.countryShort}}, {{car.availableIn.location.city}}</h5>-->
+                    <app-rating-display [rating]="0"></app-rating-display>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

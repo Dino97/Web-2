@@ -21,8 +21,9 @@ namespace BookingAPI.Model
         [Required]
         public float PricePerDay { get; set; }
         public string Image { get; set; }
-        public bool Convertable { get; set; }
-        public int NumberOfPassenger { get; set; }
+        public bool Airconditioner { get; set; }
+        public bool Automatic { get; set; }
+        public int NumberOfPassengers { get; set; }
         public string Drive { get; set; }
         public ICollection<Date> Reserved { get; set; }
 

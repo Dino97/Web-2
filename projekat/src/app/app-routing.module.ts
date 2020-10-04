@@ -22,6 +22,7 @@ import { RentalAgencyProfileComponent } from './pages/rental-agency-profile/rent
 import { AddBranchComponent } from './components/add-branch/add-branch.component';
 import { AirlineComponent } from './pages/airline/airline.component';
 import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
+import { CarDisplayComponent } from './components/car-display/car-display.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,9 @@ const routes: Routes = [
     { path: "", component: CitiesComponent },
     { path: "results", component: RentResultsComponent }
   ]}*/
-  { path: "rentalService/:name", component: CarRentalServiceComponent},
+  { path: "rentalService/:name", component: CarRentalServiceComponent, children: [
+    { path: ":id", component: CarDisplayComponent }
+  ]},
   { path: "cars", component: RentPageComponent },
   { path: "flights", component: FlightPageComponent },
   { path: "friends", component: FriendsComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RegularUser']} },

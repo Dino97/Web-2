@@ -37,9 +37,9 @@ export class RentalAgencyProfileComponent implements OnInit {
       WorksFrom: this.time2String(newMessage.workTimeFrom),
       WorksTo: this.time2String(newMessage.workTimeTo),
       ContactNumber: newMessage.contactNumber,
-      NearAirport: newMessage.nearAirpot ? "true" : "false"
+      NearAirport: newMessage.nearAirpot ? "true" : null
     });
-    this.data.changeMessage(newMessage.id);
+    this.data.changeMessage({'id': newMessage.id, 'cars': newMessage.cars});
   }
 
   time2String(messageTime): string{

@@ -42,6 +42,7 @@ import { AddBranchComponent } from './components/add-branch/add-branch.component
 import { AirlineComponent } from './pages/airline/airline.component';
 import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
+import { CarDisplayComponent } from './components/car-display/car-display.component';
 
 @NgModule({
   declarations: [
@@ -75,7 +76,8 @@ import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.compon
     AddBranchComponent,
     AirlineComponent,
     EditBranchComponent,
-    AddVehicleComponent
+    AddVehicleComponent,
+    CarDisplayComponent
   ],
   imports: [
     BrowserModule,

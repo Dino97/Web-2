@@ -1,65 +1,78 @@
-<div class="container">
-    <div class="row justify-content-center mt-5">
-        <h3><b>Branch information</b></h3>
+<div class="row justify-content-center mt-4">
+    <h2><b>Branch information</b></h2>
+</div>
+<form [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
+    <div class="row justify-content-center">
+        <div class="form-group col col-md-5">
+            <label class="col-form-label">Country</label>
+            <input class="form-control" type="text" id="country" formControlName="Country" readonly>
+            <label class="text-danger" *ngIf="service.formModel.get('Country').touched && service.formModel.get('Country').errors?.required">
+                You must enter a country.
+            </label>
+        </div>
+        <div class="form-group col col-md-5">
+            <label class="col-form-label">City</label>
+            <input class="form-control" type="text" id="city" formControlName="City" readonly>
+            <label class="text-danger" *ngIf="service.formModel.get('City').touched && service.formModel.get('City').errors?.required">
+                You must enter a city.
+            </label>
+        </div>
     </div>
-    <form [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
-        <div class="row justify-content-center mt-4">
-            <div class="form-group col col-md-5">
-                <label class="col-form-label">Country</label>
-                <input class="form-control" type="text" id="country" formControlName="Country" readonly>
-                <label class="text-danger" *ngIf="service.formModel.get('Country').touched && service.formModel.get('Country').errors?.required">
-                    You must enter a country.
-                </label>
-            </div>
-            <div class="form-group col col-md-5">
-                <label class="col-form-label">City</label>
-                <input class="form-control" type="text" id="city" formControlName="City" readonly>
-                <label class="text-danger" *ngIf="service.formModel.get('City').touched && service.formModel.get('City').errors?.required">
-                    You must enter a city.
-                </label>
+    <div class="row justify-content-center">
+        <div class="form-group col col-md-10">
+            <label class="col-form-label">Address</label>
+            <input class="form-control" type="text" id="address" formControlName="Address">
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="form-group col col-md-3">
+            <label class="col-form-label">Works from</label>
+            <input class="form-control" type="time" id="worksFrom" formControlName="WorksFrom">
+            <label class="text-danger" *ngIf="service.formModel.get('WorksFrom').touched && service.formModel.get('WorksFrom').errors?.required">
+                You must choose starting hours.
+            </label>
+        </div>
+        <div class="form-group col col-md-3">
+            <label class="col-form-label">Works to</label>
+            <input class="form-control" type="time" id="address" formControlName="WorksTo">
+            <label class="text-danger" *ngIf="service.formModel.get('WorksTo').touched && service.formModel.get('WorksTo').errors?.required">
+                You must choose the end of work time.
+            </label>
+        </div>
+        <div class="form-group col col-md-4">
+            <label class="col-form-label">Contact number</label>
+            <input class="form-control" type="tel" id="contactNumber" formControlName="ContactNumber">
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col col-md-1 ml-3"></div>
+        <div class="custom-control custom-checkbox col col-md-10">
+            <input class="custom-control-input" type="checkbox" id="nearAirport" formControlName="NearAirport">
+            <label class="custom-control-label" for="nearAirport">Is near airport</label>
+        </div>
+    </div>
+    <div class="row justify-content-center align-items-center mt-3">
+        <div class="col col-md-3">
+            <button class="btn btn-block btn-success" [disabled]="service.formModel.invalid" type="submit">Update branch</button>
+        </div>
+    </div>
+</form>
+<div class="row">
+    <h2><b>Vehicles</b></h2>
+    <a class="ml-auto btn" style="color: green;" (click)="onAddVehicle()"><i class="add-icon far fa-plus-square fa-2x"></i></a>
+</div>
+<div class="col-md-5">
+    <div class="row scrolling-wrapper flex-row flex-nowrap">
+        <div *ngFor="let car of cars">
+            <div class="col-2">
+                <div class="card mb-5">
+                    <img class="card-img-top" src="{{car.image}}" alt="">
+                    <div class="card-body">
+                        <h3 class="cart-title float-right">{{car.pricePerDay}}€</h3>
+                        <h3 class="card-title">{{car.brand}} {{car.model}}</h3>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="form-group col col-md-10">
-                <label class="col-form-label">Address</label>
-                <input class="form-control" type="text" id="address" formControlName="Address">
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="form-group col col-md-3">
-                <label class="col-form-label">Works from</label>
-                <input class="form-control" type="time" id="worksFrom" formControlName="WorksFrom">
-                <label class="text-danger" *ngIf="service.formModel.get('WorksFrom').touched && service.formModel.get('WorksFrom').errors?.required">
-                    You must choose starting hours.
-                </label>
-            </div>
-            <div class="form-group col col-md-3">
-                <label class="col-form-label">Works to</label>
-                <input class="form-control" type="time" id="address" formControlName="WorksTo">
-                <label class="text-danger" *ngIf="service.formModel.get('WorksTo').touched && service.formModel.get('WorksTo').errors?.required">
-                    You must choose the end of work time.
-                </label>
-            </div>
-            <div class="form-group col col-md-4">
-                <label class="col-form-label">Contact number</label>
-                <input class="form-control" type="tel" id="contactNumber" formControlName="ContactNumber">
-            </div>
-        </div>
-        <div class="row mt-2">
-            <div class="col col-md-1"></div>
-            <div class="form-check col col-md-10">
-                <input class="form-check-input ml-1" type="checkbox" [checked]="service.formModel.value.NearAirport !== 'false'" id="nearAirport" formControlName="NearAirport">
-                <label class="form-check-label ml-4" for="nearAirport">Is near airport</label>
-            </div>
-        </div>
-        <div class="row justify-content-center align-items-center mt-3">
-            <div class="col col-md-3">
-                <button class="btn btn-block btn-success" [disabled]="service.formModel.invalid" type="submit">Update branch</button>
-            </div>
-        </div>
-    </form>
-    <div class="row">
-        <h3><b>Vehicles</b></h3>
-        <a class="ml-auto mt-1 btn" style="color: green;" (click)="onAddVehicle()"><i class="add-icon far fa-plus-square fa-2x"></i></a>
     </div>
 </div>

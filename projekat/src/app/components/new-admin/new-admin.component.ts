@@ -17,6 +17,7 @@ export class NewAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.service.formModel.reset();
+    this.imageUrl = "/assets/images/noLogo.png"
   }
 
   handlerFileInput(file: FileList){

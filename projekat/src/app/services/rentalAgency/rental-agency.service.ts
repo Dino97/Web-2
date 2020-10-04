@@ -43,7 +43,7 @@ export class RentalAgencyService {
       WorksFrom: this.formModel.value.WorksFrom,
       WorksTo: this.formModel.value.WorksTo,
       ContactNumber: this.formModel.value.ContactNumber,
-      NearAirport: this.formModel.value.NearAirport
+      NearAirport: this.formModel.value.NearAirport ? "true" : "false"
     }
 
     return this.http.post(this.BaseURI + "AddBranch/", body);
@@ -58,7 +58,7 @@ export class RentalAgencyService {
       WorksFrom: this.formModel.value.WorksFrom,
       WorksTo: this.formModel.value.WorksTo,
       ContactNumber: this.formModel.value.ContactNumber,
-      NearAirport: this.formModel.value.NearAirport
+      NearAirport: this.formModel.value.NearAirport ? "true" : "false"
     }
 
     return this.http.put(this.BaseURI + "UpdateBranch/", body)

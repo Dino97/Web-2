@@ -1,1 +1,80 @@
-<p>add-vehicle works!</p>
+<form [formGroup]="service.formModel">
+    <div class="row">
+        <div class="col col-md-6 mt-1">
+            <img src="{{imageUrl}}"/>
+            <input class="form-control mt-2 ml-3" (change)="handlerFileInput($event.target.files)"  formControlName="image" type="file" accept="image/*">
+        </div>
+        <div class="col col-md-6">
+            <div class="form-group row justify-content-center">
+                <div class="col col-md-8">
+                    <label class="col-form-label">Brand</label>
+                    <input class="form-control" type="text" id="brand" formControlName="brand">
+                    <label class="text-danger" *ngIf="service.formModel.get('brand').touched && service.formModel.get('brand').errors?.required">
+                        You must enter a brand.
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <div class="col col-md-8">
+                    <label class="col-form-label">Model</label>
+                    <input class="form-control" type="text" id="model" formControlName="model">
+                    <label class="text-danger" *ngIf="service.formModel.get('model').touched && service.formModel.get('model').errors?.required">
+                        You must enter a model.
+                    </label>
+                </div>
+            </div>
+            <div class="form-group row justify-content-center">
+                <div class="col col-md-8">
+                    <label class="col-form-label">Price per day</label>
+                    <input type="number" min="0" id="ppd" class="form-control" formControlName="pricePerDay">
+                    <label class="text-danger" *ngIf="service.formModel.get('pricePerDay').touched && service.formModel.get('pricePerDay').errors?.required">
+                        You must enter a price.
+                    </label>
+                    <label class="text-danger" *ngIf="service.formModel.get('pricePerDay').touched && service.formModel.get('pricePerDay').errors?.min">
+                        The price must be a positive number.
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col mt-2">
+            <label for="drive">Drive</label>
+            <select class="form-control" id="drive" formControlName="drive">
+                <option value="" hidden disabled selected>Please select</option>
+                <option value="rear-wheel">Rear-wheel</option>
+                <option value="front-wheel">Front-wheel</option>
+                <option value="4-wheel">Four-wheel</option>
+            </select>
+        </div>
+        <div class="form-group col">
+            <label class="col-form-label" for="numberOfPassengers">Passengers</label>
+            <input type="number" min="2" max="9" id="numberOfPassengers" class="form-control" formControlName="numberOfPassengers">
+            <label class="text-danger" *ngIf="service.formModel.get('numberOfPassengers').touched && service.formModel.get('numberOfPassengers').errors?.required">
+                You must enter passenger number.
+            </label>
+            <label class="text-danger" *ngIf="service.formModel.get('numberOfPassengers').touched && service.formModel.get('numberOfPassengers').errors?.min">
+                Minimum 2 passengers.
+            </label>
+            <label class="text-danger" *ngIf="service.formModel.get('numberOfPassengers').touched && service.formModel.get('numberOfPassengers').errors?.max">
+                Maximum 9 passengers.
+            </label>
+        </div>
+        <div class="col mt-4">
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="airconditioner" formControlName="airconditioner">
+                <label class="custom-control-label" for="airconditioner">Airconditioner</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="automatic" formControlName="automatic">
+                <label class="custom-control-label" for="automatic">Automatic</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <button class="btn btn-success mr-4" [disabled]="service.formModel.invalid" type="submit" (click)="onAdd()">Add Car</button>
+        <button class="btn btn-secondary" (click)="onClose()">Cancel</button>
+    </div>
+</form>
+

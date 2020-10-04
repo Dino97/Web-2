@@ -51,7 +51,7 @@ namespace BookingAPI.Controllers
             try
             {
                 var result = await userManager.CreateAsync(user, model.Password);
-                await userManager.AddToRoleAsync(user, "RegisteredUser");
+                await userManager.AddToRoleAsync(user, "RegularUser");
                 return Ok(result);
             }
             catch (Exception ex)
