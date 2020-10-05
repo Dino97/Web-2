@@ -1,1 +1,63 @@
-<p>rent-results works!</p>
+<div class="container">
+    <div *ngFor="let hit of searchResults">
+        <div class="card bg-light mb-4">
+            <div class="row no-gutters">
+                <div class="col-md-5">
+                    <img class="card-img" src="{{hit.car.image}}" alt="">
+                </div>
+                <div class="col-md-7">
+                    <div class="card-header text-muted">
+                        {{hit.location.country}}, {{hit.location.city}}<br/>
+                        {{hit.location.adress}}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col col-md-8">
+                                <h2 class="card-title ml-3"><b>{{hit.car.brand}} {{hit.car.model}}</b></h2>
+                            </div>
+                            <div class="col col-md-4">
+                                <app-rating-display [rating]="0"></app-rating-display>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-8 attribute">
+                                <div class="row my-4">
+                                    <div class="col col-md-6 d-flex justify-content-center">
+                                        <p><i class="fas fa-user-friends fa-lg mr-2"></i>{{hit.car.numberOfPassengers}}</p>
+                                    </div>
+                                    <div class="col col-md-6 d-flex justify-content-center">
+                                        <div *ngIf="hit.car.automatic">
+                                            <img class="mr-2" src="../../../assets/images/icons/transmission.svg" height="21.28px" alt="">automatic
+                                        </div>
+                                        <div *ngIf="!hit.car.automatic">
+                                            <img class="mr-2" src="../../../assets/images/icons/transmission.svg" height="21.28px" alt="">manual
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col col-md-6 d-flex justify-content-center">
+                                        <p><img class="mr-2" src="../../../assets/images/icons/axle.svg" height="21.28px" alt="">{{hit.car.drive}} drive</p>
+                                    </div>
+                                    <div class="col col-md-6 d-flex justify-content-center">
+                                        <div *ngIf="hit.car.airconditioner">
+                                            <i class="far fa-snowflake fa-lg mr-2"></i>airconditioner
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-md-4 d-flex justify-content-center">
+                                <p class="card-text display-4 price"><b>{{hit.car.pricePerDay}}€</b></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col col-md-8"></div>
+                            <div class="col col-md-4 d-flex justify-content-center">
+                                <button class="btn btn-primary">Reserve</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

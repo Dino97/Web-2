@@ -23,6 +23,7 @@ import { AddBranchComponent } from './components/add-branch/add-branch.component
 import { AirlineComponent } from './pages/airline/airline.component';
 import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
 import { CarDisplayComponent } from './components/car-display/car-display.component';
+import { CarServiceDisplayComponent } from './components/car-service-display/car-service-display.component';
 
 
 const routes: Routes = [
@@ -39,7 +40,10 @@ const routes: Routes = [
   { path: "rentalService/:name", component: CarRentalServiceComponent, children: [
     { path: ":id", component: CarDisplayComponent }
   ]},
-  { path: "cars", component: RentPageComponent },
+  { path: "cars", component: RentPageComponent, children: [
+    { path: "", component: CarServiceDisplayComponent},
+    { path: "results", component: RentResultsComponent}
+  ]},
   { path: "flights", component: FlightPageComponent },
   { path: "friends", component: FriendsComponent, canActivate: [ProfileGuard], data: {permittedRoles: ['RegularUser']} },
   { path: "flightsearch", component: FlightSearchComponent },

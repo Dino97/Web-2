@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace BookingAPI.Controllers
 {
@@ -88,12 +89,111 @@ namespace BookingAPI.Controllers
 
                 dbContext.SaveChanges();
 
+                result.Entity.Image = model.Image;
+
                 return Ok(result.Entity);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("SearchResults")]
+        public async Task<IActionResult> Search([FromQuery]CarSearchModel model)
+        {
+            model.PickupLocation.Trim();
+            model.PickupLocation = model.PickupLocation.Replace(", ", ",");
+
+            if(model.FromTime == null || model.FromTime == "null")
+            {
+                model.FromTime = "09:00";
+            }
+
+            if(model.ToTime == null || model.ToTime == "null")
+            {
+                model.ToTime = "18:00";
+            }
+
+            DateTime from = String2Date(model.FromDate, model.FromTime);
+            DateTime toReturn = String2Date(model.ToDate, model.ToTime);
+            DateTime to = toReturn;
+
+            if(model.SameDrop == "false")
+            {
+                to = to.AddDays(2);
+            }
+
+            var branches = await dbContext.RentalAgencyBranches
+                .Include(branch => branch.Location)
+                .Include(branch => branch.Cars)
+                    .ThenInclude(car => car.Reserved)
+                .ToListAsync();
+
+            List<RetCar> retValue = new List<RetCar>();
+
+            foreach (RentalAgencyBranch branch in branches)
+            {
+                if (model.PickupLocation.Contains(","))
+                {
+                    string[] pickupArray = model.PickupLocation.Split(',');
+                    if(pickupArray[0] != branch.Location.Country || pickupArray[1] != branch.Location.City)
+                    {
+                        continue;
+                    }
+                }
+                else if(model.PickupLocation != branch.Location.Country && model.PickupLocation != branch.Location.City)
+                {
+                    continue;
+                }
+
+                foreach (Car car in branch.Cars)
+                {
+                    bool reserved = false;
+                    foreach (Date date in car.Reserved)
+                    {
+                        if(date.DateReserved.Date >= from.Date && date.DateReserved.Date <= to.Date)
+                        {
+                            reserved = true;
+                            break;
+                        }
+                    }
+
+                    if (!reserved)
+                    {
+                        string[] dbImage = car.Image.Split('%');
+                        byte[] image = await System.IO.File.ReadAllBytesAsync(dbImage[0]);
+                        car.Image = "data:image/" + dbImage[1] + ";base64," + Convert.ToBase64String(image);
+
+                        retValue.Add(new RetCar { Location = branch.Location, Car = car });
+                    }
+                }
+            }
+
+            return Ok(retValue);
+        }
+
+        private DateTime String2Date(string date, string time)
+        {
+            int year, month, day, hour, minute;
+
+            string[] dateString = date.Split('-');
+            string[] timeString = time.Split(':');
+
+            Int32.TryParse(dateString[0], out year);
+            Int32.TryParse(dateString[1], out month);
+            Int32.TryParse(dateString[2], out day);
+            Int32.TryParse(timeString[0], out hour);
+            Int32.TryParse(timeString[1], out minute);
+
+            return new DateTime(year, month, day, hour, minute, 0);
+        }
+
+        class RetCar
+        {
+            public Location Location { get; set; }
+            public Car Car { get; set; }
         }
     }
 }

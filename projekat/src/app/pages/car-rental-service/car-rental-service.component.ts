@@ -13,6 +13,7 @@ import { DataExchangeService } from 'src/app/services/data-exchange/data-exchang
 export class CarRentalServiceComponent implements OnInit {
   //message: CarRentalService
   rentalAgency: CarRentalService;
+  selectedBranch;
 
   constructor(private data: DataExchangeService, private service: RentalAgencyService, private route: ActivatedRoute) { }
 
@@ -35,8 +36,9 @@ export class CarRentalServiceComponent implements OnInit {
     )
   }
 
-  sendCars(cars){
-    this.data.changeCars(cars);
+  sendCars(branch){
+    this.selectedBranch = branch
+    this.data.changeCars(branch.cars);
   }
 
 }

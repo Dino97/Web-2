@@ -190,10 +190,10 @@ namespace BookingAPI.Controllers
             return NoContent();
         }
 
-        //false ako su isti, true ako se razlikuju
+        //false ako se razlikuju, true ako su isti
         private bool TimeComparator(string s_time, DateTime d_time)
         {
-            bool retVal = false;
+            bool retVal = true;
             int hours, minutes;
 
             Int32.TryParse(s_time.Split(':')[0], out hours);

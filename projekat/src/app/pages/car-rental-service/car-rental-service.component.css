@@ -9,3 +9,13 @@
     scrollbar-width: thin;
 }
 
+label{
+    font-size: large;
+    color: gray;
+    background-color: lightgray;
+    height: 260px;
+    width: 715px;
+    text-align: center;
+    padding: 125px;
+    border-radius: 10px;
+}

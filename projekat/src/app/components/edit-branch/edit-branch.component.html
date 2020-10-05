@@ -1,4 +1,4 @@
-<div class="row justify-content-center mt-4">
+<div class="row justify-content-center mt-3">
     <h2><b>Branch information</b></h2>
 </div>
 <form [formGroup]="service.formModel" (ngSubmit)="onSubmit()">
@@ -61,15 +61,14 @@
     <h2><b>Vehicles</b></h2>
     <a class="ml-auto btn" style="color: green;" (click)="onAddVehicle()"><i class="add-icon far fa-plus-square fa-2x"></i></a>
 </div>
-<div class="col-md-5">
+<div class="col-md-11"  style="position: absolute;">
     <div class="row scrolling-wrapper flex-row flex-nowrap">
         <div *ngFor="let car of cars">
-            <div class="col-2">
-                <div class="card mb-5">
+            <div class="col-3">
+                <div class="card mb-1">
                     <img class="card-img-top" src="{{car.image}}" alt="">
                     <div class="card-body">
-                        <h3 class="cart-title float-right">{{car.pricePerDay}}€</h3>
-                        <h3 class="card-title">{{car.brand}} {{car.model}}</h3>
+                        <h3 class="card-title text-justify d-flex justify-content-center">{{car.brand}} {{car.model}}</h3>
                     </div>
                 </div>
             </div>

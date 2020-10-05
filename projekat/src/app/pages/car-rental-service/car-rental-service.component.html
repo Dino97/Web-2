@@ -4,6 +4,9 @@
         <div class="col-8">
             <div class="container">
                 <h2><b>Our vehicles</b></h2>
+                <div *ngIf="selectedBranch === undefined">
+                    <label>Please choose a branch.</label>
+                </div>
                 <router-outlet></router-outlet>
             </div>
         </div>
@@ -11,7 +14,7 @@
             <h2><b>Branches</b></h2>
             <ul class="list-group">
                 <div *ngFor="let branch of rentalAgency?.branches">
-                    <a routerLink="/rentalService/{{rentalAgency.name}}/{{branch.id}}" (click)=sendCars(branch.cars)>
+                    <a routerLink="/rentalService/{{rentalAgency.name}}/{{branch.id}}" (click)=sendCars(branch)>
                         <li class="list-group-item list-group-item-action">
                             {{branch.location.country}}, {{branch.location.city}}<br/>
                             {{branch.location.adress}}

@@ -1,0 +1,16 @@
+.card{
+    border-radius: 10px;
+    width: 1000px;
+    height: 300px;
+}
+
+.card-img{
+    border-radius: 10px 0px 0px 10px;
+    width: 416px;
+    height: 299px;
+    object-fit: cover;
+}
+
+.price{
+    padding: 25px;   
+}
