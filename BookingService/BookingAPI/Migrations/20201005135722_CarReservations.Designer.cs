@@ -4,14 +4,16 @@ using BookingAPI;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookingAPI.Migrations
 {
     [DbContext(typeof(BookingDbContext))]
-    partial class BookingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201005135722_CarReservations")]
+    partial class CarReservations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -126,7 +128,7 @@ namespace BookingAPI.Migrations
                     b.Property<string>("DropoffDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DropoffLocationId")
+                    b.Property<int?>("DropoffLocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("DropoffTime")
@@ -135,7 +137,7 @@ namespace BookingAPI.Migrations
                     b.Property<string>("PickupDate")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("PickupLocationId")
+                    b.Property<int?>("PickupLocationId")
                         .HasColumnType("int");
 
                     b.Property<string>("PickupTime")
@@ -151,6 +153,10 @@ namespace BookingAPI.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CarId");
+
+                    b.HasIndex("DropoffLocationId");
+
+                    b.HasIndex("PickupLocationId");
 
                     b.HasIndex("UserId");
 
@@ -654,6 +660,14 @@ namespace BookingAPI.Migrations
                         .HasForeignKey("CarId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("BookingAPI.Model.Location", "DropoffLocation")
+                        .WithMany()
+                        .HasForeignKey("DropoffLocationId");
+
+                    b.HasOne("BookingAPI.Model.Location", "PickupLocation")
+                        .WithMany()
+                        .HasForeignKey("PickupLocationId");
 
                     b.HasOne("BookingAPI.Model.User", "User")
                         .WithMany()

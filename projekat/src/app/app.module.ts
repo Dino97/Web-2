@@ -43,6 +43,7 @@ import { AirlineComponent } from './pages/airline/airline.component';
 import { EditBranchComponent } from './components/edit-branch/edit-branch.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { CarDisplayComponent } from './components/car-display/car-display.component';
+import { ConfirmReservationComponent } from './components/confirm-reservation/confirm-reservation.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { CarDisplayComponent } from './components/car-display/car-display.compon
     AirlineComponent,
     EditBranchComponent,
     AddVehicleComponent,
-    CarDisplayComponent
+    CarDisplayComponent,
+    ConfirmReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -115,6 +117,6 @@ import { CarDisplayComponent } from './components/car-display/car-display.compon
       ]} as SocialAuthServiceConfig
   }],
   bootstrap: [AppComponent],
-  entryComponents: [AddVehicleComponent]
+  entryComponents: [AddVehicleComponent, ConfirmReservationComponent]
 })
 export class AppModule { }

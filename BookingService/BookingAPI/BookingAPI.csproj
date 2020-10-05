@@ -11,6 +11,8 @@
     <Compile Remove="Migrations\20200914092313_DateFix1.Designer.cs" />
     <Compile Remove="Migrations\20200914092403_DateFix2.cs" />
     <Compile Remove="Migrations\20200914092403_DateFix2.Designer.cs" />
+    <Compile Remove="Migrations\20201005135309_CarReservations.cs" />
+    <Compile Remove="Migrations\20201005135309_CarReservations.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

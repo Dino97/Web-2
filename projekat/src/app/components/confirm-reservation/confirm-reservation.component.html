@@ -1,0 +1,80 @@
+
+<div class="row">
+    <div class="col col-md-4">
+        <img src={{data?.logo}} alt="">
+    </div>
+    <div class="col col-md-8">
+        <div class="row">
+            <div class="col">
+                <h1>{{service.toReserve.car.brand}} {{service.toReserve.car.model}}</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h3><b>Pick-up location: </b></h3>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            {{service.toReserve.location.country}}, {{service.toReserve.location.city}}<br/>
+                            {{service.toReserve.location.adress}}
+                        </h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3><b>Pick-up date: </b></h3>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            {{service.formModel.value.fromDate}}, {{data?.fromTime}}<br/>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <h3><b>Drop-off location: </b></h3>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            {{service.toReserve.location.country}}, {{service.toReserve.location.city}}<br/>
+                            {{service.toReserve.location.adress}}
+                        </h3>
+                        <!--<select name="" id="">
+                            <div *ngFor="let location of data?.locations">
+                                <option value="">
+                                    {{location.country}}, {{location.city}}<br/>
+                                    {{location.adress}}
+                                </option>
+                            </div>
+                        </select>-->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <h3><b>Drop-off date: </b></h3>
+                    </div>
+                    <div class="col">
+                        <h3>
+                            {{service.formModel.value.toDate}}, {{data?.toTime}}<br/>
+                        </h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h2>Total Cost: {{data?.totalCost}}€</h2>
+            </div>
+            <div class="col">
+                <button class="btn btn-success" (click)="onMakeReservation(data.fromTime, data.toTime, data.totalCost)">Make Reservation</button>
+                <button class="btn btn-secondary ml-2" (click)="onCancel()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
