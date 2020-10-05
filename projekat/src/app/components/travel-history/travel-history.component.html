@@ -23,4 +23,32 @@
             </td>
         </tr>
     </table>
+    <table class="mt-4 table table-striped">
+        <tr>
+            <th> Car </th>
+            <th> Pick-up Location </th>
+            <th> Pick-up Date </th>
+            <th> Drop-off Location </th>
+            <th> Drop-off Date </th>
+            <th> Price </th>
+        </tr>
+    
+        <tr *ngFor="let res of carReservations">
+            <td> {{ res.car }} </td>
+            <td> 
+                {{ res.pickupLocation }} <br/>
+                {{ res.pickupAddress}}
+            </td>
+            <td>
+                {{ res.pickupDate }} <br/>
+                {{res.pickupTime}} </td>
+            <td> 
+                {{ res.dropoffLocation }} <br/>
+                {{res.dropoffAddress}}
+            </td>
+            <td> {{ res.dropoffDate }} <br/>
+                 {{ res.dropoffTime }}</td>
+            <td> {{ res.price }}€ </td>
+        </tr>
+    </table>
 </div>

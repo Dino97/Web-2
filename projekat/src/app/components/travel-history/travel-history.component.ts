@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReservationService } from 'src/app/services/reservation/reservation.service';
 import { ToastrService } from 'ngx-toastr';
+import { CarReservationService } from 'src/app/services/carReservation/car-reservation.service';
 
 @Component({
   selector: 'app-travel-history',
@@ -10,16 +11,18 @@ import { ToastrService } from 'ngx-toastr';
 export class TravelHistoryComponent implements OnInit {
 
   reservations;
+  carReservations;
 
   cancelTime = 3;
 
 
 
-  constructor(private reservationService: ReservationService,
+  constructor(private reservationService: ReservationService, private carReservationService: CarReservationService,
               private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.loadReservations();
+    this.loadCarReservations();
   }
 
   cancelReservation(reservation) {
@@ -48,5 +51,12 @@ export class TravelHistoryComponent implements OnInit {
 
   loadReservations() {
     this.reservationService.getUserReservations().subscribe(res => this.reservations = res);
+  }
+
+  loadCarReservations() {
+    this.carReservationService.getReservations().subscribe(
+      res => this.carReservations = res,
+      err => console.log(err)
+    )
   }
 }

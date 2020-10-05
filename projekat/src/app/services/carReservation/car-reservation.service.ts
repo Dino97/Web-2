@@ -63,4 +63,8 @@ export class CarReservationService {
 
     return this.http.post(this.BaseURI + "Reserve/", body)
   }
+
+  getReservations(){
+    return this.http.get(this.BaseURI + "GetReservations/");
+  }
 }

@@ -158,6 +158,69 @@ namespace BookingAPI.Controllers
             }
         }
 
+        [HttpGet]
+        [Authorize(Roles = "RegularUser")]
+        [Route("GetReservations")]
+        // GET: api/CarReservation/GetReservations
+        public async Task<IActionResult> GetReservations()
+        {
+            string userName = User.Claims.First(claim => claim.Type == "UserName").Value;
+            User user = await userManager.FindByNameAsync(userName);
+
+            var reservations = await dbContext.CarReservations
+                .Include(res => res.User)
+                .Include(res => res.Car)
+                .Where(res => user.Id == res.User.Id)
+                .ToListAsync();
+
+            List<UserReservation> retVal = new List<UserReservation>();
+            Location pickup, dropoff;
+            foreach (CarReservation reservation in reservations)
+            {
+                pickup = await dbContext.Locations.FindAsync(reservation.PickupLocationId);
+                if (pickup == null)
+                {
+                    return BadRequest();
+                }
+
+                dropoff = await dbContext.Locations.FindAsync(reservation.DropoffLocationId);
+                if (dropoff == null)
+                {
+                    return BadRequest();
+                }
+
+                retVal.Add(new UserReservation
+                {
+                    Car = reservation.Car.Brand + " " + reservation.Car.Model,
+                    PickupLocation = pickup.Country + ", " + pickup.City,
+                    PickupAddress = pickup.Adress,
+                    PickupDate = reservation.PickupDate,
+                    PickupTime = reservation.PickupTime,
+                    DropoffLocation = dropoff.Country + ", " + dropoff.City,
+                    DropoffAddress = dropoff.Adress,
+                    DropoffDate = reservation.DropoffDate,
+                    DropoffTime = reservation.DropoffTime,
+                    Price = reservation.Price
+                });
+            }
+
+            return Ok(retVal);
+        }
+
+        class UserReservation
+        {
+            public string Car { get; set; }
+            public string PickupLocation { get; set; }
+            public string PickupAddress { get; set; }
+            public string PickupDate { get; set; }
+            public string PickupTime { get; set; }
+            public string DropoffLocation { get; set; }
+            public string DropoffAddress { get; set; }
+            public string DropoffDate { get; set; }
+            public string DropoffTime { get; set; }
+            public int Price { get; set; }
+        }
+
         private int ResLengthCalculator(string fromS, string toS)
         {
             DateTime from = String2Date(fromS);
