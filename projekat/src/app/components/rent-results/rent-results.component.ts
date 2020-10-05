@@ -3,6 +3,7 @@ import { CarReservationService } from 'src/app/services/carReservation/car-reser
 import { ToastrService } from 'ngx-toastr';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmReservationComponent } from '../confirm-reservation/confirm-reservation.component';
+import JwtDecode from 'jwt-decode';
 
 @Component({
   selector: 'app-rent-results',
@@ -23,10 +24,15 @@ export class RentResultsComponent implements OnInit {
   }
 
   onReserve(hit){
-    this.service.toReserve = hit
-    let dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    this.dialog.open(ConfirmReservationComponent, dialogConfig);
+    let token = localStorage.getItem('token');
+    if(token != undefined && JwtDecode(token).role === "RegularUser"){
+      this.service.toReserve = hit
+      let dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      this.dialog.open(ConfirmReservationComponent, dialogConfig);
+    } else {
+      this.toastr.error("You must be logged in to reserve", "Fail");
+    }
   }
 }

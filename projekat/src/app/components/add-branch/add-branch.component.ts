@@ -18,6 +18,10 @@ export class AddBranchComponent implements OnInit {
   onSubmit(){
     this.service.postBranch().subscribe(
       res => {
+        this.service.getBranches().subscribe(
+          resBranches => {
+            this.service.getBranchUpdateEmitter().emit(resBranches)
+        })
         this.toastr.success('New branch added.', 'Success!');
         this.service.formModel.reset();
       },

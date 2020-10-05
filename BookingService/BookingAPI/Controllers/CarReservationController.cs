@@ -97,7 +97,7 @@ namespace BookingAPI.Controllers
         // POST: api/CarReservation/Reserve
         public async Task<IActionResult> Reserve([FromBody]CarReservationModel model)
         {
-            int DropoffLocationId = model.PickupLocationId;
+            //int DropoffLocationId = model.PickupLocationId;
 
             string userName = User.Claims.First(claim => claim.Type == "UserName").Value;
             User user = await userManager.FindByNameAsync(userName);
@@ -108,7 +108,7 @@ namespace BookingAPI.Controllers
             DateTime from = String2Date(model.FromDate);
             DateTime to = String2Date(model.ToDate);
 
-            if(model.PickupLocationId != DropoffLocationId)
+            if(model.PickupLocationId != model.DropoffLocationId)
             {
                 to = to.AddDays(2);
             }
@@ -143,7 +143,7 @@ namespace BookingAPI.Controllers
                     PickupLocationId = model.PickupLocationId,
                     PickupTime = model.FromTime,
                     DropoffDate = model.ToDate,
-                    DropoffLocationId = DropoffLocationId,
+                    DropoffLocationId = model.DropoffLocationId,
                     DropoffTime = model.ToTime,
                     Price = model.Price
                 });

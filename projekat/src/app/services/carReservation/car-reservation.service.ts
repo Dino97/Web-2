@@ -49,11 +49,11 @@ export class CarReservationService {
     return this.http.get(this.BaseURI + "ReservationInfo/", { params })
   }
 
-  reserve(fromTime, toTime, price){
+  reserve(fromTime, toTime, price, dropOffId){
     let body = {
       CarId: this.toReserve.car.id,
       PickupLocationId: this.toReserve.location.id,
-      DropoffLocationId: "",
+      DropoffLocationId: dropOffId,
       FromDate: this.formModel.value.fromDate,
       FromTime: fromTime,
       ToDate: this.formModel.value.toDate,

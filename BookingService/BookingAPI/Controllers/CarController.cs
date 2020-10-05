@@ -56,7 +56,7 @@ namespace BookingAPI.Controllers
         // POST: api/Car/GetCars
         public async Task<IActionResult> AddCar([FromBody]CarModel model)
         {
-            string location = AppDomain.CurrentDomain.BaseDirectory + model.Brand.ToLower() + model.Model.ToLower();
+            string location = AppDomain.CurrentDomain.BaseDirectory + model.Brand.Replace(" ", "").ToLower() + model.Model.Replace(" ", "").ToLower();
             
             try
             {
@@ -138,12 +138,14 @@ namespace BookingAPI.Controllers
                 if (model.PickupLocation.Contains(","))
                 {
                     string[] pickupArray = model.PickupLocation.Split(',');
-                    if(pickupArray[0] != branch.Location.Country || pickupArray[1] != branch.Location.City)
+                    if(pickupArray[0].ToLower() != branch.Location.Country.ToLower() 
+                        || pickupArray[1].ToLower() != branch.Location.City.ToLower())
                     {
                         continue;
                     }
                 }
-                else if(model.PickupLocation != branch.Location.Country && model.PickupLocation != branch.Location.City)
+                else if(model.PickupLocation.ToLower() != branch.Location.Country.ToLower() 
+                    && model.PickupLocation.ToLower() != branch.Location.City.ToLower())
                 {
                     continue;
                 }

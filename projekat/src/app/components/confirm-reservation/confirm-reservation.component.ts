@@ -11,19 +11,23 @@ import { CarReservationService } from 'src/app/services/carReservation/car-reser
 })
 export class ConfirmReservationComponent implements OnInit {
   data
+  selectedId : number;
   
   constructor(public service: CarReservationService, private dialogRef: MatDialogRef<ConfirmReservationComponent>,
      private toastr: ToastrService, private router: Router) { }
 
   ngOnInit(): void {
     this.service.reservationInfo().subscribe(
-      res => this.data = res,
+      res => {
+        this.data = res;
+      },
       err => console.log(err)
     )
   }
 
   onMakeReservation(fromTime, toTime, price){
-    this.service.reserve(fromTime, toTime, price).subscribe(
+    let dropOffId = this.service.formModel.value.sameDrop ? this.service.toReserve.location.id : this.selectedId;
+    this.service.reserve(fromTime, toTime, price, dropOffId).subscribe(
       res => {
         this.toastr.success("Your car has been reserved", "Success!");
         this.router.navigateByUrl("/cars");

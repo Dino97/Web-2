@@ -35,23 +35,30 @@
             </div>
             <div class="col">
                 <div class="row">
-                    <div class="col">
-                        <h3><b>Drop-off location: </b></h3>
-                    </div>
-                    <div class="col">
-                        <h3>
-                            {{service.toReserve.location.country}}, {{service.toReserve.location.city}}<br/>
-                            {{service.toReserve.location.adress}}
-                        </h3>
-                        <!--<select name="" id="">
-                            <div *ngFor="let location of data?.locations">
-                                <option value="">
-                                    {{location.country}}, {{location.city}}<br/>
-                                    {{location.adress}}
-                                </option>
+                        <div *ngIf="service.formModel.value.sameDrop">
+                            <div class="col">
+                                <h3><b>Drop-off location: </b></h3>
                             </div>
-                        </select>-->
-                    </div>
+                            <div class="col">
+                                <h3>
+                                    {{service.toReserve.location.country}}, {{service.toReserve.location.city}}<br/>
+                                    {{service.toReserve.location.adress}}
+                                </h3>
+                            </div>
+                        </div>
+                        <div *ngIf="service.formModel.value.sameDrop !== true">
+                            <div class="row">
+                                <h3><b>Drop-off location: </b></h3>
+                            </div>
+                            <div class="row">
+                                <select class="form-control" id="dropOffSelect" [(ngModel)]="selectedId">
+                                    <option *ngFor="let location of data?.locations" [ngValue]="location.id">
+                                        {{location.country}}, {{location.city}} <br/>
+                                        {{location.adress}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
                 </div>
                 <div class="row">
                     <div class="col">

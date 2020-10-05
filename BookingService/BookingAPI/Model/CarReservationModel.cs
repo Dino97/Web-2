@@ -10,7 +10,7 @@ namespace BookingAPI.Model
         public int CarId { get; set; }
         public string Car { get; set; }
         public int PickupLocationId { get; set; }
-        public string DropoffLocationId { get; set; }
+        public int DropoffLocationId { get; set; }
         public string FromDate { get; set; }
         public string FromTime { get; set; }
         public string ToDate { get; set; }
